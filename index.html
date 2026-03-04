@@ -24,8 +24,8 @@
         .card-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .card-hover:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
-        /* Active Filter Style */
         .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb !important; }
+        .fade-img { transition: opacity 0.5s ease-in-out; }
     </style>
 </head>
 <body class="font-sans antialiased text-slate-900">
@@ -64,6 +64,7 @@
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
         let allItems = [];
+        let intervals = []; // To manage image sliders
 
         async function loadStore() {
             try {
@@ -83,7 +84,6 @@
                         let category = 'other';
                         const searchZone = (name + " " + desc).toLowerCase();
 
-                        // Strict Filtering: Women/Kurti check first to avoid Men's mix
                         if (link.toLowerCase().includes('.apk')) {
                             category = 'apk';
                         } else if (searchZone.includes('women') || searchZone.includes('kurti') || searchZone.includes('anarkali') || searchZone.includes('girl')) {
@@ -99,16 +99,19 @@
 
                 renderItems(allItems);
             } catch (e) {
-                document.getElementById('product-container').innerHTML = '<p class="text-red-500 text-center font-bold">Failed to load deals. Please check internet.</p>';
+                document.getElementById('product-container').innerHTML = '<p class="text-red-500 text-center font-bold">Failed to load deals.</p>';
             }
         }
 
         function renderItems(items) {
             const container = document.getElementById('product-container');
+            // Clear existing intervals before re-rendering
+            intervals.forEach(clearInterval);
+            intervals = [];
             container.innerHTML = '';
             
             if (items.length === 0) {
-                container.innerHTML = '<p class="col-span-full text-center py-20 text-slate-400 font-bold">No products found in this category.</p>';
+                container.innerHTML = '<p class="col-span-full text-center py-20 text-slate-400 font-bold">No products found.</p>';
                 return;
             }
 
@@ -120,11 +123,13 @@
                 const tagText = isAPK ? 'PREMIUM APP' : (item.category === 'men' ? 'MEN SELECTION' : (item.category === 'women' ? 'WOMEN STYLE' : 'HOT DEAL'));
                 const tagColor = isAPK ? 'bg-emerald-500' : (item.category === 'men' ? 'bg-blue-500' : (item.category === 'women' ? 'bg-pink-500' : 'bg-red-500'));
 
+                const cardId = `img-${item.id}`;
+
                 container.innerHTML += `
                     <div class="card-hover bg-white rounded-[2rem] p-6 border border-slate-100 shadow-xl flex flex-col h-full relative overflow-hidden">
                         <span class="absolute top-4 left-4 z-10 ${tagColor} text-white text-[9px] font-black px-3 py-1 rounded-full shadow-lg uppercase tracking-wider">${tagText}</span>
                         <div class="relative overflow-hidden rounded-2xl bg-slate-50 aspect-square flex items-center justify-center">
-                            <img id="img-${item.id}" src="${item.images[0]}" class="w-full h-full object-contain p-6 transition duration-700">
+                            <img id="${cardId}" src="${item.images[0]}" class="fade-img w-full h-full object-contain p-6">
                         </div>
                         <div class="mt-6 flex-grow">
                             <h3 class="text-xl font-black text-slate-800 leading-tight">${item.name}</h3>
@@ -135,21 +140,34 @@
                         </div>
                     </div>
                 `;
+
+                // Multi-Image Slider Logic
+                if (item.images.length > 1) {
+                    let currentIdx = 0;
+                    const interval = setInterval(() => {
+                        currentIdx = (currentIdx + 1) % item.images.length;
+                        const imgElement = document.getElementById(cardId);
+                        if (imgElement) {
+                            imgElement.style.opacity = '0';
+                            setTimeout(() => {
+                                imgElement.src = item.images[currentIdx];
+                                imgElement.style.opacity = '1';
+                            }, 500);
+                        }
+                    }, 3500);
+                    intervals.push(interval);
+                }
             });
         }
 
         function filterCategory(cat, btn) {
-            // Update active button UI
-            document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.remove('active');
-            });
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             if (cat === 'all') {
                 renderItems(allItems);
             } else {
-                const filtered = allItems.filter(item => item.category === cat);
-                renderItems(filtered);
+                renderItems(allItems.filter(item => item.category === cat));
             }
         }
 
