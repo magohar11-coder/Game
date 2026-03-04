@@ -44,22 +44,6 @@
     <div class="sticky-hero text-center pt-8 border-b border-slate-100">
         <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight mb-4 uppercase">Exclusive Deals & Apps</h2>
         
-        <div class="max-w-4xl mx-auto px-4 mb-6">
-            <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl shadow-sm text-left">
-                <p class="text-[11px] md:text-xs text-amber-900 font-bold uppercase tracking-wider mb-2 flex items-center">
-                    <span class="mr-2">⚠</span> Important Notice / ज़रूरी सूचना
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <p class="text-[10px] md:text-[11px] text-amber-800 leading-tight">
-                        <span class="font-bold">Affiliate Notice:</span> We only provide curated links. For any product issues, color mismatches, or delivery concerns, please contact the <b>original seller or marketplace</b> where you completed the purchase. We are not responsible for post-sale services.
-                    </p>
-                    <p class="text-[10px] md:text-[11px] text-amber-800 leading-tight border-t md:border-t-0 md:border-l border-amber-200 pt-2 md:pt-0 md:pl-4 italic">
-                        <span class="font-bold not-italic">ज़रूरी सूचना:</span> हम यहाँ सिर्फ अच्छे प्रोडक्ट्स के डायरेक्ट लिंक्स देते हैं। अगर प्रोडक्ट में कोई खराबी, कलर में बदलाव या डिलीवरी की दिक्कत हो, तो कृपया उसी <b>Website/Seller</b> से संपर्क करें जहाँ से आपने उसे खरीदा है। खरीदने के बाद की किसी भी परेशानी के लिए हम ज़िम्मेदार नहीं हैं।
-                    </p>
-                </div>
-            </div>
-        </div>
-        
         <div class="flex flex-wrap justify-center gap-2 px-4 mb-2">
             <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border border-blue-200 text-xs font-bold uppercase tracking-wider transition">All</button>
             <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Men</button>
@@ -76,6 +60,28 @@
             </div>
         </div>
     </main>
+
+    <footer class="mt-20 border-t border-slate-200 bg-white/60 backdrop-blur-md py-12 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="bg-white/40 p-6 rounded-2xl border border-slate-100 shadow-sm">
+                    <h4 class="text-blue-600 font-black text-sm uppercase tracking-widest mb-3">Affiliate Notice</h4>
+                    <p class="text-slate-700 text-sm md:text-base leading-relaxed">
+                        We only provide curated links. For any product issues, color mismatches, or delivery concerns, please contact the <b>original seller or marketplace</b> where you completed the purchase. We are not responsible for post-sale services.
+                    </p>
+                </div>
+                <div class="bg-white/40 p-6 rounded-2xl border border-slate-100 shadow-sm border-l-4 border-l-red-500">
+                    <h4 class="text-red-600 font-black text-sm uppercase tracking-widest mb-3">ज़रूरी सूचना</h4>
+                    <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium">
+                        हम यहाँ सिर्फ अच्छे प्रोडक्ट्स के डायरेक्ट लिंक्स देते हैं। अगर प्रोडक्ट में कोई खराबी, कलर में बदलाव या डिलीवरी की दिक्कत हो, तो कृपया उसी <b>Website/Seller</b> से संपर्क करें जहाँ से आपने उसे खरीदा है। खरीदने के बाद की किसी भी परेशानी के लिए हम ज़िम्मेदार नहीं हैं।
+                    </p>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em]">© 2026 Gohar Digital Hub | M.A. Gohar</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
