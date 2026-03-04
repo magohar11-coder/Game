@@ -83,8 +83,8 @@
                         const images = imgData.split(',').map(s => s.trim());
                         const isAPK = link.toLowerCase().includes('.apk') || link.toLowerCase().includes('github.com/releases');
                         
-                        // Smart Colors & Text
-                        const btnText = isAPK ? 'Get Download Link' : 'View on Store';
+                        // Yahan change kiya hai: view on store ki jagah Buy Now
+                        const btnText = isAPK ? 'Download APK' : 'Buy Now';
                         const btnColor = isAPK ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700' : 'bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800';
                         const tagText = isAPK ? 'Premium App' : 'Hot Product';
                         const tagColor = isAPK ? 'bg-emerald-500' : 'bg-red-500';
