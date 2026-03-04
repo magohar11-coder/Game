@@ -13,6 +13,15 @@
             background-size: cover;
             background-position: center;
         }
+        /* Sticky Logic for Hero Section */
+        .sticky-hero {
+            position: sticky;
+            top: 72px; /* Header ke theek niche */
+            z-index: 40;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            padding-bottom: 20px;
+        }
         .card-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .card-hover:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
         .fade-in { animation: fadeIn 0.5s ease-in; }
@@ -33,8 +42,8 @@
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto px-4 pt-10 text-center">
-        <h2 class="text-4xl font-extrabold text-slate-800 tracking-tight mb-2">Exclusive Deals & Apps</h2>
+    <div class="sticky-hero text-center pt-10 border-b border-slate-100/50">
+        <h2 class="text-4xl font-extrabold text-slate-800 tracking-tight mb-2 uppercase">Exclusive Deals & Apps</h2>
         <p class="text-slate-600 font-medium">Handpicked premium content just for you.</p>
     </div>
 
@@ -57,7 +66,6 @@
                 <span>•</span>
                 <span>Daily Drops</span>
             </div>
-            <p class="text-[9px] text-slate-400 mt-6 opacity-50 italic">SMA Secure Function 2.0 Enabled</p>
         </div>
     </footer>
 
@@ -83,10 +91,9 @@
                         const images = imgData.split(',').map(s => s.trim());
                         const isAPK = link.toLowerCase().includes('.apk') || link.toLowerCase().includes('github.com/releases');
                         
-                        // Yahan change kiya hai: view on store ki jagah Buy Now
                         const btnText = isAPK ? 'Download APK' : 'Buy Now';
                         const btnColor = isAPK ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700' : 'bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800';
-                        const tagText = isAPK ? 'Premium App' : 'Hot Product';
+                        const tagText = isAPK ? 'PREMIUM APP' : 'HOT PRODUCT';
                         const tagColor = isAPK ? 'bg-emerald-500' : 'bg-red-500';
 
                         const cardId = `img-${rowIndex}`;
@@ -96,17 +103,13 @@
                                 <span class="absolute top-4 left-4 z-10 ${tagColor} text-white text-[9px] font-black px-3 py-1 rounded-full shadow-lg uppercase tracking-wider">
                                     ${tagText}
                                 </span>
-
                                 <div class="relative group overflow-hidden rounded-2xl bg-slate-50 aspect-square flex items-center justify-center border border-slate-50">
                                     <img id="${cardId}" src="${images[0]}" alt="${name}" class="w-full h-full object-contain p-6 fade-in group-hover:scale-105 transition duration-700">
-                                    <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition duration-300"></div>
                                 </div>
-
                                 <div class="mt-6 flex-grow">
                                     <h3 class="text-xl font-black text-slate-800 leading-none tracking-tight">${name}</h3>
                                     <p class="text-slate-500 text-xs mt-3 leading-relaxed font-medium line-clamp-2">${desc}</p>
                                 </div>
-
                                 <div class="mt-8">
                                     <a href="${link}" target="_blank" rel="noopener noreferrer" 
                                        class="block w-full text-center text-white text-sm font-black py-4 rounded-2xl shadow-lg transition duration-300 transform active:scale-95 ${btnColor}">
