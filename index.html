@@ -6,14 +6,22 @@
     <title>Gohar Digital Hub | Smart Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Background Image Setup */
+        body {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
+                              url('https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
         img { content-visibility: auto; }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased">
+<body class="font-sans antialiased">
 
-    <header class="bg-white border-b sticky top-0 z-50 py-4 px-6 flex justify-between items-center shadow-sm">
+    <header class="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50 py-4 px-6 flex justify-between items-center shadow-sm">
         <div>
             <h1 class="text-2xl font-extrabold text-blue-600 tracking-tight">Gohar Digital Hub</h1>
             <p class="text-xs text-slate-500 font-medium">Powered By M.A. Gohar</p>
@@ -33,13 +41,12 @@
         </div>
     </main>
 
-    <footer class="bg-white border-t py-10 mt-20 text-center">
+    <footer class="bg-white/90 backdrop-blur-md border-t py-10 mt-20 text-center">
         <p class="text-slate-400 text-sm font-medium">© 2026 Gohar Digital Hub | All Rights Reserved</p>
         <p class="text-[10px] text-slate-300 mt-2">SMA Secure Function Enabled • 100% Verified Links</p>
     </footer>
 
     <script>
-        // Aapka Updated CSV Link yahan hai
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
 
         async function loadStore() {
@@ -87,7 +94,6 @@
                 document.getElementById('product-container').innerHTML = '<p class="col-span-full text-center text-red-500 font-bold">Error loading deals. Please check if Google Sheet is Published.</p>';
             }
         }
-
         loadStore();
     </script>
 </body>
