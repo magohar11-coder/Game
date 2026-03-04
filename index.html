@@ -44,6 +44,22 @@
     <div class="sticky-hero text-center pt-8 border-b border-slate-100">
         <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight mb-4 uppercase">Exclusive Deals & Apps</h2>
         
+        <div class="max-w-4xl mx-auto px-4 mb-6">
+            <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl shadow-sm text-left">
+                <p class="text-[11px] md:text-xs text-amber-900 font-bold uppercase tracking-wider mb-2 flex items-center">
+                    <span class="mr-2">⚠</span> Important Notice / ज़रूरी सूचना
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <p class="text-[10px] md:text-[11px] text-amber-800 leading-tight">
+                        <span class="font-bold">Affiliate Notice:</span> We only provide curated links. For any product issues, color mismatches, or delivery concerns, please contact the <b>original seller or marketplace</b> where you completed the purchase. We are not responsible for post-sale services.
+                    </p>
+                    <p class="text-[10px] md:text-[11px] text-amber-800 leading-tight border-t md:border-t-0 md:border-l border-amber-200 pt-2 md:pt-0 md:pl-4 italic">
+                        <span class="font-bold not-italic">ज़रूरी सूचना:</span> हम यहाँ सिर्फ अच्छे प्रोडक्ट्स के डायरेक्ट लिंक्स देते हैं। अगर प्रोडक्ट में कोई खराबी, कलर में बदलाव या डिलीवरी की दिक्कत हो, तो कृपया उसी <b>Website/Seller</b> से संपर्क करें जहाँ से आपने उसे खरीदा है। खरीदने के बाद की किसी भी परेशानी के लिए हम ज़िम्मेदार नहीं हैं।
+                    </p>
+                </div>
+            </div>
+        </div>
+        
         <div class="flex flex-wrap justify-center gap-2 px-4 mb-2">
             <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border border-blue-200 text-xs font-bold uppercase tracking-wider transition">All</button>
             <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Men</button>
@@ -64,7 +80,7 @@
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
         let allItems = [];
-        let intervals = []; // To manage image sliders
+        let intervals = [];
 
         async function loadStore() {
             try {
@@ -105,7 +121,6 @@
 
         function renderItems(items) {
             const container = document.getElementById('product-container');
-            // Clear existing intervals before re-rendering
             intervals.forEach(clearInterval);
             intervals = [];
             container.innerHTML = '';
@@ -141,7 +156,6 @@
                     </div>
                 `;
 
-                // Multi-Image Slider Logic
                 if (item.images.length > 1) {
                     let currentIdx = 0;
                     const interval = setInterval(() => {
@@ -163,12 +177,8 @@
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            if (cat === 'all') {
-                renderItems(allItems);
-            } else {
-                renderItems(allItems.filter(item => item.category === cat));
-            }
+            if (cat === 'all') renderItems(allItems);
+            else renderItems(allItems.filter(item => item.category === cat));
         }
 
         loadStore();
