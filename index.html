@@ -22,9 +22,10 @@
             padding-bottom: 15px;
         }
         .card-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .card-hover:hover { transform: translateY(-10px); shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+        .card-hover:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
-        .filter-btn.active { background-color: #2563eb; color: white; }
+        /* Active Filter Style */
+        .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb !important; }
     </style>
 </head>
 <body class="font-sans antialiased text-slate-900">
@@ -44,10 +45,10 @@
         <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight mb-4 uppercase">Exclusive Deals & Apps</h2>
         
         <div class="flex flex-wrap justify-center gap-2 px-4 mb-2">
-            <button onclick="filterCategory('all')" class="filter-btn active px-5 py-2 rounded-full border border-blue-200 text-xs font-bold uppercase tracking-wider transition">All</button>
-            <button onclick="filterCategory('men')" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Men</button>
-            <button onclick="filterCategory('women')" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Women</button>
-            <button onclick="filterCategory('apk')" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Apps/APKs</button>
+            <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border border-blue-200 text-xs font-bold uppercase tracking-wider transition">All</button>
+            <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Men</button>
+            <button onclick="filterCategory('women', this)" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Women</button>
+            <button onclick="filterCategory('apk', this)" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Apps/APKs</button>
         </div>
     </div>
 
@@ -79,12 +80,17 @@
                         const link = cols[3].replace(/"/g, '').trim();
                         const images = imgData.split(',').map(s => s.trim());
                         
-                        // Auto-Category Logic
                         let category = 'other';
-                        const searchZone = (name + desc).toLowerCase();
-                        if (link.toLowerCase().includes('.apk')) category = 'apk';
-                        else if (searchZone.includes('men') || searchZone.includes('boy')) category = 'men';
-                        else if (searchZone.includes('women') || searchZone.includes('kurti') || searchZone.includes('anarkali')) category = 'women';
+                        const searchZone = (name + " " + desc).toLowerCase();
+
+                        // Strict Filtering: Women/Kurti check first to avoid Men's mix
+                        if (link.toLowerCase().includes('.apk')) {
+                            category = 'apk';
+                        } else if (searchZone.includes('women') || searchZone.includes('kurti') || searchZone.includes('anarkali') || searchZone.includes('girl')) {
+                            category = 'women';
+                        } else if (searchZone.includes('men') || searchZone.includes('boy') || searchZone.includes('shirt') || searchZone.includes('watch')) {
+                            category = 'men';
+                        }
 
                         return { name, desc, images, link, category, id: rowIndex };
                     }
@@ -93,7 +99,7 @@
 
                 renderItems(allItems);
             } catch (e) {
-                document.getElementById('product-container').innerHTML = '<p class="text-red-500">Error loading store.</p>';
+                document.getElementById('product-container').innerHTML = '<p class="text-red-500 text-center font-bold">Failed to load deals. Please check internet.</p>';
             }
         }
 
@@ -101,11 +107,17 @@
             const container = document.getElementById('product-container');
             container.innerHTML = '';
             
+            if (items.length === 0) {
+                container.innerHTML = '<p class="col-span-full text-center py-20 text-slate-400 font-bold">No products found in this category.</p>';
+                return;
+            }
+
             items.forEach((item) => {
                 const isAPK = item.category === 'apk';
                 const btnText = isAPK ? 'Download APK' : 'Buy Now';
-                const btnColor = isAPK ? 'bg-gradient-to-r from-emerald-500 to-teal-600' : 'bg-gradient-to-r from-blue-600 to-indigo-700';
-                const tagText = isAPK ? 'PREMIUM APP' : (item.category === 'men' ? 'MEN SELECTION' : (item.category === 'women' ? 'WOMEN STYLE' : 'HOT PRODUCT'));
+                const btnColor = isAPK ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700' : 'bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800';
+                
+                const tagText = isAPK ? 'PREMIUM APP' : (item.category === 'men' ? 'MEN SELECTION' : (item.category === 'women' ? 'WOMEN STYLE' : 'HOT DEAL'));
                 const tagColor = isAPK ? 'bg-emerald-500' : (item.category === 'men' ? 'bg-blue-500' : (item.category === 'women' ? 'bg-pink-500' : 'bg-red-500'));
 
                 container.innerHTML += `
@@ -116,26 +128,29 @@
                         </div>
                         <div class="mt-6 flex-grow">
                             <h3 class="text-xl font-black text-slate-800 leading-tight">${item.name}</h3>
-                            <p class="text-slate-500 text-xs mt-3 line-clamp-2">${item.desc}</p>
+                            <p class="text-slate-500 text-xs mt-3 line-clamp-2 font-medium">${item.desc}</p>
                         </div>
                         <div class="mt-8">
-                            <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-sm font-black py-4 rounded-2xl shadow-lg ${btnColor}">${btnText}</a>
+                            <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-sm font-black py-4 rounded-2xl shadow-lg transition transform active:scale-95 ${btnColor}">${btnText}</a>
                         </div>
                     </div>
                 `;
             });
         }
 
-        function filterCategory(cat) {
-            // Update button styles
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-blue-600', 'text-white');
-                btn.classList.add('bg-white', 'text-slate-900');
+        function filterCategory(cat, btn) {
+            // Update active button UI
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('active');
             });
-            event.target.classList.add('active');
+            btn.classList.add('active');
 
-            if (cat === 'all') renderItems(allItems);
-            else renderItems(allItems.filter(item => item.category === cat));
+            if (cat === 'all') {
+                renderItems(allItems);
+            } else {
+                const filtered = allItems.filter(item => item.category === cat);
+                renderItems(filtered);
+            }
         }
 
         loadStore();
