@@ -16,7 +16,7 @@
         .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb !important; }
         .fade-img { transition: opacity 0.3s ease-in-out; }
         #site-logo { max-height: 60px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); }
-        .product-card { height: 440px !important; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card { height: 460px !important; display: flex; flex-direction: column; justify-content: space-between; }
         .img-box { height: 220px; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #f8fafc; border-radius: 1rem; }
         #loader { position: fixed; inset: 0; background: white; z-index: 100; display: flex; align-items: center; justify-content: center; }
         @media (max-width: 1024px) { .main-layout { flex-direction: column !important; } .content-area { order: 1; } .sidebar-area { order: 2; } }
@@ -45,6 +45,7 @@
             <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white md:hidden">All</button>
             <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Men</button>
             <button onclick="filterCategory('women', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Women</button>
+            <button onclick="document.getElementById('cdr-section').scrollIntoView({behavior: 'smooth'})" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-emerald-50 text-emerald-700 border-emerald-200">CDR Files</button>
         </div>
     </div>
 
@@ -65,9 +66,7 @@
 
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
-        
-        // Yahan apna number daalein (Safe: Ye sirf link banane ke liye use hoga)
-        const myWhatsApp = "7841806171"; 
+        const myWhatsApp = "91XXXXXXXXXX"; 
 
         let allItems = [];
 
@@ -120,15 +119,18 @@
             const container = document.getElementById('product-container');
             container.innerHTML = items.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
+                // Font-size increased from text-[11px] to text-[13px] and color darkened
                 return `<div class="card-hover bg-white rounded-3xl p-5 border border-slate-100 shadow-sm product-card" data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
                     <div class="img-box"><img id="img-${item.id}" src="${item.images[0]}" class="fade-img max-h-full object-contain p-2" loading="lazy"></div>
-                    <div class="mt-4"><h3 class="text-base font-bold text-slate-800 leading-tight line-clamp-1">${item.name}</h3><p class="text-slate-500 text-[11px] mt-1 line-clamp-2">${item.desc}</p></div>
+                    <div class="mt-4">
+                        <h3 class="text-base font-bold text-slate-800 leading-tight line-clamp-1">${item.name}</h3>
+                        <p class="text-slate-600 text-[13px] font-medium mt-2 line-clamp-3 leading-relaxed">${item.desc}</p>
+                    </div>
                     <div class="mt-auto pt-4"><a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[11px] font-black py-3 rounded-xl ${isAPK ? 'bg-emerald-500' : 'bg-blue-600'} shadow-md uppercase italic tracking-wider">${isAPK ? 'Install APK' : 'View Details'}</a></div>
                 </div>`;
             }).join('');
         }
 
-        // WhatsApp Number Hidden here: Only button will be shown
         function renderCDR(items) {
             if (items.length === 0) return;
             document.getElementById('cdr-section').classList.remove('hidden');
@@ -136,7 +138,7 @@
             container.innerHTML = items.map(item => `
                 <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 text-center card-hover">
                     <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy">
-                    <h4 class="text-[10px] font-bold text-slate-700 mb-2 truncate">${item.name}</h4>
+                    <h4 class="text-[11px] font-bold text-slate-700 mb-2 truncate">${item.name}</h4>
                     <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR file: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-2 rounded-lg hover:bg-emerald-600 transition-colors uppercase">Get on WhatsApp</a>
                 </div>
             `).join('');
