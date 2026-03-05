@@ -65,14 +65,16 @@
 
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
+        
+        // Yahan apna number daalein (Safe: Ye sirf link banane ke liye use hoga)
         const myWhatsApp = "91XXXXXXXXXX"; 
+
         let allItems = [];
 
         async function loadStore() {
             try {
                 const res = await fetch(sheetUrl);
                 const csvText = await res.text();
-                
                 const rows = csvText.split('\n').slice(1).filter(row => row.trim() !== "");
                 allItems = rows.map((row, rowIndex) => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
@@ -89,7 +91,6 @@
                     return null;
                 }).filter(i => i);
 
-                // Speed: Initial rendering ASAP
                 requestAnimationFrame(() => {
                     setupSiteAssets(allItems);
                     renderItems(allItems.filter(i => !['logo', 'background'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
@@ -127,6 +128,7 @@
             }).join('');
         }
 
+        // WhatsApp Number Hidden here: Only button will be shown
         function renderCDR(items) {
             if (items.length === 0) return;
             document.getElementById('cdr-section').classList.remove('hidden');
@@ -135,7 +137,7 @@
                 <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 text-center card-hover">
                     <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy">
                     <h4 class="text-[10px] font-bold text-slate-700 mb-2 truncate">${item.name}</h4>
-                    <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR file: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-2 rounded-lg hover:bg-emerald-600 transition-colors">Get on WhatsApp</a>
+                    <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR file: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-2 rounded-lg hover:bg-emerald-600 transition-colors uppercase">Get on WhatsApp</a>
                 </div>
             `).join('');
         }
@@ -191,7 +193,6 @@
             });
         }
         
-        // Final Speed optimization: Start loading before DOM is fully parsed
         loadStore();
     </script>
 </body>
