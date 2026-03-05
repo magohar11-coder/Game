@@ -13,70 +13,50 @@
             background-size: cover;
             background-position: center;
         }
-        .sticky-hero {
-            position: sticky;
-            top: 72px;
-            z-index: 40;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            padding-bottom: 15px;
-        }
+        .sticky-hero { position: sticky; top: 72px; z-index: 40; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); padding-bottom: 15px; }
         .card-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .card-hover:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
-        .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb !important; }
+        .filter-btn.active { background-color: #2563eb !important; color: white !important; }
         .fade-img { transition: opacity 0.5s ease-in-out; }
-        video { object-fit: cover; background: #000; }
+        iframe, video { width: 100%; border-radius: 1rem; }
     </style>
 </head>
 <body class="font-sans antialiased text-slate-900">
 
-    <header class="glass border-b sticky top-0 z-50 py-4 px-6 flex flex-wrap justify-between items-center gap-4">
+    <header class="glass border-b sticky top-0 z-50 py-4 px-6 flex justify-between items-center">
         <div>
             <h1 class="text-2xl font-black text-blue-600 tracking-tighter uppercase italic">EXCLUSIVE DEALS & APPS</h1>
             <p class="text-[15px] text-slate-500 font-bold tracking-widest uppercase">Powered By M.A. Gohar</p>
         </div>
-        <div class="flex gap-3 text-[10px] font-bold">
-            <span class="bg-green-100 text-green-700 px-3 py-1.5 rounded-full border border-green-200 shadow-sm">✓ SECURE PLATFORM</span>
-            <span class="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full border border-blue-200 shadow-sm">✓ LIVE UPDATES</span>
-        </div>
     </header>
 
     <div class="sticky-hero text-center pt-8 border-b border-slate-100">
-        <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight mb-4 uppercase">Core-11 Apps Store & DEALS</h2>
-        <div class="flex flex-wrap justify-center gap-2 px-4 mb-2">
-            <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border border-blue-200 text-xs font-bold uppercase tracking-wider transition">All</button>
-            <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Men</button>
-            <button onclick="filterCategory('women', this)" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Women</button>
-            <button onclick="filterCategory('apk', this)" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-wider transition bg-white">Apps/APKs</button>
+        <h2 class="text-3xl font-extrabold text-slate-800 mb-4 uppercase">Core-11 Apps Store & DEALS</h2>
+        <div class="flex flex-wrap justify-center gap-2 mb-2">
+            <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border text-xs font-bold uppercase">All</button>
+            <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Men</button>
+            <button onclick="filterCategory('women', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Women</button>
+            <button onclick="filterCategory('apk', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Apps</button>
         </div>
     </div>
 
     <main class="max-w-7xl mx-auto p-4 md:p-10">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <div id="product-container" class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-                <div class="col-span-full py-32 text-center">
-                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent shadow-lg"></div>
-                    <p class="mt-6 text-slate-500 font-bold text-lg animate-pulse">Syncing with Gohar's Hub...</p>
                 </div>
-            </div>
 
             <div id="video-sidebar" class="lg:col-span-1 space-y-6">
-                <h3 class="text-xl font-black text-slate-800 uppercase tracking-tight border-b-2 border-blue-600 pb-2">Live Demos</h3>
-                </div>
+                <h3 class="text-xl font-black text-slate-800 uppercase border-b-2 border-blue-600 pb-2">Live Demos</h3>
+                <div id="sidebar-content" class="space-y-6">
+                    </div>
+            </div>
         </div>
     </main>
-
-    <footer class="mt-20 border-t border-slate-200 bg-white/60 backdrop-blur-md py-12 px-6">
-        <div class="max-w-6xl mx-auto text-center">
-            <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em]">© 2026 Gohar Digital Hub | M.A. Gohar</p>
-        </div>
-    </footer>
 
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
         let allItems = [];
-        let intervals = [];
 
         async function loadStore() {
             try {
@@ -87,96 +67,73 @@
                 allItems = rows.map((row, rowIndex) => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     if (cols.length >= 4) {
-                        const name = cols[0].replace(/"/g, '').trim();
-                        const desc = cols[1].replace(/"/g, '').trim();
-                        const imgData = cols[2].replace(/"/g, '').trim();
-                        const link = cols[3].replace(/"/g, '').trim();
-                        const video = cols[4] ? cols[4].replace(/"/g, '').trim() : null; // Column E for Video
-                        const images = imgData.split(',').map(s => s.trim());
-                        
-                        let category = 'other';
-                        const searchZone = (name + " " + desc).toLowerCase();
-                        if (link.toLowerCase().includes('.apk')) category = 'apk';
-                        else if (searchZone.includes('women')) category = 'women';
-                        else if (searchZone.includes('men')) category = 'men';
-
-                        return { name, desc, images, link, video, category, id: rowIndex };
+                        return {
+                            name: cols[0].replace(/"/g, '').trim(),
+                            desc: cols[1].replace(/"/g, '').trim(),
+                            images: cols[2].replace(/"/g, '').trim().split(','),
+                            link: cols[3].replace(/"/g, '').trim(),
+                            video: cols[4] ? cols[4].replace(/"/g, '').trim() : null, // Column E
+                            id: rowIndex
+                        };
                     }
                     return null;
-                }).filter(item => item !== null && item.name !== "");
+                }).filter(i => i);
 
                 renderItems(allItems);
                 renderSidebar(allItems);
-            } catch (e) {
-                document.getElementById('product-container').innerHTML = '<p class="text-red-500 text-center font-bold">Failed to load.</p>';
+            } catch (e) { console.error("Error loading data"); }
+        }
+
+        function getYouTubeEmbed(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
+        }
+
+        function renderSidebar(items) {
+            const container = document.getElementById('sidebar-content');
+            const videoLinks = items.map(i => i.video).filter(v => v).slice(0, 2); // Get top 2 videos from sheet
+
+            if(videoLinks.length === 0) {
+                container.innerHTML = "<p class='text-slate-400 text-xs'>Add video links in Sheet Column E to see demos.</p>";
+                return;
             }
+
+            container.innerHTML = videoLinks.map(link => {
+                const ytLink = getYouTubeEmbed(link);
+                return `
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 p-2">
+                        ${ytLink ? 
+                            `<iframe class="aspect-video" src="${ytLink}" frameborder="0" allowfullscreen></iframe>` : 
+                            `<video class="aspect-[9/16] object-cover" controls muted loop><source src="${link}" type="video/mp4"></video>`
+                        }
+                    </div>
+                `;
+            }).join('');
         }
 
         function renderItems(items) {
             const container = document.getElementById('product-container');
-            intervals.forEach(clearInterval);
-            intervals = [];
-            container.innerHTML = '';
-            
-            items.forEach((item) => {
-                const isAPK = item.category === 'apk';
-                const tagColor = isAPK ? 'bg-emerald-500' : (item.category === 'men' ? 'bg-blue-500' : 'bg-pink-500');
-                const cardId = `img-${item.id}`;
-
-                // HTML structure for card with video support
-                container.innerHTML += `
-                    <div class="card-hover bg-white rounded-[2rem] p-6 border border-slate-100 shadow-xl flex flex-col h-full relative overflow-hidden">
-                        <span class="absolute top-4 left-4 z-10 ${tagColor} text-white text-[9px] font-black px-3 py-1 rounded-full uppercase">${item.category}</span>
-                        <div class="relative overflow-hidden rounded-2xl bg-slate-50 aspect-square flex items-center justify-center">
-                            ${item.video ? 
-                                `<video class="w-full h-full object-cover" muted loop playsinline onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="${item.video}" type="video/mp4"></video>` : 
-                                `<img id="${cardId}" src="${item.images[0]}" class="fade-img w-full h-full object-contain p-6">`
-                            }
-                        </div>
-                        <div class="mt-6 flex-grow">
-                            <h3 class="text-xl font-black text-slate-800 leading-tight">${item.name}</h3>
-                            <p class="text-slate-500 text-xs mt-3 line-clamp-2">${item.desc}</p>
-                        </div>
-                        <div class="mt-8">
-                            <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-sm font-black py-4 rounded-2xl shadow-lg bg-blue-600">${isAPK ? 'Download' : 'Buy Now'}</a>
-                        </div>
+            container.innerHTML = items.map(item => `
+                <div class="card-hover bg-white rounded-[2rem] p-6 border shadow-xl flex flex-col h-full">
+                    <div class="relative rounded-2xl bg-slate-50 aspect-square flex items-center justify-center overflow-hidden">
+                        <img id="img-${item.id}" src="${item.images[0]}" class="fade-img w-full h-full object-contain p-4">
                     </div>
-                `;
-
-                if (!item.video && item.images.length > 1) {
-                    let idx = 0;
-                    const inter = setInterval(() => {
-                        idx = (idx + 1) % item.images.length;
-                        const el = document.getElementById(cardId);
-                        if (el) { el.style.opacity = '0'; setTimeout(() => { el.src = item.images[idx]; el.style.opacity = '1'; }, 500); }
-                    }, 3500);
-                    intervals.push(inter);
-                }
-            });
-        }
-
-        function renderSidebar(items) {
-            const sidebar = document.getElementById('video-sidebar');
-            const videoItems = items.filter(i => i.video).slice(0, 2); // Pehli 2 videos sidebar mein
-            
-            videoItems.forEach(item => {
-                sidebar.innerHTML += `
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 relative group">
-                        <video class="w-full aspect-[9/16] cursor-pointer" muted loop playsinline onmouseover="this.play()" onmouseout="this.pause()">
-                            <source src="${item.video}" type="video/mp4">
-                        </video>
-                        <div class="p-3 bg-white/90 backdrop-blur-sm absolute bottom-0 w-full text-[10px] font-black text-blue-600 uppercase">
-                            ${item.name} • Hover to Play
-                        </div>
+                    <div class="mt-6 flex-grow">
+                        <h3 class="text-xl font-black text-slate-800">${item.name}</h3>
+                        <p class="text-slate-500 text-xs mt-2 line-clamp-2">${item.desc}</p>
                     </div>
-                `;
-            });
+                    <div class="mt-8">
+                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-sm font-black py-4 rounded-2xl bg-blue-600">Buy Now</a>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            renderItems(cat === 'all' ? allItems : allItems.filter(i => i.category === cat));
+            // Add your category filtering logic here if needed
         }
 
         loadStore();
