@@ -6,57 +6,55 @@
     <title>Core11 Apps Store & DEALS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            transition: background-image 0.8s ease-in-out;
-            background-attachment: fixed; background-size: cover; background-position: center;
-            will-change: background-image; /* Browser ko pehle se batata hai */
+        body { 
+            background-attachment: fixed; background-size: cover; background-position: center; 
+            background-color: #f0f2f5; /* Facebook gray background */
         }
-        .sticky-hero { position: sticky; top: 88px; z-index: 40; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); padding-bottom: 15px; }
-        .card-hover { transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
-        .filter-btn.active { background-color: #2563eb !important; color: white !important; }
-        .fade-img { transition: opacity 0.3s ease-in-out; }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
+        /* Card fix: Taki lambe box na bane */
+        .product-card { 
+            height: 420px; /* Fixed height for consistency */
+            display: flex; flex-direction: column; 
+            justify-content: space-between;
+        }
+        .img-container { height: 200px; display: flex; items-center; justify-center; overflow: hidden; }
+        .img-container img { max-height: 100%; object-fit: contain; }
         
-        #site-logo {
-            max-height: 70px; width: auto;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+        /* Video Sidebar fix for mobile & desktop */
+        .video-box { aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: #000; }
+        
+        @media (max-width: 1024px) {
+            .main-layout { flex-direction: column !important; }
+            .sidebar { order: 2; width: 100% !important; } /* Mobile pe video niche jayegi */
+            .content { order: 1; width: 100% !important; } /* Mobile pe product pehle */
         }
-
-        /* Loading Spinner */
-        #loader { position: fixed; inset: 0; background: white; z-index: 100; display: flex; items-center; justify-center; }
     </style>
 </head>
-<body class="font-sans antialiased text-slate-900">
+<body class="font-sans text-slate-900">
 
-    <div id="loader"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
-
-    <header class="glass border-b sticky top-0 z-50 py-3 px-6 flex justify-between items-center">
+    <header class="glass border-b sticky top-0 z-50 py-3 px-6 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-4">
-            <img id="site-logo" src="https://via.placeholder.com/150x70" alt="Logo" class="object-contain transition-opacity duration-300">
-            <div class="border-l-2 border-slate-300 pl-4 hidden sm:block">
-                <h1 class="text-xl font-black text-blue-600 italic leading-none">EXCLUSIVE DEALS</h1>
-                <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Powered By M.A. Gohar</p>
+            <img id="site-logo" src="https://via.placeholder.com/120x60" alt="Logo" class="h-12 object-contain">
+            <div class="hidden sm:block border-l pl-4">
+                <h1 class="text-lg font-bold text-blue-600 leading-none">CORE-11 STORE</h1>
+                <p class="text-[10px] text-gray-500 uppercase tracking-tighter">By M.A. Gohar</p>
             </div>
+        </div>
+        <div class="flex gap-2" id="filter-group">
+            <button onclick="filterCategory('all', this)" class="bg-blue-600 text-white px-4 py-1.5 rounded-full text-xs font-bold">All</button>
+            <button onclick="filterCategory('apk', this)" class="bg-white border px-4 py-1.5 rounded-full text-xs font-bold">Apps</button>
         </div>
     </header>
 
-    <div class="sticky-hero text-center pt-6 border-b border-slate-100">
-        <h2 class="text-2xl font-extrabold text-slate-800 mb-4 uppercase">Core-11 Apps Store</h2>
-        <div class="flex flex-wrap justify-center gap-2 mb-2" id="filter-group">
-            <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border text-xs font-bold uppercase">All</button>
-            <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Men</button>
-            <button onclick="filterCategory('women', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Women</button>
-            <button onclick="filterCategory('apk', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Apps</button>
-        </div>
-    </div>
+    <main class="max-w-7xl mx-auto p-4 md:p-6">
+        <div class="flex flex-col lg:flex-row gap-6 main-layout">
+            <div id="product-container" class="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 content">
+                </div>
 
-    <main class="max-w-7xl mx-auto p-4">
-        <div class="flex flex-col-reverse lg:flex-row gap-8">
-            <div id="product-container" class="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"></div>
-            <div id="video-sidebar" class="lg:w-1/4 space-y-6">
-                <h3 class="text-lg font-black text-slate-800 uppercase border-b-2 border-blue-600 pb-1">Live Demos</h3>
-                <div id="sidebar-content" class="space-y-4"></div>
+            <div class="lg:w-1/4 space-y-4 sidebar">
+                <h3 class="font-bold text-gray-700 border-b pb-2">Featured Demos</h3>
+                <div id="sidebar-content" class="space-y-4">
+                    </div>
             </div>
         </div>
     </main>
@@ -69,120 +67,71 @@
             try {
                 const res = await fetch(sheetUrl);
                 const csvText = await res.text();
-                document.getElementById('loader').style.display = 'none';
-                
-                const rows = csvText.split('\n').slice(1).filter(row => row.trim() !== "");
-                allItems = rows.map((row, rowIndex) => {
+                const rows = csvText.split('\n').slice(1).filter(r => r.trim());
+                allItems = rows.map((row, idx) => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if (cols.length >= 4) {
-                        return {
-                            name: cols[0].replace(/"/g, '').trim(),
-                            desc: cols[1].replace(/"/g, '').trim(),
-                            images: cols[2].replace(/"/g, '').trim().split(','),
-                            link: cols[3].replace(/"/g, '').trim(),
-                            video: cols[4] ? cols[4].replace(/"/g, '').trim() : null,
-                            id: rowIndex
-                        };
-                    }
-                    return null;
-                }).filter(i => i);
+                    return {
+                        name: cols[0]?.replace(/"/g, '').trim(),
+                        desc: cols[1]?.replace(/"/g, '').trim(),
+                        images: cols[2]?.replace(/"/g, '').trim().split(','),
+                        link: cols[3]?.replace(/"/g, '').trim(),
+                        video: cols[4]?.replace(/"/g, '').trim(),
+                        id: idx
+                    };
+                }).filter(i => i.name);
 
-                setupSiteAssets(allItems);
-                renderItems(allItems.filter(i => !['logo', 'background'].includes(i.name.toLowerCase())));
-                renderSidebar(allItems);
-                setTimeout(startSliders, 1000); // Thoda ruk kar sliders start honge speed ke liye
-            } catch (e) { console.error("Fast Load Error"); }
+                renderSite(allItems);
+            } catch (e) { console.error("Load failed"); }
         }
 
-        function setupSiteAssets(items) {
+        function renderSite(items) {
+            // Logo & BG
             const logo = items.find(i => i.name.toLowerCase() === 'logo');
             if (logo) document.getElementById('site-logo').src = logo.images[0].trim();
-
+            
             const bg = items.find(i => i.name.toLowerCase() === 'background');
-            if (bg && bg.images.length > 0) {
-                let idx = 0;
-                const change = () => {
-                    document.body.style.backgroundImage = `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('${bg.images[idx].trim()}')`;
-                    idx = (idx + 1) % bg.images.length;
-                };
-                change();
-                if (bg.images.length > 1) setInterval(change, 6000);
-            }
-        }
+            if (bg) document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.9), rgba(240,242,245,0.9)), url('${bg.images[0].trim()}')`;
 
-        function renderItems(items) {
+            // Products
+            const mainItems = items.filter(i => !['logo', 'background'].includes(i.name.toLowerCase()));
             const container = document.getElementById('product-container');
-            container.innerHTML = items.map(item => {
+            container.innerHTML = mainItems.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
                 return `
-                <div class="card-hover bg-white rounded-3xl p-5 border shadow-sm flex flex-col h-full product-card" 
-                     data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
-                    <div class="relative rounded-2xl bg-slate-50 aspect-square overflow-hidden">
-                        <img loading="lazy" id="img-${item.id}" src="${item.images[0]}" class="fade-img w-full h-full object-contain p-2">
+                <div class="product-card bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition-all">
+                    <div class="img-container">
+                        <img id="img-${item.id}" src="${item.images[0]}" loading="lazy">
                     </div>
-                    <div class="mt-4 flex-grow">
-                        <h3 class="text-lg font-black text-slate-800 leading-tight">${item.name}</h3>
-                        <p class="text-slate-500 text-[11px] mt-1 line-clamp-2">${item.desc}</p>
+                    <div class="mt-4">
+                        <h3 class="font-bold text-gray-800 line-clamp-1">${item.name}</h3>
+                        <p class="text-xs text-gray-500 mt-1 line-clamp-2">${item.desc}</p>
                     </div>
-                    <div class="mt-5">
-                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-xs font-black py-3 rounded-xl ${isAPK ? 'bg-emerald-500' : 'bg-blue-600'} shadow-md hover:opacity-90 transition-opacity uppercase italic">${isAPK ? 'Get APK' : 'Order Now'}</a>
-                    </div>
+                    <a href="${item.link}" target="_blank" class="mt-4 block w-full text-center py-2.5 rounded-lg font-bold text-sm ${isAPK ? 'bg-green-500 text-white' : 'bg-blue-100 text-blue-700'} hover:opacity-90">
+                        ${isAPK ? 'Install APK' : 'View Details'}
+                    </a>
                 </div>`;
             }).join('');
-        }
 
-        // Sidebar aur Slider functions ko optimize kiya gaya hai...
-        function getYouTubeEmbed(url) {
-            if (!url) return null;
-            let vid = "";
-            if (url.includes("shorts/")) vid = url.split("shorts/")[1].split("?")[0];
-            else if (url.includes("v=")) vid = url.split("v=")[1].split("&")[0];
-            else if (url.includes("youtu.be/")) vid = url.split("youtu.be/")[1].split("?")[0];
-            return vid ? `https://www.youtube.com/embed/${vid.trim()}?mute=1&loop=1&playlist=${vid.trim()}` : null;
-        }
-
-        function renderSidebar(items) {
-            const container = document.getElementById('sidebar-content');
+            // Landscape Videos
+            const videoContainer = document.getElementById('sidebar-content');
             let vids = [];
             items.forEach(i => { if(i.video) vids.push(...i.video.split(',')); });
-            container.innerHTML = [...new Set(vids)].slice(0, 4).map(link => {
-                const yt = getYouTubeEmbed(link);
-                return `<div class="bg-white rounded-xl overflow-hidden shadow-md p-1">
-                    <iframe loading="lazy" class="w-full aspect-[9/16] rounded-lg" src="${yt}" frameborder="0"></iframe>
+            videoContainer.innerHTML = [...new Set(vids)].slice(0, 5).map(v => {
+                const ytId = v.match(/(?:shorts\/|v=|youtu.be\/)([a-zA-Z0-9_-]{11})/)?.[1];
+                return `<div class="video-box shadow-sm">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/${ytId}?mute=1" frameborder="0" allowfullscreen></iframe>
                 </div>`;
             }).join('');
-        }
-
-        function startSliders() {
-            allItems.forEach(item => {
-                if (item.images.length > 1 && !['logo', 'background'].includes(item.name.toLowerCase())) {
-                    let c = 0;
-                    setInterval(() => {
-                        const el = document.getElementById(`img-${item.id}`);
-                        if (el && document.body.contains(el)) {
-                            c = (c + 1) % item.images.length;
-                            el.style.opacity = '0.3';
-                            setTimeout(() => { el.src = item.images[c].trim(); el.style.opacity = '1'; }, 300);
-                        }
-                    }, 4000);
-                }
-            });
         }
 
         function filterCategory(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active'); b.classList.add('bg-white'); });
-            btn.classList.add('active'); btn.classList.remove('bg-white');
             const cards = document.querySelectorAll('.product-card');
             cards.forEach(card => {
-                const fullText = card.getAttribute('data-name') + " " + card.getAttribute('data-desc');
-                const link = card.getAttribute('data-link');
-                let show = (cat === 'all') || 
-                           (cat === 'apk' && link.endsWith('.apk')) ||
-                           (cat === 'women' && ['women','kurti','gown','suit'].some(k => fullText.includes(k))) ||
-                           (cat === 'men' && ['men','shirt','boy','watch'].some(k => fullText.includes(k)) && !fullText.includes('women'));
-                card.style.display = show ? 'flex' : 'none';
+                const link = card.querySelector('a').href;
+                card.style.display = (cat === 'all' || (cat === 'apk' && link.endsWith('.apk'))) ? 'flex' : 'none';
             });
         }
+
         loadStore();
     </script>
 </body>
