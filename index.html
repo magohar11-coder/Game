@@ -7,27 +7,34 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            /* Default background transition */
             transition: background-image 1s ease-in-out;
             background-attachment: fixed; 
             background-size: cover; 
             background-position: center;
         }
-        .sticky-hero { position: sticky; top: 72px; z-index: 40; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); padding-bottom: 15px; }
+        .sticky-hero { position: sticky; top: 88px; z-index: 40; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); padding-bottom: 15px; }
         .card-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .card-hover:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; }
         .fade-img { transition: opacity 0.5s ease-in-out; }
         iframe, video { width: 100%; border-radius: 1rem; }
+        
+        /* Logo ko Flipkart jaisa bada dikhane ke liye extra style */
+        #site-logo {
+            max-height: 80px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
     </style>
 </head>
 <body class="font-sans antialiased text-slate-900">
 
-    <header class="glass border-b sticky top-0 z-50 py-3 px-6 flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <img id="site-logo" src="https://via.placeholder.com/50" alt="Core 11 Logo" class="h-12 w-auto object-contain rounded-lg">
-            <div>
+    <header class="glass border-b sticky top-0 z-50 py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-6">
+            <img id="site-logo" src="https://via.placeholder.com/150x80" alt="Core 11 Logo" class="object-contain rounded-md transition-all">
+            
+            <div class="border-l-2 border-slate-300 pl-6 hidden sm:block">
                 <h1 class="text-xl md:text-2xl font-black text-blue-600 tracking-tighter uppercase italic leading-none">EXCLUSIVE DEALS & APPS</h1>
                 <p class="text-[12px] md:text-[15px] text-slate-500 font-bold tracking-widest uppercase">Powered By M.A. Gohar</p>
             </div>
@@ -78,9 +85,7 @@
                     return null;
                 }).filter(i => i);
 
-                // Setup Special items (Logo & Background)
                 setupSiteAssets(allItems);
-                
                 renderItems(allItems.filter(i => !['logo', 'background'].includes(i.name.toLowerCase())));
                 renderSidebar(allItems);
                 startSliders();
@@ -88,13 +93,11 @@
         }
 
         function setupSiteAssets(items) {
-            // Logo setup
             const logoData = items.find(i => i.name.toLowerCase() === 'logo');
             if (logoData && logoData.images[0]) {
                 document.getElementById('site-logo').src = logoData.images[0].trim();
             }
 
-            // Background Slider setup
             const bgData = items.find(i => i.name.toLowerCase() === 'background');
             if (bgData && bgData.images.length > 0) {
                 let bgIndex = 0;
