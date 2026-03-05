@@ -7,9 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), 
-                              url('https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop');
-            background-attachment: fixed; background-size: cover; background-position: center;
+            /* Default background transition */
+            transition: background-image 1s ease-in-out;
+            background-attachment: fixed; 
+            background-size: cover; 
+            background-position: center;
         }
         .sticky-hero { position: sticky; top: 72px; z-index: 40; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); padding-bottom: 15px; }
         .card-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -24,7 +26,7 @@
 
     <header class="glass border-b sticky top-0 z-50 py-3 px-6 flex justify-between items-center">
         <div class="flex items-center gap-4">
-            <img src="https://via.placeholder.com/50" alt="Core 11 Logo" class="h-12 w-auto object-contain rounded-lg">
+            <img id="site-logo" src="https://via.placeholder.com/50" alt="Core 11 Logo" class="h-12 w-auto object-contain rounded-lg">
             <div>
                 <h1 class="text-xl md:text-2xl font-black text-blue-600 tracking-tighter uppercase italic leading-none">EXCLUSIVE DEALS & APPS</h1>
                 <p class="text-[12px] md:text-[15px] text-slate-500 font-bold tracking-widest uppercase">Powered By M.A. Gohar</p>
@@ -75,10 +77,35 @@
                     }
                     return null;
                 }).filter(i => i);
-                renderItems(allItems);
+
+                // Setup Special items (Logo & Background)
+                setupSiteAssets(allItems);
+                
+                renderItems(allItems.filter(i => !['logo', 'background'].includes(i.name.toLowerCase())));
                 renderSidebar(allItems);
                 startSliders();
             } catch (e) { console.error("Error loading data"); }
+        }
+
+        function setupSiteAssets(items) {
+            // Logo setup
+            const logoData = items.find(i => i.name.toLowerCase() === 'logo');
+            if (logoData && logoData.images[0]) {
+                document.getElementById('site-logo').src = logoData.images[0].trim();
+            }
+
+            // Background Slider setup
+            const bgData = items.find(i => i.name.toLowerCase() === 'background');
+            if (bgData && bgData.images.length > 0) {
+                let bgIndex = 0;
+                const changeBg = () => {
+                    const imgUrl = bgData.images[bgIndex].trim();
+                    document.body.style.backgroundImage = `linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url('${imgUrl}')`;
+                    bgIndex = (bgIndex + 1) % bgData.images.length;
+                };
+                changeBg();
+                if (bgData.images.length > 1) setInterval(changeBg, 5000);
+            }
         }
 
         function getYouTubeEmbed(url) {
@@ -132,14 +159,14 @@
 
         function startSliders() {
             allItems.forEach(item => {
-                if (item.images.length > 1) {
+                if (item.images.length > 1 && !['logo', 'background'].includes(item.name.toLowerCase())) {
                     let currentIdx = 0;
                     setInterval(() => {
                         const imgElem = document.getElementById(`img-${item.id}`);
                         if (imgElem) {
                             currentIdx = (currentIdx + 1) % item.images.length;
                             imgElem.style.opacity = '0';
-                            setTimeout(() => { imgElem.src = item.images[currentIdx]; imgElem.style.opacity = '1'; }, 500);
+                            setTimeout(() => { imgElem.src = item.images[currentIdx].trim(); imgElem.style.opacity = '1'; }, 500);
                         }
                     }, 3500);
                 }
@@ -169,7 +196,6 @@
                     const menKeywords = ['men', 'shirt', 'watch', 'boy', 't-shirt', 'pant'];
                     show = !isWomenProduct && menKeywords.some(key => fullText.includes(key));
                 }
-                
                 card.style.display = show ? 'flex' : 'none';
             });
         }
