@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Core11 Apps Store & DEALS</title>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://docs.google.com">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { transition: background-image 0.8s ease-in-out; background-attachment: fixed; background-size: cover; background-position: center; will-change: background-image; }
         .sticky-hero { position: sticky; top: 72px; z-index: 40; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding-bottom: 10px; }
-        .card-hover { transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; }
+        .card-hover { transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
         .card-hover:hover { transform: translateY(-5px); box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1); }
         .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb !important; }
@@ -26,7 +28,7 @@
 
     <header class="glass border-b sticky top-0 z-50 py-2 px-6 flex justify-between items-center">
         <div class="flex items-center gap-4">
-            <img id="site-logo" src="https://via.placeholder.com/150x60" alt="Logo">
+            <img id="site-logo" src="https://via.placeholder.com/150x60" alt="Logo" loading="eager">
             <div class="border-l-2 border-slate-200 pl-4 hidden sm:block">
                 <h1 class="text-lg font-black text-blue-600 italic leading-none">CORE-11 STORE</h1>
                 <p class="text-[9px] text-slate-500 font-bold tracking-widest uppercase">By M.A. Gohar</p>
@@ -63,14 +65,14 @@
 
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
-        const myWhatsApp = "7841806171"; // APNA WHATSAPP NUMBER YAHAN DALAIN
+        const myWhatsApp = "91XXXXXXXXXX"; 
         let allItems = [];
 
         async function loadStore() {
             try {
                 const res = await fetch(sheetUrl);
                 const csvText = await res.text();
-                document.getElementById('loader').style.display = 'none';
+                
                 const rows = csvText.split('\n').slice(1).filter(row => row.trim() !== "");
                 allItems = rows.map((row, rowIndex) => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
@@ -87,11 +89,15 @@
                     return null;
                 }).filter(i => i);
 
-                setupSiteAssets(allItems);
-                renderItems(allItems.filter(i => !['logo', 'background'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
-                renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
-                renderSidebar(allItems);
-                setTimeout(startSliders, 1000);
+                // Speed: Initial rendering ASAP
+                requestAnimationFrame(() => {
+                    setupSiteAssets(allItems);
+                    renderItems(allItems.filter(i => !['logo', 'background'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
+                    renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
+                    renderSidebar(allItems);
+                    document.getElementById('loader').style.display = 'none';
+                    setTimeout(startSliders, 1000);
+                });
             } catch (e) { console.error("Load Error"); }
         }
 
@@ -105,7 +111,7 @@
                     document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.9), rgba(240,242,245,0.9)), url('${bg.images[idx].trim()}')`;
                     idx = (idx + 1) % bg.images.length;
                 };
-                change(); setInterval(change, 7000);
+                change(); if(bg.images.length > 1) setInterval(change, 7000);
             }
         }
 
@@ -114,7 +120,7 @@
             container.innerHTML = items.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
                 return `<div class="card-hover bg-white rounded-3xl p-5 border border-slate-100 shadow-sm product-card" data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
-                    <div class="img-box"><img id="img-${item.id}" src="${item.images[0]}" class="fade-img max-h-full object-contain p-2"></div>
+                    <div class="img-box"><img id="img-${item.id}" src="${item.images[0]}" class="fade-img max-h-full object-contain p-2" loading="lazy"></div>
                     <div class="mt-4"><h3 class="text-base font-bold text-slate-800 leading-tight line-clamp-1">${item.name}</h3><p class="text-slate-500 text-[11px] mt-1 line-clamp-2">${item.desc}</p></div>
                     <div class="mt-auto pt-4"><a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[11px] font-black py-3 rounded-xl ${isAPK ? 'bg-emerald-500' : 'bg-blue-600'} shadow-md uppercase italic tracking-wider">${isAPK ? 'Install APK' : 'View Details'}</a></div>
                 </div>`;
@@ -126,8 +132,8 @@
             document.getElementById('cdr-section').classList.remove('hidden');
             const container = document.getElementById('cdr-container');
             container.innerHTML = items.map(item => `
-                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 text-center">
-                    <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-xl mb-3">
+                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 text-center card-hover">
+                    <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy">
                     <h4 class="text-[10px] font-bold text-slate-700 mb-2 truncate">${item.name}</h4>
                     <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR file: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-2 rounded-lg hover:bg-emerald-600 transition-colors">Get on WhatsApp</a>
                 </div>
@@ -150,7 +156,7 @@
             container.innerHTML = [...new Set(vids)].slice(0, 5).map(link => {
                 const yt = getYouTubeEmbed(link);
                 return `<div class="bg-black rounded-2xl overflow-hidden shadow-lg border-2 border-white">
-                    <iframe class="w-full aspect-[16/9]" src="${yt}" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                    <iframe class="w-full aspect-[16/9]" src="${yt}" frameborder="0" allow="autoplay; encrypted-media" loading="lazy"></iframe>
                 </div>`;
             }).join('');
         }
@@ -161,7 +167,11 @@
                     let c = 0;
                     setInterval(() => {
                         const el = document.getElementById(`img-${item.id}`);
-                        if (el) { c = (c + 1) % item.images.length; el.style.opacity = '0.4'; setTimeout(() => { el.src = item.images[c].trim(); el.style.opacity = '1'; }, 300); }
+                        if (el && document.visibilityState === 'visible') { 
+                            c = (c + 1) % item.images.length; 
+                            el.style.opacity = '0.4'; 
+                            setTimeout(() => { el.src = item.images[c].trim(); el.style.opacity = '1'; }, 300); 
+                        }
                     }, 5000);
                 }
             });
@@ -180,6 +190,8 @@
                 card.style.display = show ? 'flex' : 'none';
             });
         }
+        
+        // Final Speed optimization: Start loading before DOM is fully parsed
         loadStore();
     </script>
 </body>
