@@ -123,7 +123,7 @@
                 return `<div class="card-hover bg-white rounded-3xl p-5 border border-slate-100 shadow-sm product-card" data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
                     <div class="img-box"><img id="img-${item.id}" src="${item.images[0]}" class="fade-img max-h-full object-contain p-2" loading="lazy"></div>
                     <div class="mt-4">
-                        <h3 class="text-base font-bold text-slate-800 leading-tight line-clamp-1">${item.name}</h3>
+                        <h3 class="text-[25px] font-Purple text-red-600 leading-tight line-clamp-1">${item.name}</h3>
                         <p class="text-slate-600 text-[20px] font-medium mt-2 line-clamp-3 leading-relaxed">${item.desc}</p>
                     </div>
                     <div class="mt-auto pt-4"><a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[11px] font-black py-3 rounded-xl ${isAPK ? 'bg-emerald-500' : 'bg-blue-600'} shadow-md uppercase italic tracking-wider">${isAPK ? 'Install APK' : 'View Details'}</a></div>
