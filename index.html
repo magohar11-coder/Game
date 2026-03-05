@@ -7,56 +7,56 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            transition: background-image 1s ease-in-out;
-            background-attachment: fixed; 
-            background-size: cover; 
-            background-position: center;
+            transition: background-image 0.8s ease-in-out;
+            background-attachment: fixed; background-size: cover; background-position: center;
+            will-change: background-image; /* Browser ko pehle se batata hai */
         }
         .sticky-hero { position: sticky; top: 88px; z-index: 40; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); padding-bottom: 15px; }
-        .card-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .card-hover:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+        .card-hover { transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; }
-        .fade-img { transition: opacity 0.5s ease-in-out; }
-        iframe, video { width: 100%; border-radius: 1rem; }
+        .fade-img { transition: opacity 0.3s ease-in-out; }
         
-        /* Logo ko Flipkart jaisa bada dikhane ke liye extra style */
         #site-logo {
-            max-height: 80px;
-            width: auto;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            max-height: 70px; width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
         }
+
+        /* Loading Spinner */
+        #loader { position: fixed; inset: 0; background: white; z-index: 100; display: flex; items-center; justify-center; }
     </style>
 </head>
 <body class="font-sans antialiased text-slate-900">
 
-    <header class="glass border-b sticky top-0 z-50 py-4 px-6 flex justify-between items-center">
-        <div class="flex items-center gap-6">
-            <img id="site-logo" src="https://via.placeholder.com/150x80" alt="Core 11 Logo" class="object-contain rounded-md transition-all">
-            
-            <div class="border-l-2 border-slate-300 pl-6 hidden sm:block">
-                <h1 class="text-xl md:text-2xl font-black text-blue-600 tracking-tighter uppercase italic leading-none">EXCLUSIVE DEALS & APPS</h1>
-                <p class="text-[12px] md:text-[15px] text-slate-500 font-bold tracking-widest uppercase">Powered By M.A. Gohar</p>
+    <div id="loader"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
+
+    <header class="glass border-b sticky top-0 z-50 py-3 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <img id="site-logo" src="https://via.placeholder.com/150x70" alt="Logo" class="object-contain transition-opacity duration-300">
+            <div class="border-l-2 border-slate-300 pl-4 hidden sm:block">
+                <h1 class="text-xl font-black text-blue-600 italic leading-none">EXCLUSIVE DEALS</h1>
+                <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Powered By M.A. Gohar</p>
             </div>
         </div>
     </header>
 
-    <div class="sticky-hero text-center pt-8 border-b border-slate-100">
-        <h2 class="text-3xl font-extrabold text-slate-800 mb-4 uppercase">Core-11 Apps Store & DEALS</h2>
-        <div class="flex flex-wrap justify-center gap-2 mb-2">
-            <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border text-xs font-bold uppercase shadow-sm">All</button>
-            <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white shadow-sm">Men</button>
-            <button onclick="filterCategory('women', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white shadow-sm">Women</button>
-            <button onclick="filterCategory('apk', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white shadow-sm">Apps</button>
+    <div class="sticky-hero text-center pt-6 border-b border-slate-100">
+        <h2 class="text-2xl font-extrabold text-slate-800 mb-4 uppercase">Core-11 Apps Store</h2>
+        <div class="flex flex-wrap justify-center gap-2 mb-2" id="filter-group">
+            <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border text-xs font-bold uppercase">All</button>
+            <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Men</button>
+            <button onclick="filterCategory('women', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Women</button>
+            <button onclick="filterCategory('apk', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Apps</button>
         </div>
     </div>
 
-    <main class="max-w-7xl mx-auto p-4 md:p-10">
+    <main class="max-w-7xl mx-auto p-4">
         <div class="flex flex-col-reverse lg:flex-row gap-8">
-            <div id="product-container" class="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 self-start"></div>
+            <div id="product-container" class="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"></div>
             <div id="video-sidebar" class="lg:w-1/4 space-y-6">
-                <h3 class="text-xl font-black text-slate-800 uppercase border-b-2 border-blue-600 pb-2">Live Demos</h3>
-                <div id="sidebar-content" class="space-y-6"></div>
+                <h3 class="text-lg font-black text-slate-800 uppercase border-b-2 border-blue-600 pb-1">Live Demos</h3>
+                <div id="sidebar-content" class="space-y-4"></div>
             </div>
         </div>
     </main>
@@ -69,6 +69,8 @@
             try {
                 const res = await fetch(sheetUrl);
                 const csvText = await res.text();
+                document.getElementById('loader').style.display = 'none';
+                
                 const rows = csvText.split('\n').slice(1).filter(row => row.trim() !== "");
                 allItems = rows.map((row, rowIndex) => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
@@ -88,55 +90,24 @@
                 setupSiteAssets(allItems);
                 renderItems(allItems.filter(i => !['logo', 'background'].includes(i.name.toLowerCase())));
                 renderSidebar(allItems);
-                startSliders();
-            } catch (e) { console.error("Error loading data"); }
+                setTimeout(startSliders, 1000); // Thoda ruk kar sliders start honge speed ke liye
+            } catch (e) { console.error("Fast Load Error"); }
         }
 
         function setupSiteAssets(items) {
-            const logoData = items.find(i => i.name.toLowerCase() === 'logo');
-            if (logoData && logoData.images[0]) {
-                document.getElementById('site-logo').src = logoData.images[0].trim();
-            }
+            const logo = items.find(i => i.name.toLowerCase() === 'logo');
+            if (logo) document.getElementById('site-logo').src = logo.images[0].trim();
 
-            const bgData = items.find(i => i.name.toLowerCase() === 'background');
-            if (bgData && bgData.images.length > 0) {
-                let bgIndex = 0;
-                const changeBg = () => {
-                    const imgUrl = bgData.images[bgIndex].trim();
-                    document.body.style.backgroundImage = `linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url('${imgUrl}')`;
-                    bgIndex = (bgIndex + 1) % bgData.images.length;
+            const bg = items.find(i => i.name.toLowerCase() === 'background');
+            if (bg && bg.images.length > 0) {
+                let idx = 0;
+                const change = () => {
+                    document.body.style.backgroundImage = `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('${bg.images[idx].trim()}')`;
+                    idx = (idx + 1) % bg.images.length;
                 };
-                changeBg();
-                if (bgData.images.length > 1) setInterval(changeBg, 5000);
+                change();
+                if (bg.images.length > 1) setInterval(change, 6000);
             }
-        }
-
-        function getYouTubeEmbed(url) {
-            if (!url) return null;
-            let videoId = "";
-            if (url.includes("shorts/")) videoId = url.split("shorts/")[1].split("?")[0].trim();
-            else if (url.includes("v=")) videoId = url.split("v=")[1].split("&")[0].trim();
-            else if (url.includes("youtu.be/")) videoId = url.split("youtu.be/")[1].split("?")[0].trim();
-            return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}` : null;
-        }
-
-        function renderSidebar(items) {
-            const container = document.getElementById('sidebar-content');
-            let allVideoLinks = [];
-            items.forEach(item => {
-                if (item.video) {
-                    const links = item.video.split(',').map(l => l.trim()).filter(l => l !== "");
-                    allVideoLinks.push(...links);
-                }
-            });
-            const uniqueLinks = [...new Set(allVideoLinks)].slice(0, 5);
-            container.innerHTML = uniqueLinks.map(link => {
-                const ytLink = getYouTubeEmbed(link);
-                return `<div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 p-2 card-hover">
-                    ${ytLink ? `<iframe class="w-full aspect-[9/16]" src="${ytLink}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : 
-                    `<video class="w-full aspect-[9/16] object-cover rounded-xl" controls muted loop><source src="${link}" type="video/mp4"></video>`}
-                </div>`;
-            }).join('');
         }
 
         function renderItems(items) {
@@ -144,18 +115,40 @@
             container.innerHTML = items.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
                 return `
-                <div class="card-hover bg-white rounded-[2rem] p-6 border shadow-xl flex flex-col h-full product-card" 
+                <div class="card-hover bg-white rounded-3xl p-5 border shadow-sm flex flex-col h-full product-card" 
                      data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
-                    <div class="relative rounded-2xl bg-slate-50 aspect-square flex items-center justify-center overflow-hidden">
-                        <img id="img-${item.id}" src="${item.images[0]}" class="fade-img w-full h-full object-contain p-4">
+                    <div class="relative rounded-2xl bg-slate-50 aspect-square overflow-hidden">
+                        <img loading="lazy" id="img-${item.id}" src="${item.images[0]}" class="fade-img w-full h-full object-contain p-2">
                     </div>
-                    <div class="mt-6 flex-grow">
-                        <h3 class="text-xl font-black text-slate-800">${item.name}</h3>
-                        <p class="text-slate-500 text-xs mt-2 line-clamp-2">${item.desc}</p>
+                    <div class="mt-4 flex-grow">
+                        <h3 class="text-lg font-black text-slate-800 leading-tight">${item.name}</h3>
+                        <p class="text-slate-500 text-[11px] mt-1 line-clamp-2">${item.desc}</p>
                     </div>
-                    <div class="mt-8">
-                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-sm font-black py-4 rounded-2xl ${isAPK ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-blue-600 hover:bg-blue-700'} transition-colors shadow-lg">${isAPK ? 'Download APK' : 'Buy Now'}</a>
+                    <div class="mt-5">
+                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-xs font-black py-3 rounded-xl ${isAPK ? 'bg-emerald-500' : 'bg-blue-600'} shadow-md hover:opacity-90 transition-opacity uppercase italic">${isAPK ? 'Get APK' : 'Order Now'}</a>
                     </div>
+                </div>`;
+            }).join('');
+        }
+
+        // Sidebar aur Slider functions ko optimize kiya gaya hai...
+        function getYouTubeEmbed(url) {
+            if (!url) return null;
+            let vid = "";
+            if (url.includes("shorts/")) vid = url.split("shorts/")[1].split("?")[0];
+            else if (url.includes("v=")) vid = url.split("v=")[1].split("&")[0];
+            else if (url.includes("youtu.be/")) vid = url.split("youtu.be/")[1].split("?")[0];
+            return vid ? `https://www.youtube.com/embed/${vid.trim()}?mute=1&loop=1&playlist=${vid.trim()}` : null;
+        }
+
+        function renderSidebar(items) {
+            const container = document.getElementById('sidebar-content');
+            let vids = [];
+            items.forEach(i => { if(i.video) vids.push(...i.video.split(',')); });
+            container.innerHTML = [...new Set(vids)].slice(0, 4).map(link => {
+                const yt = getYouTubeEmbed(link);
+                return `<div class="bg-white rounded-xl overflow-hidden shadow-md p-1">
+                    <iframe loading="lazy" class="w-full aspect-[9/16] rounded-lg" src="${yt}" frameborder="0"></iframe>
                 </div>`;
             }).join('');
         }
@@ -163,15 +156,15 @@
         function startSliders() {
             allItems.forEach(item => {
                 if (item.images.length > 1 && !['logo', 'background'].includes(item.name.toLowerCase())) {
-                    let currentIdx = 0;
+                    let c = 0;
                     setInterval(() => {
-                        const imgElem = document.getElementById(`img-${item.id}`);
-                        if (imgElem) {
-                            currentIdx = (currentIdx + 1) % item.images.length;
-                            imgElem.style.opacity = '0';
-                            setTimeout(() => { imgElem.src = item.images[currentIdx].trim(); imgElem.style.opacity = '1'; }, 500);
+                        const el = document.getElementById(`img-${item.id}`);
+                        if (el && document.body.contains(el)) {
+                            c = (c + 1) % item.images.length;
+                            el.style.opacity = '0.3';
+                            setTimeout(() => { el.src = item.images[c].trim(); el.style.opacity = '1'; }, 300);
                         }
-                    }, 3500);
+                    }, 4000);
                 }
             });
         }
@@ -179,26 +172,14 @@
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active'); b.classList.add('bg-white'); });
             btn.classList.add('active'); btn.classList.remove('bg-white');
-            
             const cards = document.querySelectorAll('.product-card');
             cards.forEach(card => {
-                const name = card.getAttribute('data-name');
-                const desc = card.getAttribute('data-desc');
+                const fullText = card.getAttribute('data-name') + " " + card.getAttribute('data-desc');
                 const link = card.getAttribute('data-link');
-                const fullText = name + " " + desc;
-                
-                let show = false;
-                if (cat === 'all') show = true;
-                else if (cat === 'apk') show = link.endsWith('.apk');
-                else if (cat === 'women') {
-                    const womenKeywords = ['women', 'kurti', 'gown', 'anarkali', 'satin', 'suit', 'lady'];
-                    show = womenKeywords.some(key => fullText.includes(key));
-                }
-                else if (cat === 'men') {
-                    const isWomenProduct = ['women', 'kurti', 'gown', 'anarkali'].some(key => fullText.includes(key));
-                    const menKeywords = ['men', 'shirt', 'watch', 'boy', 't-shirt', 'pant'];
-                    show = !isWomenProduct && menKeywords.some(key => fullText.includes(key));
-                }
+                let show = (cat === 'all') || 
+                           (cat === 'apk' && link.endsWith('.apk')) ||
+                           (cat === 'women' && ['women','kurti','gown','suit'].some(k => fullText.includes(k))) ||
+                           (cat === 'men' && ['men','shirt','boy','watch'].some(k => fullText.includes(k)) && !fullText.includes('women'));
                 card.style.display = show ? 'flex' : 'none';
             });
         }
