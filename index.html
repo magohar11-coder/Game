@@ -26,6 +26,7 @@
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb !important; }
         .fade-img { transition: opacity 0.5s ease-in-out; }
+        video { object-fit: cover; }
     </style>
 </head>
 <body class="font-sans antialiased text-slate-900">
@@ -53,10 +54,35 @@
     </div>
 
     <main class="max-w-7xl mx-auto p-4 md:p-10">
-        <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            <div class="col-span-full py-32 text-center">
-                <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent shadow-lg"></div>
-                <p class="mt-6 text-slate-500 font-bold text-lg animate-pulse">Syncing with Gohar's Hub...</p>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <div id="product-container" class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                <div class="col-span-full py-32 text-center">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent shadow-lg"></div>
+                    <p class="mt-6 text-slate-500 font-bold text-lg animate-pulse">Syncing with Gohar's Hub...</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-6">
+                <h3 class="text-xl font-black text-slate-800 uppercase tracking-tight border-b-2 border-blue-600 pb-2">Live Demos</h3>
+                
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 relative group">
+                    <video class="w-full aspect-[9/16] cursor-pointer" muted loop playsinline onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;">
+                        <source src="INSERT_VIDEO_URL_HERE.mp4" type="video/mp4">
+                    </video>
+                    <div class="p-3 bg-white/90 backdrop-blur-sm absolute bottom-0 w-full">
+                        <p class="text-[10px] font-black text-blue-600 uppercase">Demo: Hover to Play</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 relative group">
+                    <video class="w-full aspect-video cursor-pointer" muted loop playsinline onmouseover="this.play()" onmouseout="this.pause()">
+                        <source src="INSERT_SECOND_VIDEO_URL_HERE.mp4" type="video/mp4">
+                    </video>
+                    <div class="p-3">
+                        <p class="text-[10px] font-bold text-slate-500 uppercase italic">Trending Deal</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -67,13 +93,13 @@
                 <div class="bg-white/40 p-6 rounded-2xl border border-slate-100 shadow-sm">
                     <h4 class="text-blue-600 font-black text-sm uppercase tracking-widest mb-3">Affiliate Notice</h4>
                     <p class="text-slate-700 text-sm md:text-base leading-relaxed">
-                        We only provide curated links. For any product issues, color mismatches, or delivery concerns, please contact the <b>original seller or marketplace</b> where you completed the purchase. We are not responsible for post-sale services.
+                        We only provide curated links. For any product issues, color mismatches, or delivery concerns, please contact the <b>original seller or marketplace</b> where you completed the purchase.
                     </p>
                 </div>
                 <div class="bg-white/40 p-6 rounded-2xl border border-slate-100 shadow-sm border-l-4 border-l-red-500">
                     <h4 class="text-red-600 font-black text-sm uppercase tracking-widest mb-3">ज़रूरी सूचना</h4>
                     <p class="text-slate-800 text-sm md:text-base leading-relaxed font-medium">
-                        हम यहाँ सिर्फ अच्छे प्रोडक्ट्स के डायरेक्ट लिंक्स देते हैं। अगर प्रोडक्ट में कोई खराबी, कलर में बदलाव या डिलीवरी की दिक्कत हो, तो कृपया उसी <b>Website/Seller</b> से संपर्क करें जहाँ से आपने उसे खरीदा है। खरीदने के बाद की किसी भी परेशानी के लिए हम ज़िम्मेदार नहीं हैं।
+                        हम यहाँ सिर्फ अच्छे प्रोडक्ट्स के लिंक्स देते हैं। प्रोडक्ट की खराबी या डिलीवरी के लिए कृपया उसी Website/Seller से संपर्क करें जहाँ से आपने उसे खरीदा है।
                     </p>
                 </div>
             </div>
@@ -92,7 +118,8 @@
             try {
                 const res = await fetch(sheetUrl);
                 const csvText = await res.text();
-                const rows = csvText.split('\n').slice(1);
+                // Filter added to remove empty rows automatically
+                const rows = csvText.split('\n').slice(1).filter(row => row.trim() !== "");
                 
                 allItems = rows.map((row, rowIndex) => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
@@ -113,11 +140,10 @@
                         } else if (searchZone.includes('men') || searchZone.includes('boy') || searchZone.includes('shirt') || searchZone.includes('watch')) {
                             category = 'men';
                         }
-
                         return { name, desc, images, link, category, id: rowIndex };
                     }
                     return null;
-                }).filter(item => item !== null);
+                }).filter(item => item !== null && item.name !== "");
 
                 renderItems(allItems);
             } catch (e) {
@@ -139,11 +165,9 @@
             items.forEach((item) => {
                 const isAPK = item.category === 'apk';
                 const btnText = isAPK ? 'Download APK' : 'Buy Now';
-                const btnColor = isAPK ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700' : 'bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800';
-                
+                const btnColor = isAPK ? 'bg-gradient-to-r from-emerald-500 to-teal-600' : 'bg-gradient-to-r from-blue-600 to-indigo-700';
                 const tagText = isAPK ? 'PREMIUM APP' : (item.category === 'men' ? 'MEN SELECTION' : (item.category === 'women' ? 'WOMEN STYLE' : 'HOT DEAL'));
                 const tagColor = isAPK ? 'bg-emerald-500' : (item.category === 'men' ? 'bg-blue-500' : (item.category === 'women' ? 'bg-pink-500' : 'bg-red-500'));
-
                 const cardId = `img-${item.id}`;
 
                 container.innerHTML += `
