@@ -22,10 +22,13 @@
 </head>
 <body class="font-sans antialiased text-slate-900">
 
-    <header class="glass border-b sticky top-0 z-50 py-4 px-6 flex justify-between items-center">
-        <div>
-            <h1 class="text-2xl font-black text-blue-600 tracking-tighter uppercase italic">EXCLUSIVE DEALS & APPS</h1>
-            <p class="text-[15px] text-slate-500 font-bold tracking-widest uppercase">Powered By M.A. Gohar</p>
+    <header class="glass border-b sticky top-0 z-50 py-3 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <img src="https://via.placeholder.com/50" alt="Core 11 Logo" class="h-12 w-auto object-contain rounded-lg">
+            <div>
+                <h1 class="text-xl md:text-2xl font-black text-blue-600 tracking-tighter uppercase italic leading-none">EXCLUSIVE DEALS & APPS</h1>
+                <p class="text-[12px] md:text-[15px] text-slate-500 font-bold tracking-widest uppercase">Powered By M.A. Gohar</p>
+            </div>
         </div>
     </header>
 
@@ -158,12 +161,10 @@
                 if (cat === 'all') show = true;
                 else if (cat === 'apk') show = link.endsWith('.apk');
                 else if (cat === 'women') {
-                    // Keywords to identify women's products
                     const womenKeywords = ['women', 'kurti', 'gown', 'anarkali', 'satin', 'suit', 'lady'];
                     show = womenKeywords.some(key => fullText.includes(key));
                 }
                 else if (cat === 'men') {
-                    // Identifies Men's but excludes Women's
                     const isWomenProduct = ['women', 'kurti', 'gown', 'anarkali'].some(key => fullText.includes(key));
                     const menKeywords = ['men', 'shirt', 'watch', 'boy', 't-shirt', 'pant'];
                     show = !isWomenProduct && menKeywords.some(key => fullText.includes(key));
