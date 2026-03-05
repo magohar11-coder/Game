@@ -44,12 +44,12 @@
     <main class="max-w-7xl mx-auto p-4 md:p-10">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <div id="product-container" class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-                </div>
+            </div>
 
             <div id="video-sidebar" class="lg:col-span-1 space-y-6">
                 <h3 class="text-xl font-black text-slate-800 uppercase border-b-2 border-blue-600 pb-2">Live Demos</h3>
                 <div id="sidebar-content" class="space-y-6">
-                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -72,7 +72,7 @@
                             desc: cols[1].replace(/"/g, '').trim(),
                             images: cols[2].replace(/"/g, '').trim().split(','),
                             link: cols[3].replace(/"/g, '').trim(),
-                            video: cols[4] ? cols[4].replace(/"/g, '').trim() : null, // Column E
+                            video: cols[4] ? cols[4].replace(/"/g, '').trim() : null,
                             id: rowIndex
                         };
                     }
@@ -84,18 +84,27 @@
             } catch (e) { console.error("Error loading data"); }
         }
 
+        // Shorts aur YouTube Links ko Embed mein badalne ke liye
         function getYouTubeEmbed(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
+            if (!url) return null;
+            let videoId = "";
+            if (url.includes("shorts/")) {
+                videoId = url.split("shorts/")[1].split("?")[0];
+            } else if (url.includes("v=")) {
+                videoId = url.split("v=")[1].split("&")[0];
+            } else if (url.includes("youtu.be/")) {
+                videoId = url.split("youtu.be/")[1].split("?")[0];
+            }
+            return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}` : null;
         }
 
         function renderSidebar(items) {
             const container = document.getElementById('sidebar-content');
-            const videoLinks = items.map(i => i.video).filter(v => v).slice(0, 2); // Get top 2 videos from sheet
+            // Hum Sheet ki pehli 2 rows se video links le rahe hain
+            const videoLinks = items.map(i => i.video).filter(v => v).slice(0, 2); 
 
             if(videoLinks.length === 0) {
-                container.innerHTML = "<p class='text-slate-400 text-xs'>Add video links in Sheet Column E to see demos.</p>";
+                container.innerHTML = "<p class='text-slate-400 text-xs text-center p-4 bg-white rounded-xl border border-dashed'>Add video links in Sheet Column E.</p>";
                 return;
             }
 
@@ -104,8 +113,8 @@
                 return `
                     <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 p-2">
                         ${ytLink ? 
-                            `<iframe class="aspect-video" src="${ytLink}" frameborder="0" allowfullscreen></iframe>` : 
-                            `<video class="aspect-[9/16] object-cover" controls muted loop><source src="${link}" type="video/mp4"></video>`
+                            `<iframe class="w-full aspect-[9/16]" src="${ytLink}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : 
+                            `<video class="w-full aspect-[9/16] object-cover" controls muted loop><source src="${link}" type="video/mp4"></video>`
                         }
                     </div>
                 `;
@@ -133,7 +142,7 @@
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            // Add your category filtering logic here if needed
+            // Filtering logic can be added here
         }
 
         loadStore();
