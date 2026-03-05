@@ -42,7 +42,6 @@
     <main class="max-w-7xl mx-auto p-4 md:p-10">
         <div class="flex flex-col-reverse lg:flex-row gap-8">
             <div id="product-container" class="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 self-start"></div>
-            
             <div id="video-sidebar" class="lg:w-1/4 space-y-6">
                 <h3 class="text-xl font-black text-slate-800 uppercase border-b-2 border-blue-600 pb-2">Live Demos</h3>
                 <div id="sidebar-content" class="space-y-6"></div>
@@ -98,10 +97,6 @@
                 }
             });
             const uniqueLinks = [...new Set(allVideoLinks)].slice(0, 5);
-            if(uniqueLinks.length === 0) {
-                container.innerHTML = "<p class='text-slate-400 text-xs text-center p-4 bg-white rounded-xl border border-dashed'>Videos will appear here.</p>";
-                return;
-            }
             container.innerHTML = uniqueLinks.map(link => {
                 const ytLink = getYouTubeEmbed(link);
                 return `<div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 p-2 card-hover">
@@ -115,9 +110,6 @@
             const container = document.getElementById('product-container');
             container.innerHTML = items.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
-                const btnText = isAPK ? 'Download APK' : 'Buy Now';
-                const btnColor = isAPK ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-blue-600 hover:bg-blue-700';
-                
                 return `
                 <div class="card-hover bg-white rounded-[2rem] p-6 border shadow-xl flex flex-col h-full product-card" 
                      data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
@@ -129,7 +121,7 @@
                         <p class="text-slate-500 text-xs mt-2 line-clamp-2">${item.desc}</p>
                     </div>
                     <div class="mt-8">
-                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-sm font-black py-4 rounded-2xl ${btnColor} transition-colors shadow-lg">${btnText}</a>
+                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-sm font-black py-4 rounded-2xl ${isAPK ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-blue-600 hover:bg-blue-700'} transition-colors shadow-lg">${isAPK ? 'Download APK' : 'Buy Now'}</a>
                     </div>
                 </div>`;
             }).join('');
@@ -154,23 +146,27 @@
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active'); b.classList.add('bg-white'); });
             btn.classList.add('active'); btn.classList.remove('bg-white');
+            
             const cards = document.querySelectorAll('.product-card');
             cards.forEach(card => {
                 const name = card.getAttribute('data-name');
                 const desc = card.getAttribute('data-desc');
                 const link = card.getAttribute('data-link');
+                const fullText = name + " " + desc;
                 
                 let show = false;
-                if (cat === 'all') {
-                    show = true;
-                } else if (cat === 'apk') {
-                    show = link.endsWith('.apk');
-                } else if (cat === 'men') {
-                    // Exact word match for 'men' to avoid 'women' appearing
-                    const regex = /\bmen\b/g;
-                    show = regex.test(name) || regex.test(desc);
-                } else if (cat === 'women') {
-                    show = name.includes('women') || desc.includes('women');
+                if (cat === 'all') show = true;
+                else if (cat === 'apk') show = link.endsWith('.apk');
+                else if (cat === 'women') {
+                    // Keywords to identify women's products
+                    const womenKeywords = ['women', 'kurti', 'gown', 'anarkali', 'satin', 'suit', 'lady'];
+                    show = womenKeywords.some(key => fullText.includes(key));
+                }
+                else if (cat === 'men') {
+                    // Identifies Men's but excludes Women's
+                    const isWomenProduct = ['women', 'kurti', 'gown', 'anarkali'].some(key => fullText.includes(key));
+                    const menKeywords = ['men', 'shirt', 'watch', 'boy', 't-shirt', 'pant'];
+                    show = !isWomenProduct && menKeywords.some(key => fullText.includes(key));
                 }
                 
                 card.style.display = show ? 'flex' : 'none';
