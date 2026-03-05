@@ -11,22 +11,21 @@
             background-attachment: fixed; background-size: cover; background-position: center;
             will-change: background-image;
         }
-        .sticky-hero { position: sticky; top: 88px; z-index: 40; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); padding-bottom: 15px; }
+        .sticky-hero { position: sticky; top: 72px; z-index: 40; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding-bottom: 10px; }
         .card-hover { transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
-        .filter-btn.active { background-color: #2563eb !important; color: white !important; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1); }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb !important; }
         .fade-img { transition: opacity 0.3s ease-in-out; }
         
-        #site-logo { max-height: 70px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); }
+        #site-logo { max-height: 60px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); }
 
-        /* FIX 1: Cards ki height control karne ke liye */
-        .product-card { height: 420px !important; display: flex; flex-direction: column; justify-content: space-between; }
-        .img-box { height: 220px; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        /* Card Height Fix */
+        .product-card { height: 440px !important; display: flex; flex-direction: column; justify-content: space-between; }
+        .img-box { height: 220px; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #f8fafc; border-radius: 1rem; }
 
-        #loader { position: fixed; inset: 0; background: white; z-index: 100; display: flex; items-center; justify-center; }
+        #loader { position: fixed; inset: 0; background: white; z-index: 100; display: flex; align-items: center; justify-content: center; }
 
-        /* Mobile Layout Fix */
         @media (max-width: 1024px) {
             .main-layout { flex-direction: column !important; }
             .content-area { order: 1; }
@@ -34,36 +33,39 @@
         }
     </style>
 </head>
-<body class="font-sans antialiased text-slate-900">
+<body class="font-sans antialiased text-slate-900 bg-slate-50">
 
     <div id="loader"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
 
-    <header class="glass border-b sticky top-0 z-50 py-3 px-6 flex justify-between items-center">
+    <header class="glass border-b sticky top-0 z-50 py-2 px-6 flex justify-between items-center">
         <div class="flex items-center gap-4">
-            <img id="site-logo" src="https://via.placeholder.com/150x70" alt="Logo" class="object-contain transition-opacity duration-300">
-            <div class="border-l-2 border-slate-300 pl-4 hidden sm:block">
-                <h1 class="text-xl font-black text-blue-600 italic leading-none">EXCLUSIVE DEALS</h1>
-                <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Powered By M.A. Gohar</p>
+            <img id="site-logo" src="https://via.placeholder.com/150x60" alt="Logo" class="object-contain transition-opacity duration-300">
+            <div class="border-l-2 border-slate-200 pl-4 hidden sm:block">
+                <h1 class="text-lg font-black text-blue-600 italic leading-none">CORE-11 STORE</h1>
+                <p class="text-[9px] text-slate-500 font-bold tracking-widest uppercase">By M.A. Gohar</p>
             </div>
+        </div>
+        <div class="hidden md:flex gap-2" id="header-filters">
+            <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-1.5 rounded-full border text-[10px] font-bold uppercase transition-all">All</button>
+            <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-4 py-1.5 rounded-full border text-[10px] font-bold uppercase transition-all">Apps</button>
         </div>
     </header>
 
-    <div class="sticky-hero text-center pt-6 border-b border-slate-100">
-        <h2 class="text-2xl font-extrabold text-slate-800 mb-4 uppercase">Core-11 Apps Store</h2>
-        <div class="flex flex-wrap justify-center gap-2 mb-2" id="filter-group">
-            <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border text-xs font-bold uppercase">All</button>
+    <div class="sticky-hero text-center pt-4 border-b border-slate-100">
+        <div class="flex flex-wrap justify-center gap-2 mb-2">
+            <button onclick="filterCategory('all', this)" class="filter-btn active px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white md:hidden">All</button>
             <button onclick="filterCategory('men', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Men</button>
             <button onclick="filterCategory('women', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Women</button>
-            <button onclick="filterCategory('apk', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white">Apps</button>
+            <button onclick="filterCategory('apk', this)" class="filter-btn px-5 py-2 rounded-full border text-xs font-bold uppercase bg-white md:hidden">Apps</button>
         </div>
     </div>
 
-    <main class="max-w-7xl mx-auto p-4">
+    <main class="max-w-7xl mx-auto p-4 md:p-6">
         <div class="flex flex-col lg:flex-row gap-8 main-layout">
             <div id="product-container" class="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 content-area"></div>
             
             <div id="video-sidebar" class="lg:w-1/4 space-y-6 sidebar-area">
-                <h3 class="text-lg font-black text-slate-800 uppercase border-b-2 border-blue-600 pb-1">Live Demos</h3>
+                <h3 class="text-sm font-black text-slate-800 uppercase tracking-wider border-b-2 border-blue-600 pb-1 inline-block">Featured Demos</h3>
                 <div id="sidebar-content" class="space-y-4"></div>
             </div>
         </div>
@@ -99,7 +101,7 @@
                 renderItems(allItems.filter(i => !['logo', 'background'].includes(i.name.toLowerCase())));
                 renderSidebar(allItems);
                 setTimeout(startSliders, 1000);
-            } catch (e) { console.error("Fast Load Error"); }
+            } catch (e) { console.error("Load Error"); }
         }
 
         function setupSiteAssets(items) {
@@ -110,11 +112,11 @@
             if (bg && bg.images.length > 0) {
                 let idx = 0;
                 const change = () => {
-                    document.body.style.backgroundImage = `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('${bg.images[idx].trim()}')`;
+                    document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.9), rgba(240,242,245,0.9)), url('${bg.images[idx].trim()}')`;
                     idx = (idx + 1) % bg.images.length;
                 };
                 change();
-                if (bg.images.length > 1) setInterval(change, 6000);
+                if (bg.images.length > 1) setInterval(change, 7000);
             }
         }
 
@@ -123,17 +125,17 @@
             container.innerHTML = items.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
                 return `
-                <div class="card-hover bg-white rounded-3xl p-5 border shadow-sm product-card" 
+                <div class="card-hover bg-white rounded-3xl p-5 border border-slate-100 shadow-sm product-card" 
                      data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
-                    <div class="img-box bg-slate-50 rounded-2xl">
+                    <div class="img-box">
                         <img loading="lazy" id="img-${item.id}" src="${item.images[0]}" class="fade-img max-h-full object-contain p-2">
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-lg font-black text-slate-800 leading-tight line-clamp-1">${item.name}</h3>
+                        <h3 class="text-base font-bold text-slate-800 leading-tight line-clamp-1">${item.name}</h3>
                         <p class="text-slate-500 text-[11px] mt-1 line-clamp-2">${item.desc}</p>
                     </div>
                     <div class="mt-auto pt-4">
-                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-xs font-black py-3 rounded-xl ${isAPK ? 'bg-emerald-500' : 'bg-blue-600'} shadow-md hover:opacity-90 transition-opacity uppercase italic">${isAPK ? 'Get APK' : 'Order Now'}</a>
+                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[11px] font-black py-3 rounded-xl ${isAPK ? 'bg-emerald-500' : 'bg-blue-600'} shadow-md hover:opacity-90 transition-opacity uppercase italic tracking-wider">${isAPK ? 'Install APK' : 'View Details'}</a>
                     </div>
                 </div>`;
             }).join('');
@@ -145,18 +147,18 @@
             if (url.includes("shorts/")) vid = url.split("shorts/")[1].split("?")[0];
             else if (url.includes("v=")) vid = url.split("v=")[1].split("&")[0];
             else if (url.includes("youtu.be/")) vid = url.split("youtu.be/")[1].split("?")[0];
-            return vid ? `https://www.youtube.com/embed/${vid.trim()}?mute=1&loop=1&playlist=${vid.trim()}` : null;
+            // Added autoplay, mute, loop, and playlist for billboard effect
+            return vid ? `https://www.youtube.com/embed/${vid.trim()}?autoplay=1&mute=1&loop=1&playlist=${vid.trim()}&controls=0` : null;
         }
 
         function renderSidebar(items) {
             const container = document.getElementById('sidebar-content');
             let vids = [];
             items.forEach(i => { if(i.video) vids.push(...i.video.split(',')); });
-            // FIX 2: aspect-[9/16] ko aspect-[16/9] kiya landscape ke liye
             container.innerHTML = [...new Set(vids)].slice(0, 4).map(link => {
                 const yt = getYouTubeEmbed(link);
-                return `<div class="bg-white rounded-xl overflow-hidden shadow-md p-1">
-                    <iframe loading="lazy" class="w-full aspect-[16/9] rounded-lg" src="${yt}" frameborder="0"></iframe>
+                return `<div class="bg-black rounded-2xl overflow-hidden shadow-lg border-2 border-white">
+                    <iframe loading="lazy" class="w-full aspect-[16/9]" src="${yt}" frameborder="0" allow="autoplay"></iframe>
                 </div>`;
             }).join('');
         }
@@ -169,10 +171,10 @@
                         const el = document.getElementById(`img-${item.id}`);
                         if (el && document.body.contains(el)) {
                             c = (c + 1) % item.images.length;
-                            el.style.opacity = '0.3';
+                            el.style.opacity = '0.4';
                             setTimeout(() => { el.src = item.images[c].trim(); el.style.opacity = '1'; }, 300);
                         }
-                    }, 4000);
+                    }, 5000);
                 }
             });
         }
@@ -186,7 +188,7 @@
                 const link = card.getAttribute('data-link');
                 let show = (cat === 'all') || 
                            (cat === 'apk' && link.endsWith('.apk')) ||
-                           (cat === 'women' && ['women','kurti','gown','suit'].some(k => fullText.includes(k))) ||
+                           (cat === 'women' && ['women','kurti','gown','suit','anarkali'].some(k => fullText.includes(k))) ||
                            (cat === 'men' && ['men','shirt','boy','watch'].some(k => fullText.includes(k)) && !fullText.includes('women'));
                 card.style.display = show ? 'flex' : 'none';
             });
