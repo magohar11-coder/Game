@@ -35,7 +35,17 @@
         100% Secure & Ads-Free Apps | Zero Permission Required | <button onclick="toggleTerms()" class="underline hover:text-yellow-300 !text-[35px] font-black ml-2 uppercase leading-none inline-block">Read Terms & Conditions</button>
     </div>
 
-    <header class="glass border-b sticky top-0 z-50 py-2 px-6 flex justify-between items-center">
+    <div class="max-w-7xl mx-auto px-4 mt-4">
+        <div class="bg-black border-4 border-gray-800 rounded-xl shadow-2xl p-4 flex items-center overflow-hidden relative min-h-[80px]">
+            <div class="absolute top-2 right-2 w-3 h-3 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_red]"></div>
+            <div class="bg-yellow-400 text-black px-4 py-2 font-black italic rounded-lg mr-4 text-sm uppercase">Notice</div>
+            <div id="notice-board" class="text-[#39FF14] font-mono text-[22px] md:text-[28px] whitespace-nowrap tracking-tighter w-full">
+                Connecting to Satellite... Please wait...
+            </div>
+        </div>
+    </div>
+
+    <header class="glass border-b sticky top-0 z-50 py-2 px-6 flex justify-between items-center mt-4">
         <div class="flex items-center gap-4">
              <marquee class="text-[14px] md:text-[20px] font-black text-blue-600 uppercase italic w-[150px] md:w-[400px]">
                 Welcome to Core 11 Apps Store! 100% Secure, Ad-Free, No Permissions Required. Purchase from World Famous Websites Safely.
@@ -55,25 +65,16 @@
     <div id="terms-modal" class="flex">
         <div class="modal-content shadow-2xl border-4 border-blue-600">
             <h2 class="text-2xl font-black text-red-600 uppercase italic mb-4 border-b-2 pb-2">Terms & Conditions</h2>
-            
             <div class="space-y-4 text-slate-700 text-sm leading-relaxed">
                 <div class="bg-blue-50 p-3 rounded-xl">
                     <p class="font-bold text-blue-800">ENGLISH:</p>
-                    <p>Affiliate Notice
-
-We only provide curated links. For any product issues, color mismatches, or delivery concerns, please contact the original seller or marketplace where you completed the purchase. We are not responsible for post-sale services.</p>
+                    <p>Affiliate Notice We only provide curated links. For any product issues, color mismatches, or delivery concerns, please contact the original seller or marketplace where you completed the purchase.</p>
                 </div>
-                
                 <div class="bg-purple-50 p-3 rounded-xl">
                     <p class="font-bold text-purple-800">HINDI (नियम):</p>
-                    <p>ज़रूरी सूचना
-
-हम यहाँ सिर्फ अच्छे प्रोडक्ट्स के डायरेक्ट लिंक्स देते हैं। अगर प्रोडक्ट में कोई खराबी, कलर में बदलाव या डिलीवरी की दिक्कत हो, तो कृपया उसी Website/Seller से संपर्क करें जहाँ से आपने उसे खरीदा है। खरीदने के बाद की किसी भी परेशानी के लिए हम ज़िम्मेदार नहीं है</p>
+                    <p>ज़रूरी सूचना हम यहाँ सिर्फ अच्छे प्रोडक्ट्स के डायरेक्ट लिंक्स देते हैं। अगर प्रोडक्ट में कोई खराबी या डिलीवरी की दिक्कत हो, तो कृपया उसी Website/Seller से संपर्क करें जहाँ से आपने उसे खरीदा है।</p>
                 </div>
-
-                <p class="text-[10px] text-slate-500 italic uppercase">* 100% Safe & Verified by Core 11 Store Team.</p>
             </div>
-
             <button onclick="toggleTerms()" class="w-full mt-6 bg-blue-600 text-white font-black py-3 rounded-2xl shadow-lg hover:bg-blue-700 transition-all uppercase italic">I Agree / मुझे मंजूर है</button>
         </div>
     </div>
@@ -95,7 +96,6 @@ We only provide curated links. For any product issues, color mismatches, or deli
                 <div id="sidebar-content" class="space-y-4"></div>
             </div>
         </div>
-
         <div id="cdr-section" class="mt-12 hidden">
             <h2 class="text-xl font-black text-slate-800 uppercase tracking-widest mb-6 border-l-4 border-blue-600 pl-4">Premium CDR Files</h2>
             <div id="cdr-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
@@ -110,7 +110,6 @@ We only provide curated links. For any product issues, color mismatches, or deli
 
         let allItems = [];
 
-        // Terms Popup Toggle
         function toggleTerms() {
             const modal = document.getElementById('terms-modal');
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
@@ -138,13 +137,24 @@ We only provide curated links. For any product issues, color mismatches, or deli
 
                 requestAnimationFrame(() => {
                     setupSiteAssets(allItems);
-                    renderItems(allItems.filter(i => !['logo', 'background'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
+                    renderItems(allItems.filter(i => !['logo', 'background', 'notice'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
                     renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
                     renderSidebar(allItems);
+                    updateNoticeBoard(allItems); // Naya Function Call
                     document.getElementById('loader').style.display = 'none';
                     setTimeout(startSliders, 1000);
                 });
             } catch (e) { console.error("Load Error"); }
+        }
+
+        function updateNoticeBoard(items) {
+            const board = document.getElementById('notice-board');
+            const notice = items.find(i => i.name.toLowerCase() === 'notice');
+            if(notice) {
+                board.innerHTML = `<marquee scrollamount="10">${notice.desc}</marquee>`;
+            } else {
+                board.innerHTML = `<marquee scrollamount="7">Welcome to Core-11 Apps Store & Deals! Latest Fashion and Secure Apps are here.</marquee>`;
+            }
         }
 
         function setupSiteAssets(items) {
@@ -165,13 +175,25 @@ We only provide curated links. For any product issues, color mismatches, or deli
             const container = document.getElementById('product-container');
             container.innerHTML = items.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
+                const isWebLink = item.link.includes('github.io'); // Check for web version
+                
+                let btnHtml = '';
+                if(isAPK) {
+                    btnHtml = `<div class="flex flex-col gap-2">
+                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[11px] font-black py-3 rounded-xl bg-emerald-500 shadow-md uppercase italic tracking-wider">Install APK</a>
+                        <a href="${item.link.split('/releases/')[0]}" target="_blank" class="block w-full text-center text-blue-600 text-[10px] font-bold py-2 rounded-xl border-2 border-blue-600 bg-white uppercase">Use Online</a>
+                    </div>`;
+                } else {
+                    btnHtml = `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[11px] font-black py-3 rounded-xl bg-blue-600 shadow-md uppercase italic tracking-wider">View Details</a>`;
+                }
+
                 return `<div class="card-hover bg-white rounded-3xl p-5 border border-slate-100 shadow-sm product-card" data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
                     <div class="img-box"><img id="img-${item.id}" src="${item.images[0]}" class="fade-img max-h-full object-contain p-2" loading="lazy"></div>
                     <div class="mt-4">
                         <h3 class="text-[25px] font-black text-blue-600 leading-tight line-clamp-1">${item.name}</h3>
                         <p class="text-slate-600 text-[20px] font-medium mt-2 line-clamp-3 leading-relaxed">${item.desc}</p>
                     </div>
-                    <div class="mt-auto pt-4"><a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[11px] font-black py-3 rounded-xl ${isAPK ? 'bg-emerald-500' : 'bg-blue-600'} shadow-md uppercase italic tracking-wider">${isAPK ? 'Install APK' : 'View Details'}</a></div>
+                    <div class="mt-auto pt-4">${btnHtml}</div>
                 </div>`;
             }).join('');
         }
@@ -212,7 +234,7 @@ We only provide curated links. For any product issues, color mismatches, or deli
 
         function startSliders() {
             allItems.forEach(item => {
-                if (item.images.length > 1 && !['logo', 'background'].includes(item.name.toLowerCase())) {
+                if (item.images.length > 1 && !['logo', 'background', 'notice'].includes(item.name.toLowerCase())) {
                     let c = 0;
                     setInterval(() => {
                         const el = document.getElementById(`img-${item.id}`);
