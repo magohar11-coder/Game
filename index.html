@@ -28,8 +28,9 @@
         .filter-btn {
             transition: all 0.2s;
             border: 2px solid #e2e8f0;
-            font-size: 14px !important;
+            font-size: 13px !important;
             letter-spacing: 0.5px;
+            font-weight: 900;
         }
         .filter-btn.active { 
             background-color: #2563eb !important; 
@@ -38,14 +39,13 @@
             transform: scale(1.05);
         }
         
-        #site-logo { max-height: 80px; width: auto; }
+        #site-logo { max-height: 75px; width: auto; }
         
         .product-card { height: 440px !important; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
         .img-box { height: 220px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; }
 
         #loader { position: fixed; inset: 0; background: white; z-index: 100; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease-out; }
         
-        /* MULTICOLOR ANIMATED BORDER */
         .notice-wrapper {
             position: relative;
             padding: 3px;
@@ -80,22 +80,22 @@
 
     <div id="terms-modal" onclick="closeTerms()">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl" onclick="event.stopPropagation()">
-            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic">Terms & Conditions</h2>
+            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
             <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
-                <p class="bg-yellow-50 p-3 rounded-xl border-l-4 border-yellow-400">
+                <p class="bg-yellow-50 p-3 rounded-xl border-l-4 border-yellow-400 text-sm">
                     <span class="block font-bold text-black mb-1">English:</span>
                     Any purchase made through the links on this store is at your own risk. The store owner is not responsible for any payment issues or product quality.
                 </p>
-                <p class="bg-blue-50 p-3 rounded-xl border-l-4 border-blue-400">
+                <p class="bg-blue-50 p-3 rounded-xl border-l-4 border-blue-400 text-sm">
                     <span class="block font-bold text-black mb-1">Hindi:</span>
                     इस स्टोर पर दिए गए लिंक से की गई किसी भी खरीदारी की पूरी जिम्मेदारी आपकी होगी। भुगतान या सामान की क्वालिटी के लिए स्टोर मालिक जिम्मेदार नहीं है।
                 </p>
             </div>
-            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest">I Understand / समझ गया</button>
+            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Understand / समझ गया</button>
         </div>
     </div>
 
-    <div class="bg-blue-600 text-white text-[11px] font-bold py-1 px-4 text-center uppercase tracking-widest">
+    <div class="bg-blue-600 text-white text-[10px] font-bold py-1 px-4 text-center uppercase tracking-widest">
         100% Secure & Ads-Free Apps | Zero Permission Required
     </div>
 
@@ -108,28 +108,30 @@
         </div>
     </div>
 
-    <header class="bg-white border-b py-3 px-6 flex justify-between items-center mt-4">
+    <header class="bg-white border-b py-3 px-6 flex justify-between items-center mt-4 shadow-sm">
         <div class="flex items-center gap-4">
             <img id="site-logo" src="https://via.placeholder.com/150x100" alt="Logo">
             <div class="border-l-2 border-slate-200 pl-4">
-                <h1 class="text-[26px] md:text-[32px] font-black text-purple-600 italic leading-none">CORE-11 STORE</h1>
-                <p class="text-[14px] md:text-[16px] text-blue-600 font-black tracking-widest uppercase">Powered By M.A. Gohar</p>
+                <h1 class="text-[24px] md:text-[32px] font-black text-purple-600 italic leading-none">CORE-11 STORE</h1>
+                <p class="text-[12px] md:text-[14px] text-blue-600 font-black tracking-widest uppercase">Powered By M.A. Gohar</p>
             </div>
         </div>
-        <div class="hidden md:flex gap-3 items-center">
-            <button onclick="filterCategory('all', this)" class="filter-btn active px-8 py-3 rounded-full font-black uppercase">All</button>
-            <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-8 py-3 rounded-full font-black uppercase">Apps</button>
-            <button onclick="showTerms()" class="bg-red-100 text-red-600 border-2 border-red-200 px-6 py-3 rounded-full font-black uppercase hover:bg-red-600 hover:text-white transition-all">Terms</button>
+        <div class="hidden md:flex gap-2 items-center">
+            <button onclick="filterCategory('all', this)" class="filter-btn active px-6 py-2.5 rounded-full uppercase">All Items</button>
+            <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-6 py-2.5 rounded-full uppercase">Apps</button>
+            <button onclick="filterCategory('men', this)" class="filter-btn bg-white px-6 py-2.5 rounded-full uppercase">Men</button>
+            <button onclick="filterCategory('women', this)" class="filter-btn bg-white px-6 py-2.5 rounded-full uppercase">Women</button>
+            <button onclick="showTerms()" class="bg-red-50 text-red-600 border-2 border-red-200 px-5 py-2.5 rounded-full font-black uppercase hover:bg-red-600 hover:text-white transition-all ml-2">Terms</button>
         </div>
     </header>
 
     <div class="sticky-hero md:hidden py-4 px-2">
         <div class="flex flex-wrap justify-center gap-2 max-w-sm mx-auto">
-            <button onclick="filterCategory('all', this)" class="filter-btn active flex-1 min-w-[80px] py-4 rounded-2xl font-black uppercase bg-white shadow-sm">All</button>
-            <button onclick="filterCategory('apk', this)" class="filter-btn flex-1 min-w-[80px] py-4 rounded-2xl font-black uppercase bg-white shadow-sm">Apps</button>
-            <button onclick="filterCategory('men', this)" class="filter-btn flex-1 min-w-[80px] py-4 rounded-2xl font-black uppercase bg-white shadow-sm">Men</button>
-            <button onclick="filterCategory('women', this)" class="filter-btn flex-1 min-w-[80px] py-4 rounded-2xl font-black uppercase bg-white shadow-sm">Women</button>
-            <button onclick="showTerms()" class="w-full mt-1 bg-red-600 text-white py-3 rounded-2xl font-black uppercase italic tracking-widest shadow-lg">Terms & Conditions</button>
+            <button onclick="filterCategory('all', this)" class="filter-btn active flex-1 min-w-[75px] py-3.5 rounded-xl uppercase bg-white shadow-sm">All</button>
+            <button onclick="filterCategory('apk', this)" class="filter-btn flex-1 min-w-[75px] py-3.5 rounded-xl uppercase bg-white shadow-sm">Apps</button>
+            <button onclick="filterCategory('men', this)" class="filter-btn flex-1 min-w-[75px] py-3.5 rounded-xl uppercase bg-white shadow-sm">Men</button>
+            <button onclick="filterCategory('women', this)" class="filter-btn flex-1 min-w-[75px] py-3.5 rounded-xl uppercase bg-white shadow-sm">Women</button>
+            <button onclick="showTerms()" class="w-full mt-1 bg-red-600 text-white py-3 rounded-xl font-black uppercase italic tracking-widest shadow-md">Terms & Responsibility</button>
         </div>
     </div>
 
@@ -154,7 +156,6 @@
         const myWhatsApp = "7841806171"; 
         let allItems = [];
 
-        // Terms Modal Functions
         function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
         function closeTerms() { document.getElementById('terms-modal').style.display = 'none'; }
 
@@ -201,7 +202,7 @@
             const logo = items.find(i => i.name.toLowerCase() === 'logo');
             if (logo) document.getElementById('site-logo').src = logo.images[0];
             const bg = items.find(i => i.name.toLowerCase() === 'background');
-            if (bg) document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.9), rgba(240,242,245,0.9)), url('${bg.images[0]}')`;
+            if (bg) document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.95), rgba(240,242,245,0.95)), url('${bg.images[0]}')`;
         }
 
         function renderItems(items) {
@@ -209,8 +210,8 @@
             container.innerHTML = items.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
                 const btn = isAPK ? 
-                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-3 rounded-xl bg-emerald-500 uppercase italic transition-all">Install APK</a>` : 
-                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-3 rounded-xl bg-blue-600 uppercase italic transition-all">View Details</a>`;
+                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-3 rounded-xl bg-emerald-500 uppercase italic transition-all shadow-md">Install APK</a>` : 
+                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-3 rounded-xl bg-blue-600 uppercase italic transition-all shadow-md">View Details</a>`;
 
                 return `
                 <div class="card-hover bg-white rounded-3xl p-5 border border-slate-100 product-card shadow-sm" 
@@ -219,7 +220,7 @@
                         <img id="img-${item.id}" src="${item.images[0]}" class="max-h-full object-contain p-2" loading="lazy">
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-[20px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
+                        <h3 class="text-[19px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
                         <p class="text-slate-500 text-[14px] font-medium mt-2 line-clamp-2">${item.desc}</p>
                     </div>
                     <div class="mt-auto pt-4">${btn}</div>
@@ -233,7 +234,7 @@
             document.getElementById('cdr-container').innerHTML = items.map(item => `
                 <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 text-center card-hover">
                     <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy">
-                    <h4 class="text-[11px] font-bold text-slate-700 mb-2 truncate">${item.name}</h4>
+                    <h4 class="text-[11px] font-bold text-slate-700 mb-2 truncate uppercase">${item.name}</h4>
                     <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-2 rounded-lg uppercase">Get CDR</a>
                 </div>
             `).join('');
@@ -246,7 +247,7 @@
                 let vid = link.includes("shorts/") ? link.split("shorts/")[1] : (link.includes("v=") ? link.split("v=")[1] : link.split("youtu.be/")[1]);
                 if (vid) vid = vid.split(/[?&]/)[0];
                 return `<div class="bg-black rounded-2xl overflow-hidden shadow-lg border-2 border-white">
-                    <iframe class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&controls=0" frameborder="0" allow="autoplay"></iframe>
+                    <iframe class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/${vid}?autoplay=0&mute=1&controls=1" frameborder="0"></iframe>
                 </div>`;
             }).join('');
         }
@@ -267,18 +268,25 @@
         }
 
         function filterCategory(cat, btn) {
+            // Update UI
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-blue-600', 'text-white'));
             btn.classList.add('active');
+            
+            // Filter Logic
             document.querySelectorAll('.product-card').forEach(card => {
-                const fullText = card.dataset.name + " " + card.dataset.desc;
+                const nameDesc = card.dataset.name + " " + card.dataset.desc;
                 const link = card.dataset.link;
-                let show = (cat === 'all') || 
-                           (cat === 'apk' && link.endsWith('.apk')) ||
-                           (cat === 'women' && /kurti|gown|suit|women|girl/.test(fullText)) ||
-                           (cat === 'men' && /shirt|men|boy|watch|tshirt/.test(fullText) && !fullText.includes('women'));
+                let show = false;
+
+                if (cat === 'all') show = true;
+                else if (cat === 'apk') show = link.endsWith('.apk');
+                else if (cat === 'women') show = /kurti|gown|suit|women|girl|female/.test(nameDesc);
+                else if (cat === 'men') show = /shirt|men|boy|male|watch|tshirt/.test(nameDesc) && !nameDesc.includes('women');
+
                 card.style.display = show ? 'flex' : 'none';
             });
         }
+        
         loadStore();
     </script>
 </body>
