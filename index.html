@@ -19,8 +19,8 @@
         .card-hover:hover { transform: translateY(-5px); box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1); }
         .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; }
-        #site-logo { max-height: 100px; width: auto; content-visibility: auto; }
-        .product-card { height: 460px !important; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+        #site-logo { max-height: 100px; width: auto; }
+        .product-card { height: 440px !important; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
         .img-box { height: 220px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; }
         #loader { position: fixed; inset: 0; background: white; z-index: 100; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease-out; }
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 999; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
@@ -47,7 +47,7 @@
     <header class="glass border-b sticky top-0 z-50 py-2 px-6 flex justify-between items-center mt-4">
         <div class="flex items-center gap-4">
              <marquee class="text-[14px] md:text-[20px] font-black text-blue-600 uppercase italic w-[150px] md:w-[400px]">
-                Welcome to Core 11 Apps Store! 100% Secure, Ad-Free, No Permissions Required. Purchase from World Famous Websites Safely.
+                Welcome to Core 11 Apps Store! 100% Secure, Ad-Free, No Permissions Required.
             </marquee>
             <img id="site-logo" src="https://via.placeholder.com/150x100" alt="Logo">
             <div class="border-l-2 border-slate-200 pl-4 hidden sm:block">
@@ -67,7 +67,7 @@
             <div class="space-y-4 text-slate-700 text-sm">
                 <div class="bg-blue-50 p-3 rounded-xl">
                     <p class="font-bold text-blue-800 uppercase">English:</p>
-                    <p>We provide curated links. For any issues, contact the original seller. We are not responsible for post-sale services.</p>
+                    <p>We provide curated links. For any issues, contact the original seller.</p>
                 </div>
                 <div class="bg-purple-50 p-3 rounded-xl">
                     <p class="font-bold text-purple-800 uppercase">Hindi:</p>
@@ -113,7 +113,7 @@
 
         async function loadStore() {
             try {
-                const [res] = await Promise.all([fetch(sheetUrl)]);
+                const res = await fetch(sheetUrl);
                 const csvText = await res.text();
                 const rows = csvText.split('\n').slice(1).filter(r => r.trim());
 
@@ -123,14 +123,12 @@
                     return {
                         name: cols[0].replace(/"/g, '').trim(),
                         desc: cols[1].replace(/"/g, '').trim(),
-                        // Clean each image link automatically
                         images: cols[2].replace(/"/g, '').split(',').map(img => img.trim()),
                         link: cols[3].replace(/"/g, '').trim(),
                         video: cols[4] ? cols[4].replace(/"/g, '').trim() : null,
                         id: idx
                     };
                 }).filter(i => i);
-
                 renderAll();
             } catch (e) { console.error("Load Error"); }
         }
@@ -150,40 +148,34 @@
         function updateNoticeBoard(items) {
             const board = document.getElementById('notice-board');
             const notice = items.find(i => i.name.toLowerCase() === 'notice');
-            const msg = notice ? notice.desc : "Welcome to Core-11 Store!";
-            board.innerHTML = `<marquee scrollamount="12">${msg}</marquee>`;
+            board.innerHTML = `<marquee scrollamount="12">${notice ? notice.desc : "Welcome to Core-11 Store!"}</marquee>`;
         }
 
         function setupSiteAssets(items) {
             const logo = items.find(i => i.name.toLowerCase() === 'logo');
-            if (logo && logo.images[0]) document.getElementById('site-logo').src = logo.images[0];
-            
+            if (logo) document.getElementById('site-logo').src = logo.images[0];
             const bg = items.find(i => i.name.toLowerCase() === 'background');
-            if (bg && bg.images[0]) {
-                document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.9), rgba(240,242,245,0.9)), url('${bg.images[0]}')`;
-            }
+            if (bg) document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.9), rgba(240,242,245,0.9)), url('${bg.images[0]}')`;
         }
 
         function renderItems(items) {
             const container = document.getElementById('product-container');
             container.innerHTML = items.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
-                let btn = isAPK ? `
-                    <div class="flex flex-col gap-2">
-                        <a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[11px] font-black py-3 rounded-xl bg-emerald-500 shadow-md uppercase italic">Install APK</a>
-                        <a href="${item.link.split('/releases/')[0]}" target="_blank" class="block w-full text-center text-blue-600 text-[10px] font-bold py-2 rounded-xl border-2 border-blue-600 uppercase bg-white">Use Online</a>
-                    </div>
-                ` : `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[11px] font-black py-4 rounded-xl bg-blue-600 shadow-md uppercase italic">View Details</a>`;
+                // Removed Online Button for privacy
+                const btn = isAPK ? 
+                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-4 rounded-xl bg-emerald-500 shadow-md uppercase italic">Install APK</a>` : 
+                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-4 rounded-xl bg-blue-600 shadow-md uppercase italic">View Details</a>`;
 
                 return `
                 <div class="card-hover bg-white rounded-3xl p-5 border border-slate-100 product-card" 
                      data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
                     <div class="img-box">
-                        <img id="img-${item.id}" src="${item.images[0]}" class="fade-img max-h-full object-contain p-2" loading="lazy" onerror="this.src='https://via.placeholder.com/400x400?text=Image+Not+Found'">
+                        <img id="img-${item.id}" src="${item.images[0]}" class="fade-img max-h-full object-contain p-2" onerror="this.src='https://via.placeholder.com/400x400?text=Core11+Store'">
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-[25px] font-black text-blue-600 leading-tight line-clamp-1">${item.name}</h3>
-                        <p class="text-slate-600 text-[20px] font-medium mt-2 line-clamp-3">${item.desc}</p>
+                        <h3 class="text-[22px] font-black text-blue-600 leading-tight line-clamp-1">${item.name}</h3>
+                        <p class="text-slate-600 text-[18px] font-medium mt-2 line-clamp-3">${item.desc}</p>
                     </div>
                     <div class="mt-auto pt-4">${btn}</div>
                 </div>`;
@@ -209,7 +201,7 @@
                 let vid = link.includes("shorts/") ? link.split("shorts/")[1] : (link.includes("v=") ? link.split("v=")[1] : link.split("youtu.be/")[1]);
                 if (vid) vid = vid.split(/[?&]/)[0];
                 return `<div class="bg-black rounded-2xl overflow-hidden shadow-lg border-2 border-white">
-                    <iframe class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&controls=0" frameborder="0" loading="lazy"></iframe>
+                    <iframe class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&controls=0" frameborder="0"></iframe>
                 </div>`;
             }).join('');
         }
@@ -218,14 +210,12 @@
             allItems.forEach(item => {
                 if (item.images.length > 1 && !['logo', 'background', 'notice'].includes(item.name.toLowerCase())) {
                     let c = 0;
-                    const preloader = new Image();
                     setInterval(() => {
                         const el = document.getElementById(`img-${item.id}`);
                         if (el && document.visibilityState === 'visible') {
                             c = (c + 1) % item.images.length;
-                            preloader.src = item.images[c];
                             el.style.opacity = '0.5';
-                            setTimeout(() => { el.src = preloader.src; el.style.opacity = '1'; }, 250);
+                            setTimeout(() => { el.src = item.images[c]; el.style.opacity = '1'; }, 250);
                         }
                     }, 5000);
                 }
@@ -235,17 +225,15 @@
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-blue-600', 'text-white'));
             btn.classList.add('active');
-            const cards = document.querySelectorAll('.product-card');
-            cards.forEach(card => {
-                const name = card.dataset.name, desc = card.dataset.desc, link = card.dataset.link;
-                const fullText = name + " " + desc;
+            document.querySelectorAll('.product-card').forEach(card => {
+                const fullText = card.dataset.name + " " + card.dataset.desc;
+                const link = card.dataset.link;
                 let show = (cat === 'all') || (cat === 'apk' && link.endsWith('.apk')) ||
-                           (cat === 'women' && /kurti|gown|suit|women|anarkali/.test(fullText)) ||
+                           (cat === 'women' && /kurti|gown|suit|women/.test(fullText)) ||
                            (cat === 'men' && /shirt|men|boy|watch/.test(fullText) && !fullText.includes('women'));
                 card.style.display = show ? 'flex' : 'none';
             });
         }
-        
         loadStore();
     </script>
 </body>
