@@ -28,7 +28,7 @@
         .filter-btn {
             transition: all 0.2s;
             border: 2px solid #e2e8f0;
-            font-size: 12px !important;
+            font-size: 14px !important;
             letter-spacing: 0.5px;
         }
         .filter-btn.active { 
@@ -60,11 +60,40 @@
         }
 
         #notice-board marquee { font-weight: 900; color: #39FF14; }
+
+        /* MODAL STYLE */
+        #terms-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
     </style>
 </head>
 <body class="font-sans text-slate-900 bg-slate-50">
 
     <div id="loader"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
+
+    <div id="terms-modal" onclick="closeTerms()">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl" onclick="event.stopPropagation()">
+            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic">Terms & Conditions</h2>
+            <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
+                <p class="bg-yellow-50 p-3 rounded-xl border-l-4 border-yellow-400">
+                    <span class="block font-bold text-black mb-1">English:</span>
+                    Any purchase made through the links on this store is at your own risk. The store owner is not responsible for any payment issues or product quality.
+                </p>
+                <p class="bg-blue-50 p-3 rounded-xl border-l-4 border-blue-400">
+                    <span class="block font-bold text-black mb-1">Hindi:</span>
+                    इस स्टोर पर दिए गए लिंक से की गई किसी भी खरीदारी की पूरी जिम्मेदारी आपकी होगी। भुगतान या सामान की क्वालिटी के लिए स्टोर मालिक जिम्मेदार नहीं है।
+                </p>
+            </div>
+            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest">I Understand / समझ गया</button>
+        </div>
+    </div>
 
     <div class="bg-blue-600 text-white text-[11px] font-bold py-1 px-4 text-center uppercase tracking-widest">
         100% Secure & Ads-Free Apps | Zero Permission Required
@@ -79,7 +108,7 @@
         </div>
     </div>
 
-    <header class="bg-white border-b py-2 px-6 flex justify-between items-center mt-4">
+    <header class="bg-white border-b py-3 px-6 flex justify-between items-center mt-4">
         <div class="flex items-center gap-4">
             <img id="site-logo" src="https://via.placeholder.com/150x100" alt="Logo">
             <div class="border-l-2 border-slate-200 pl-4">
@@ -87,20 +116,20 @@
                 <p class="text-[14px] md:text-[16px] text-blue-600 font-black tracking-widest uppercase">Powered By M.A. Gohar</p>
             </div>
         </div>
-        <div class="hidden md:flex gap-2">
-            <button onclick="filterCategory('all', this)" class="filter-btn active px-6 py-2 rounded-full font-bold uppercase">All</button>
-            <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-6 py-2 rounded-full font-bold uppercase">Apps</button>
-            <button onclick="filterCategory('men', this)" class="filter-btn bg-white px-6 py-2 rounded-full font-bold uppercase">Men</button>
-            <button onclick="filterCategory('women', this)" class="filter-btn bg-white px-6 py-2 rounded-full font-bold uppercase">Women</button>
+        <div class="hidden md:flex gap-3 items-center">
+            <button onclick="filterCategory('all', this)" class="filter-btn active px-8 py-3 rounded-full font-black uppercase">All</button>
+            <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-8 py-3 rounded-full font-black uppercase">Apps</button>
+            <button onclick="showTerms()" class="bg-red-100 text-red-600 border-2 border-red-200 px-6 py-3 rounded-full font-black uppercase hover:bg-red-600 hover:text-white transition-all">Terms</button>
         </div>
     </header>
 
     <div class="sticky-hero md:hidden py-4 px-2">
         <div class="flex flex-wrap justify-center gap-2 max-w-sm mx-auto">
-            <button onclick="filterCategory('all', this)" class="filter-btn active flex-1 min-w-[70px] py-3 rounded-xl font-black uppercase bg-white shadow-sm">All</button>
-            <button onclick="filterCategory('apk', this)" class="filter-btn flex-1 min-w-[70px] py-3 rounded-xl font-black uppercase bg-white shadow-sm">Apps</button>
-            <button onclick="filterCategory('men', this)" class="filter-btn flex-1 min-w-[70px] py-3 rounded-xl font-black uppercase bg-white shadow-sm">Men</button>
-            <button onclick="filterCategory('women', this)" class="filter-btn flex-1 min-w-[70px] py-3 rounded-xl font-black uppercase bg-white shadow-sm">Women</button>
+            <button onclick="filterCategory('all', this)" class="filter-btn active flex-1 min-w-[80px] py-4 rounded-2xl font-black uppercase bg-white shadow-sm">All</button>
+            <button onclick="filterCategory('apk', this)" class="filter-btn flex-1 min-w-[80px] py-4 rounded-2xl font-black uppercase bg-white shadow-sm">Apps</button>
+            <button onclick="filterCategory('men', this)" class="filter-btn flex-1 min-w-[80px] py-4 rounded-2xl font-black uppercase bg-white shadow-sm">Men</button>
+            <button onclick="filterCategory('women', this)" class="filter-btn flex-1 min-w-[80px] py-4 rounded-2xl font-black uppercase bg-white shadow-sm">Women</button>
+            <button onclick="showTerms()" class="w-full mt-1 bg-red-600 text-white py-3 rounded-2xl font-black uppercase italic tracking-widest shadow-lg">Terms & Conditions</button>
         </div>
     </div>
 
@@ -124,6 +153,10 @@
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
         const myWhatsApp = "7841806171"; 
         let allItems = [];
+
+        // Terms Modal Functions
+        function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
+        function closeTerms() { document.getElementById('terms-modal').style.display = 'none'; }
 
         async function loadStore() {
             try {
