@@ -122,6 +122,7 @@
             <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-6 py-2.5 rounded-full uppercase">Apps</button>
             <button onclick="filterCategory('men', this)" class="filter-btn bg-white px-6 py-2.5 rounded-full uppercase">Men</button>
             <button onclick="filterCategory('women', this)" class="filter-btn bg-white px-6 py-2.5 rounded-full uppercase">Women</button>
+            <button onclick="filterCategory('local', this)" class="filter-btn bg-white px-6 py-2.5 rounded-full uppercase text-purple-600 border-purple-200">Local Store</button>
             <button onclick="filterCategory('cdr', this)" class="filter-btn bg-white px-6 py-2.5 rounded-full uppercase">CDR Files</button>
             <button onclick="showTerms()" class="bg-red-50 text-red-600 border-2 border-red-200 px-5 py-2.5 rounded-full font-black uppercase hover:bg-red-600 hover:text-white transition-all ml-2">Terms</button>
         </div>
@@ -133,6 +134,7 @@
             <button onclick="filterCategory('apk', this)" class="filter-btn flex-1 min-w-[75px] py-3.5 rounded-xl uppercase bg-white shadow-sm">Apps</button>
             <button onclick="filterCategory('men', this)" class="filter-btn flex-1 min-w-[75px] py-3.5 rounded-xl uppercase bg-white shadow-sm">Men</button>
             <button onclick="filterCategory('women', this)" class="filter-btn flex-1 min-w-[75px] py-3.5 rounded-xl uppercase bg-white shadow-sm">Women</button>
+            <button onclick="filterCategory('local', this)" class="filter-btn flex-1 min-w-[75px] py-3.5 rounded-xl uppercase bg-purple-50 text-purple-600 shadow-sm">Local</button>
             <button onclick="filterCategory('cdr', this)" class="filter-btn flex-1 min-w-[75px] py-3.5 rounded-xl uppercase bg-white shadow-sm">CDR</button>
             <button onclick="showTerms()" class="w-full mt-1 bg-red-600 text-white py-3 rounded-xl font-black uppercase italic tracking-widest shadow-md">Terms & Responsibility</button>
         </div>
@@ -221,6 +223,29 @@
             const container = document.getElementById('product-container');
             container.innerHTML = items.map(item => {
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
+                const isLocal = item.desc.includes('`');
+                
+                // Card logic for local store items
+                if (isLocal) {
+                    const localData = item.desc.replace('`','').split('|');
+                    return `
+                    <div class="card-hover bg-white rounded-3xl p-5 border-2 border-purple-100 product-card shadow-sm" 
+                         data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
+                        <div class="img-box bg-purple-50">
+                            <img id="img-${item.id}" src="${item.images[0]}" class="max-h-full object-contain p-2" loading="lazy">
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-[19px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full font-black text-sm">₹${localData[0] || 'Price'}</span>
+                            </div>
+                            <p class="text-slate-500 text-[12px] font-bold mt-2 italic">📍 ${localData[1] || 'Local Shop'}</p>
+                        </div>
+                        <a href="https://wa.me/${myWhatsApp}?text=I am interested in: ${item.name}" target="_blank" class="mt-4 block w-full text-center bg-purple-600 text-white font-black py-3 rounded-xl uppercase text-[12px] shadow-md italic">Contact Store</a>
+                    </div>`;
+                }
+
+                // Normal Product Card
                 const btn = isAPK ? 
                     `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-3 rounded-xl bg-emerald-500 uppercase italic transition-all shadow-md">Install APK</a>` : 
                     `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-3 rounded-xl bg-blue-600 uppercase italic transition-all shadow-md">View Details</a>`;
@@ -233,7 +258,7 @@
                     </div>
                     <div class="mt-4">
                         <h3 class="text-[19px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
-                        <p class="text-slate-500 text-[14px] font-medium mt-2 line-clamp-2">${item.desc}</p>
+                        <p class="text-slate-500 text-[14px] font-medium mt-2 line-clamp-2">${item.desc.replace(/[.,`]/g, '')}</p>
                     </div>
                     <div class="mt-auto pt-4">${btn}</div>
                 </div>`;
@@ -244,7 +269,7 @@
             if (!items.length) return;
             document.getElementById('cdr-section').classList.remove('hidden');
             document.getElementById('cdr-container').innerHTML = items.map(item => `
-                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 text-center card-hover product-card-cdr" data-type="cdr">
+                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 text-center card-hover" style="height:auto;">
                     <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy">
                     <h4 class="text-[11px] font-bold text-slate-700 mb-2 truncate uppercase">${item.name}</h4>
                     <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-2 rounded-lg uppercase">Get CDR</a>
@@ -309,14 +334,15 @@
             } else {
                 cdrSection.classList.add('hidden');
                 productCards.forEach(card => {
-                    const nameDesc = card.dataset.name + " " + card.dataset.desc;
+                    const desc = card.dataset.desc;
                     const link = card.dataset.link;
                     let show = false;
 
                     if (cat === 'all') show = true;
                     else if (cat === 'apk') show = link.endsWith('.apk');
-                    else if (cat === 'women') show = /kurti|gown|suit|women|girl|female/.test(nameDesc);
-                    else if (cat === 'men') show = /shirt|men|boy|male|watch|tshirt/.test(nameDesc) && !nameDesc.includes('women');
+                    else if (cat === 'women') show = desc.includes(',');
+                    else if (cat === 'men') show = desc.includes('.');
+                    else if (cat === 'local') show = desc.includes('`');
 
                     card.style.display = show ? 'flex' : 'none';
                 });
