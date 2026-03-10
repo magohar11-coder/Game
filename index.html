@@ -20,7 +20,6 @@
             width: 100%;
         }
 
-        /* Mobile Frame Style */
         .mobile-view-active #mode-container {
             max-width: 400px !important;
             height: 90vh;
@@ -53,38 +52,61 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card-hover { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            will-change: transform;
+        }
+        .card-hover:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
 
         .filter-btn {
             transition: all 0.2s;
             border: 2px solid #e2e8f0;
-            font-size: 12px !important;
+            font-size: 13px !important;
+            letter-spacing: 0.5px;
             font-weight: 900;
         }
         .filter-btn.active { 
             background-color: #2563eb !important; 
             color: white !important; 
             border-color: #2563eb;
+            transform: scale(1.05);
         }
         
-        #site-logo { max-height: 45px; width: auto; border-radius: 8px; }
+        #site-logo { max-height: 45px; width: auto; }
         
-        .product-card { min-height: 420px; display: flex; flex-direction: column; }
-        .img-box { height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; overflow: hidden; }
+        .product-card { height: 440px !important; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+        .img-box { height: 220px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; }
 
-        #loader { position: fixed; inset: 0; background: white; z-index: 2000; display: flex; align-items: center; justify-content: center; }
+        #loader { position: fixed; inset: 0; background: white; z-index: 200; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease-out; }
         
         .notice-wrapper {
+            position: relative;
             padding: 3px;
             background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000);
             background-size: 400%;
-            border-radius: 12px;
+            border-radius: 15px;
             animation: moveBorder 8s linear infinite;
         }
-        @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        @keyframes moveBorder {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
 
-        #notice-board marquee { font-weight: 900; color: #39FF14; font-family: monospace; }
+        #notice-board marquee { font-weight: 900; color: #39FF14; }
+
+        #terms-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
     </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
@@ -94,72 +116,84 @@
     <div id="loader"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
 
     <div id="mode-container">
-        <div id="terms-modal" class="hidden fixed inset-0 bg-black/70 z-[300] items-center justify-center p-4" onclick="closeTerms()">
-            <div class="bg-white rounded-3xl p-6 max-w-md w-full" onclick="event.stopPropagation()">
-                <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase text-center">Important Notice</h2>
-                <div class="space-y-4 text-slate-700 font-medium">
-                    <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">Official brands (Amazon, Flipkart, etc.) handle all payments and deliveries. We only provide verified links.</p>
-                    <p class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500 italic">पेमेंट और डिलिवरी की पूरी जिम्मेदारी Amazon, Flipkart जैसे स्टोर्स की है।</p>
+        <div id="terms-modal" onclick="closeTerms()">
+            <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl" onclick="event.stopPropagation()">
+                <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
+                <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
+                    <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 my-4">
+                        <span class="block font-bold text-black mb-1">Important Update:</span>
+                        We only bring you verified links from world-renowned brands like Amazon, Flipkart, and Myntra. Since your purchase happens directly on their official websites, they will take full responsibility for your payment and delivery. 
+                    </p>
+                    <p class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500 my-4">
+                        <span class="block font-bold text-black mb-1">जरूरी सूचना:</span>
+                        हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के लिंक्स लाते हैं। पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है।
+                    </p>
                 </div>
-                <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase">I Agree</button>
+                <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Agree and Continue</button>
             </div>
         </div>
 
         <div class="fixed-header-wrapper">
-            <div class="max-w-7xl mx-auto px-4 py-2">
+            <div class="max-w-7xl mx-auto px-4 mt-2 mb-2">
                 <div class="notice-wrapper">
-                    <div class="bg-black rounded-[10px] p-2 flex items-center overflow-hidden">
-                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-3 text-[10px] uppercase">Notice</div>
-                        <div id="notice-board" class="text-[16px] md:text-[20px] w-full"></div>
+                    <div class="bg-black rounded-[12px] p-3 flex items-center overflow-hidden relative">
+                        <div class="bg-yellow-400 text-black px-3 py-1 font-black italic rounded mr-3 text-xs uppercase">Notice</div>
+                        <div id="notice-board" class="font-mono text-[18px] md:text-[24px] whitespace-nowrap w-full"></div>
                     </div>
                 </div>
             </div>
 
-            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">
+            <header class="bg-white border-b py-2 px-6 flex flex-wrap justify-between items-center gap-4">
                 <div class="flex items-center gap-3">
                     <img id="site-logo" src="https://via.placeholder.com/150x100" alt="Logo">
                     <div class="border-l-2 border-slate-200 pl-3">
-                        <h1 class="text-[18px] md:text-[24px] font-black text-purple-600 italic leading-none">Core11 Store</h1>
-                        <p class="text-[9px] text-blue-600 font-black tracking-tighter uppercase">Powered By M.A. Gohar</p>
+                        <h1 class="text-[20px] md:text-[26px] font-black text-purple-600 italic leading-none">Core11 Store</h1>
+                        <p class="text-[10px] md:text-[11px] text-blue-600 font-black tracking-widest uppercase">Powered By M.A. Gohar</p>
                     </div>
                 </div>
                 
-                <div class="hidden md:flex gap-2">
-                    <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-2 rounded-full">ALL</button>
-                    <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-4 py-2 rounded-full">APPS</button>
-                    <button onclick="filterCategory('men', this)" class="filter-btn bg-white px-4 py-2 rounded-full">MEN</button>
-                    <button onclick="filterCategory('women', this)" class="filter-btn bg-white px-4 py-2 rounded-full">WOMEN</button>
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn bg-white px-4 py-2 rounded-full">CDR FILES</button>
+                <div class="flex flex-wrap gap-2 items-center justify-center">
+                    <div class="hidden md:flex gap-2">
+                        <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-2 rounded-full uppercase">All Items</button>
+                        <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase">Apps</button>
+                        <button onclick="filterCategory('men', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase">Men</button>
+                        <button onclick="filterCategory('women', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase">Women</button>
+                        <button onclick="filterCategory('local', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase text-purple-600 border-purple-200">Nearby Store</button>
+                        <button onclick="filterCategory('cdr', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase">Laser/CNC CDR File</button>
+                        <button onclick="showTerms()" class="bg-red-50 text-red-600 border-2 border-red-200 px-4 py-2 rounded-full font-black uppercase hover:bg-red-600 hover:text-white transition-all">Terms</button>
+                    </div>
                 </div>
             </header>
 
-            <div class="md:hidden py-2 px-2 bg-slate-50 border-b overflow-x-auto">
-                <div class="flex gap-2 min-w-max">
-                    <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-2 rounded-xl bg-white shadow-sm">All</button>
-                    <button onclick="filterCategory('apk', this)" class="filter-btn px-4 py-2 rounded-xl bg-white shadow-sm">Apps</button>
-                    <button onclick="filterCategory('men', this)" class="filter-btn px-4 py-2 rounded-xl bg-white shadow-sm">Men</button>
-                    <button onclick="filterCategory('women', this)" class="filter-btn px-4 py-2 rounded-xl bg-white shadow-sm">Women</button>
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-4 py-2 rounded-xl bg-white shadow-sm">CDR</button>
+            <div class="md:hidden py-3 px-2 bg-slate-50 border-b">
+                <div class="flex flex-wrap justify-center gap-2 max-w-full mx-auto">
+                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">All</button>
+                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">Apps</button>
+                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">Men</button>
+                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">Women</button>
+                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local</button>
+                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">CDR</button>
+                    <button onclick="showTerms()" class="bg-red-600 text-white px-3 py-2 rounded-xl font-black uppercase shadow-md flex-grow text-center">Terms</button>
                 </div>
             </div>
         </div>
 
-        <main class="max-w-7xl mx-auto p-4 md:p-6">
-            <div class="flex flex-col lg:flex-row gap-6">
+        <main class="max-w-7xl mx-auto p-4 md:p-6 mt-4">
+            <div class="flex flex-col lg:flex-row gap-8">
                 <div id="product-container" class="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"></div>
                 
                 <div id="video-sidebar" class="lg:w-1/4 space-y-6">
                     <div id="corner-section" class="hidden">
-                        <h3 class="text-xs font-black text-slate-800 uppercase border-b-2 border-purple-600 mb-3">Hot Deals</h3>
+                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 inline-block mb-3">Special Deals</h3>
                         <div id="corner-container" class="space-y-4"></div>
                     </div>
-                    <h3 class="text-xs font-black text-slate-800 uppercase border-b-2 border-blue-600 mb-3">Live Demos</h3>
+                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 inline-block">Product Demos</h3>
                     <div id="sidebar-content" class="space-y-4"></div>
                 </div>
             </div>
 
             <div id="cdr-section" class="mt-12 hidden border-t pt-8">
-                <h2 class="text-xl font-black text-slate-800 uppercase mb-6 border-l-4 border-purple-600 pl-4">Premium CDR Designs</h2>
+                <h2 class="text-xl font-black text-slate-800 uppercase tracking-widest mb-6 border-l-4 border-purple-600 pl-4">Premium CDR Files</h2>
                 <div id="cdr-container" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
             </div>
         </main>
@@ -173,8 +207,13 @@
         function toggleView() {
             const body = document.getElementById('main-body');
             const btn = document.getElementById('view-switcher');
-            body.classList.toggle('mobile-view-active');
-            btn.innerText = body.classList.contains('mobile-view-active') ? "💻 Switch Desktop" : "📱 Switch Mobile";
+            if(body.classList.contains('mobile-view-active')) {
+                body.classList.remove('mobile-view-active');
+                btn.innerText = "📱 Switch to Mobile View";
+            } else {
+                body.classList.add('mobile-view-active');
+                btn.innerText = "💻 Switch to Desktop View";
+            }
         }
 
         function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
@@ -206,12 +245,9 @@
             setupSiteAssets(allItems);
             updateNoticeBoard(allItems);
             
-            const mainItems = allItems.filter(i => 
-                !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && 
-                !i.name.toLowerCase().includes('cdr')
-            );
-            
+            const mainItems = allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr'));
             renderItems(mainItems);
+            
             renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
             renderSidebar(allItems);
             renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));
@@ -223,36 +259,56 @@
         function updateNoticeBoard(items) {
             const board = document.getElementById('notice-board');
             const notice = items.find(i => i.name.toLowerCase() === 'notice');
-            board.innerHTML = `<marquee scrollamount="8">${notice ? notice.desc : "Welcome to Core11 Store - High Quality Apps & Deals"}</marquee>`;
+            board.innerHTML = `<marquee scrollamount="10">${notice ? notice.desc : "Welcome to Core-11 Apps Store!"}</marquee>`;
         }
 
         function setupSiteAssets(items) {
             const logo = items.find(i => i.name.toLowerCase() === 'logo');
             if (logo) document.getElementById('site-logo').src = logo.images[0];
             const bg = items.find(i => i.name.toLowerCase() === 'background');
-            if (bg) document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.9), rgba(240,242,245,0.9)), url('${bg.images[0]}')`;
+            if (bg) document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.95), rgba(240,242,245,0.95)), url('${bg.images[0]}')`;
         }
 
         function renderItems(items) {
             const container = document.getElementById('product-container');
             container.innerHTML = items.map(item => {
-                const isAPK = item.link.toLowerCase().includes('.apk');
-                const btnClass = isAPK ? 'bg-emerald-500' : 'bg-blue-600';
-                const btnText = isAPK ? 'Install App' : 'View Details';
+                const isAPK = item.link.toLowerCase().endsWith('.apk');
+                const isLocal = item.desc.includes('`');
+                
+                if (isLocal) {
+                    const localData = item.desc.replace('`','').split('|');
+                    return `
+                    <div class="card-hover bg-white rounded-3xl p-5 border-2 border-purple-100 product-card shadow-sm" 
+                         data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
+                        <div class="img-box bg-purple-50">
+                            <img id="img-${item.id}" src="${item.images[0]}" class="max-h-full object-contain p-2" loading="lazy">
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-[19px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full font-black text-sm">₹${localData[0] || 'Price'}</span>
+                            </div>
+                            <p class="text-slate-500 text-[12px] font-bold mt-2 italic">📍 ${localData[1] || 'Local Shop'}</p>
+                        </div>
+                        <a href="https://wa.me/${myWhatsApp}?text=I am interested in: ${item.name}" target="_blank" class="mt-4 block w-full text-center bg-purple-600 text-white font-black py-3 rounded-xl uppercase text-[12px] shadow-md italic">Contact Store</a>
+                    </div>`;
+                }
+
+                const btn = isAPK ? 
+                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-3 rounded-xl bg-emerald-500 uppercase italic transition-all shadow-md">Install APK</a>` : 
+                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[12px] font-black py-3 rounded-xl bg-blue-600 uppercase italic transition-all shadow-md">View Details</a>`;
 
                 return `
-                <div class="card-hover bg-white rounded-3xl p-4 border border-slate-100 product-card shadow-sm" 
+                <div class="card-hover bg-white rounded-3xl p-5 border border-slate-100 product-card shadow-sm" 
                      data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
                     <div class="img-box">
                         <img id="img-${item.id}" src="${item.images[0]}" class="max-h-full object-contain p-2" loading="lazy">
                     </div>
-                    <div class="mt-4 flex-grow">
-                        <h3 class="text-lg font-black text-slate-800 leading-tight line-clamp-1 uppercase">${item.name}</h3>
-                        <p class="text-slate-500 text-sm mt-2 line-clamp-2">${item.desc.replace(/[.`]/g, '')}</p>
+                    <div class="mt-4">
+                        <h3 class="text-[19px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
+                        <p class="text-slate-500 text-[14px] font-medium mt-2 line-clamp-2">${item.desc.replace(/[.,`]/g, '')}</p>
                     </div>
-                    <a href="${item.link}" target="_blank" class="mt-4 block w-full text-center text-white text-xs font-black py-3 rounded-xl ${btnClass} uppercase italic shadow-md transition-transform active:scale-95">
-                        ${btnText}
-                    </a>
+                    <div class="mt-auto pt-4">${btn}</div>
                 </div>`;
             }).join('');
         }
@@ -261,10 +317,10 @@
             if (!items.length) return;
             document.getElementById('cdr-section').classList.remove('hidden');
             document.getElementById('cdr-container').innerHTML = items.map(item => `
-                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-50 text-center card-hover">
-                    <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-xl mb-2">
-                    <h4 class="text-[10px] font-bold text-slate-700 mb-2 truncate uppercase">${item.name}</h4>
-                    <a href="https://wa.me/${myWhatsApp}?text=Hi, I want CDR: ${item.name}" target="_blank" class="block bg-purple-600 text-white text-[9px] font-black py-2 rounded-lg uppercase">Get File</a>
+                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 text-center card-hover" style="height:auto;">
+                    <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy">
+                    <h4 class="text-[11px] font-bold text-slate-700 mb-2 truncate uppercase">${item.name}</h4>
+                    <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-2 rounded-lg uppercase">Get CDR</a>
                 </div>
             `).join('');
         }
@@ -274,12 +330,13 @@
             document.getElementById('corner-section').classList.remove('hidden');
             document.getElementById('corner-container').innerHTML = items.map(item => `
                 <div class="bg-white p-4 rounded-3xl shadow-md border-2 border-purple-100 card-hover">
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-xl">
-                        <img src="${item.images[1] || item.images[0]}" class="w-full aspect-square object-cover rounded-xl">
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                        <img src="${item.images[0] || 'https://via.placeholder.com/150'}" class="w-full aspect-square object-cover rounded-xl shadow-sm">
+                        <img src="${item.images[1] || item.images[0]}" class="w-full aspect-square object-cover rounded-xl shadow-sm">
                     </div>
-                    <h4 class="text-sm font-black text-slate-800 uppercase truncate">${item.name}</h4>
-                    <a href="${item.link}" target="_blank" class="mt-2 block w-full text-center bg-black text-white text-[10px] font-black py-2 rounded-xl uppercase italic">Grab Now</a>
+                    <h4 class="text-[14px] font-black text-slate-800 uppercase mb-1">${item.desc.split('|')[0] || item.name}</h4>
+                    <p class="text-[11px] text-slate-500 font-bold mb-3">${item.desc.split('|')[1] || ''}</p>
+                    <a href="${item.link}" target="_blank" class="block w-full text-center bg-purple-600 text-white text-[10px] font-black py-2 rounded-xl uppercase italic">Grab Deal</a>
                 </div>
             `).join('');
         }
@@ -287,18 +344,18 @@
         function renderSidebar(items) {
             const container = document.getElementById('sidebar-content');
             const vids = [...new Set(items.filter(i => i.video).map(i => i.video.split(',')).flat())];
-            container.innerHTML = vids.slice(0, 3).map(link => {
+            container.innerHTML = vids.slice(0, 5).map(link => {
                 let vid = link.includes("shorts/") ? link.split("shorts/")[1] : (link.includes("v=") ? link.split("v=")[1] : link.split("youtu.be/")[1]);
                 if (vid) vid = vid.split(/[?&]/)[0];
                 return `<div class="bg-black rounded-2xl overflow-hidden shadow-lg border-2 border-white">
-                    <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/${vid}?mute=1&playlist=${vid}&loop=1" frameborder="0" allow="autoplay"></iframe>
+                    <iframe class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&controls=0&loop=1&playlist=${vid}" frameborder="0" allow="autoplay; encrypted-media"></iframe>
                 </div>`;
             }).join('');
         }
 
         function startSliders() {
             allItems.forEach(item => {
-                if (item.images.length > 1) {
+                if (item.images.length > 1 && !['logo', 'background', 'notice', 'corner'].includes(item.name.toLowerCase())) {
                     let c = 0;
                     setInterval(() => {
                         const el = document.getElementById(`img-${item.id}`);
@@ -312,26 +369,29 @@
         }
 
         function filterCategory(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-blue-600', 'text-white'));
             btn.classList.add('active');
             
-            const cards = document.querySelectorAll('.product-card');
-            const cdrSec = document.getElementById('cdr-section');
+            const productCards = document.querySelectorAll('.product-card');
+            const cdrSection = document.getElementById('cdr-section');
 
             if (cat === 'cdr') {
-                cards.forEach(c => c.style.display = 'none');
-                cdrSec.classList.remove('hidden');
-                window.scrollTo({ top: cdrSec.offsetTop - 100, behavior: 'smooth' });
+                productCards.forEach(card => card.style.display = 'none');
+                cdrSection.classList.remove('hidden');
+                document.getElementById('mode-container').scrollTo({ top: cdrSection.offsetTop, behavior: 'smooth' });
             } else {
-                cdrSec.classList.add('hidden');
-                cards.forEach(card => {
-                    const d = card.dataset.desc;
-                    const l = card.dataset.link;
+                cdrSection.classList.add('hidden');
+                productCards.forEach(card => {
+                    const desc = card.dataset.desc;
+                    const link = card.dataset.link;
                     let show = false;
+
                     if (cat === 'all') show = true;
-                    else if (cat === 'apk') show = l.includes('.apk');
-                    else if (cat === 'women') show = d.includes(',');
-                    else if (cat === 'men') show = d.includes('.');
+                    else if (cat === 'apk') show = link.endsWith('.apk');
+                    else if (cat === 'women') show = desc.includes(','); // CARD LOGIC: COMMA FOR WOMEN
+                    else if (cat === 'men') show = desc.includes('.');   // CARD LOGIC: DOT FOR MEN
+                    else if (cat === 'local') show = desc.includes('`'); // CARD LOGIC: BACKTICK FOR LOCAL
+
                     card.style.display = show ? 'flex' : 'none';
                 });
             }
