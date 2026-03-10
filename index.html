@@ -24,6 +24,7 @@
             border-radius: 40px;
             overflow-y: auto;
             background: white;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
             position: relative;
         }
 
@@ -31,12 +32,15 @@
             position: fixed; bottom: 25px; right: 25px; z-index: 1000;
             background: #9333ea; color: white; padding: 12px 24px;
             border-radius: 50px; font-weight: 900; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            text-transform: uppercase; font-size: 12px; letter-spacing: 1px;
+            border: 2px solid white;
         }
 
         .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 
-        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
-        .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb; }
+        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; letter-spacing: 0.5px; }
+        .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb; transform: scale(1.05); }
         
         #site-logo { max-height: 80px; width: auto; }
         
@@ -45,18 +49,41 @@
 
         .notice-wrapper { padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
         @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+        #terms-modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            z-index: 10000; align-items: center; justify-content: center; padding: 20px;
+        }
     </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
 
     <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>
-    <div id="loader" class="fixed inset-0 bg-white z-[200] flex items-center justify-center"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
+    
+    <div id="loader" class="fixed inset-0 bg-white z-[200] flex items-center justify-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    </div>
+
+    <div id="terms-modal">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl relative">
+            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
+            <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
+                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 text-sm">
+                    <span class="block font-bold text-black mb-1">Verified Platforms:</span>
+                    All product links are from verified platforms like Amazon, Flipkart, and Myntra.
+                </p>
+                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े ब्रांड्स के वेरिफाइड लिंक्स लाते हैं। पेमेंट और डिलिवरी की जिम्मेदारी उनकी होती है।</p>
+            </div>
+            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Agree & Continue</button>
+        </div>
+    </div>
 
     <div id="mode-container">
         <div class="fixed-header-wrapper">
             <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">
                 <div class="notice-wrapper">
                     <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">
+                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] uppercase">Notice</div>
                         <div id="notice-board" class="font-mono text-[16px] md:text-[24px] text-green-400 w-full"></div>
                     </div>
                 </div>
@@ -64,29 +91,32 @@
 
             <header class="bg-white border-b py-2 px-4 flex justify-between items-center">
                 <div class="flex items-center gap-2">
-                    <img id="site-logo" src="" alt="Logo">
+                    <img id="site-logo" src="https://via.placeholder.com/150x80" alt="Logo">
                     <div>
-                        <h1 class="text-[22px] md:text-[32px] font-black text-purple-600 italic">Core11 Store</h1>
-                        <p class="text-[10px] text-blue-600 font-bold uppercase">Powered By-M.A. Gohar</p>
+                        <h1 class="text-[22px] md:text-[32px] font-black text-purple-600 italic leading-none">Core11 Store</h1>
+                        <div class="flex items-center gap-2">
+                            <p class="text-[10px] text-blue-600 font-bold uppercase">Powered By-M.A. Gohar</p>
+                            <button onclick="showTerms()" class="text-[10px] text-slate-400 underline font-bold uppercase">Terms</button>
+                        </div>
                     </div>
                 </div>
             </header>
 
             <div class="py-2 px-2 bg-slate-50 border-b overflow-x-auto">
                 <div class="flex gap-1.5 min-w-max">
-                    <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-1.5 rounded-lg bg-white">ALL</button>
-                    <button onclick="filterCategory('apk', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">APPS</button>
-                    <button onclick="filterCategory('men', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">MEN</button>
-                    <button onclick="filterCategory('women', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">WOMEN</button>
-                    <button onclick="filterCategory('local', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-purple-50">LOCAL</button>
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">CDR</button>
+                    <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-1.5 rounded-lg bg-white shadow-sm">ALL</button>
+                    <button onclick="filterCategory('apk', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white shadow-sm">APPS</button>
+                    <button onclick="filterCategory('men', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white shadow-sm">MEN</button>
+                    <button onclick="filterCategory('women', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white shadow-sm">WOMEN</button>
+                    <button onclick="filterCategory('local', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-purple-50 text-purple-600 shadow-sm">LOCAL</button>
+                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white shadow-sm">CDR</button>
                 </div>
             </div>
         </div>
 
         <main class="max-w-7xl mx-auto p-3">
             <div class="flex flex-col lg:flex-row gap-6">
-                <div id="product-container" class="lg:w-3/4 grid grid-cols-2 gap-3"></div>
+                <div id="product-container" class="lg:w-3/4 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3"></div>
                 <div id="video-sidebar" class="lg:w-1/4 space-y-4">
                     <h3 class="text-xs font-black uppercase border-b-2 border-blue-600 pb-1">Demos</h3>
                     <div id="sidebar-content" class="space-y-4"></div>
@@ -104,6 +134,17 @@
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
         const myWhatsApp = "7841806171"; 
         let allItems = [];
+
+        window.onload = function() {
+            if(!localStorage.getItem('core11_agreed')) showTerms();
+            loadStore();
+        };
+
+        function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
+        function closeTerms() { 
+            document.getElementById('terms-modal').style.display = 'none'; 
+            localStorage.setItem('core11_agreed', 'true');
+        }
 
         async function loadStore() {
             try {
@@ -137,13 +178,13 @@
             renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
             renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
             
-            // Video Sidebar with Auto-play & Mobile support
+            // Fixed Video Auto-play with muted+playsinline
             const vids = [...new Set(allItems.filter(i => i.video).map(i => i.video.split(',')).flat())];
             document.getElementById('sidebar-content').innerHTML = vids.slice(0, 5).map(link => {
                 let vid = link.includes("shorts/") ? link.split("shorts/")[1] : (link.includes("v=") ? link.split("v=")[1] : link.split("youtu.be/")[1]);
                 if (vid) vid = vid.split(/[?&]/)[0];
                 return `<div class="bg-black rounded-xl overflow-hidden shadow-lg border-2 border-white">
-                    <iframe class="w-full aspect-[9/16] md:aspect-video" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&playsinline=1&controls=0" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="w-full aspect-[9/16] md:aspect-video" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&playsinline=1&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
                 </div>`;
             }).join('');
 
@@ -155,7 +196,7 @@
             container.innerHTML = items.map(item => {
                 const isLocal = item.desc.includes('`');
                 return `
-                <div class="bg-white rounded-2xl p-3 border border-slate-100 product-card shadow-sm" data-desc="${item.desc}" data-link="${item.link}">
+                <div class="bg-white rounded-2xl p-3 border border-slate-100 product-card shadow-sm" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
                     <div class="img-box"><img src="${item.images[0]}" class="max-h-full object-contain" loading="lazy"></div>
                     <div class="mt-2">
                         <h3 class="text-[12px] font-black uppercase truncate">${item.name}</h3>
@@ -191,7 +232,7 @@
                     const d = p.dataset.desc;
                     const l = p.dataset.link;
                     let s = (cat === 'all');
-                    if (cat === 'apk') s = l.toLowerCase().endsWith('.apk');
+                    if (cat === 'apk') s = l.endsWith('.apk');
                     if (cat === 'women') s = d.includes(',');
                     if (cat === 'men') s = d.includes('.');
                     if (cat === 'local') s = d.includes('`');
@@ -200,11 +241,7 @@
             }
         }
 
-        function toggleView() {
-            document.getElementById('main-body').classList.toggle('mobile-view-active');
-        }
-
-        loadStore();
+        function toggleView() { document.getElementById('main-body').classList.toggle('mobile-view-active'); }
     </script>
 </body>
 </html>
