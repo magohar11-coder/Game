@@ -4,227 +4,204 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Core11 Apps Store & DEALS</title>
-    
     <link rel="dns-prefetch" href="https://docs.google.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <style>
-        /* Critical CSS for speed */
         body { 
             background-attachment: fixed; background-size: cover; background-position: center; 
-            transition: background-image 0.4s ease-in-out;
-            text-rendering: optimizeSpeed;
+            transition: background-image 0.5s ease-in-out;
+            text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
         }
 
-        #mode-container {
-            transition: transform 0.3s ease;
-            margin: 0 auto;
-            width: 100%;
-        }
+        #mode-container { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); margin: 0 auto; width: 100%; }
 
         .mobile-view-active #mode-container {
             max-width: 400px !important;
-            height: 85vh;
+            height: 90vh;
             margin: 20px auto;
-            border: 10px solid #1a1a1a;
-            border-radius: 35px;
+            border: 12px solid #333;
+            border-radius: 40px;
             overflow-y: auto;
             background: white;
-            box-shadow: 0 40px 80px -15px rgba(0,0,0,0.4);
+            position: relative;
         }
-
-        .mobile-view-active #mode-container::-webkit-scrollbar { width: 0px; }
 
         #view-switcher {
-            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
-            background: #9333ea; color: white; padding: 10px 20px;
-            border-radius: 30px; font-weight: 800; cursor: pointer;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-            font-size: 11px; text-transform: uppercase;
+            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
+            background: #9333ea; color: white; padding: 12px 24px;
+            border-radius: 50px; font-weight: 900; cursor: pointer;
         }
 
-        .fixed-header-wrapper {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid #eee;
-        }
+        .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 
-        .product-card { 
-            height: auto; min-height: 320px;
-            display: flex; flex-direction: column; 
-            padding: 10px !important;
-            will-change: transform;
-        }
-
-        .img-box { 
-            height: 130px; width: 100%; 
-            display: flex; align-items: center; justify-content: center; 
-            background: #f1f5f9; border-radius: 12px;
-            overflow: hidden;
-        }
-
-        #loader { position: fixed; inset: 0; background: white; z-index: 9999; display: flex; align-items: center; justify-content: center; }
-
-        /* Smooth marquee */
-        .notice-wrapper {
-            background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #ff0000);
-            background-size: 300%;
-            border-radius: 8px;
-            padding: 2px;
-            animation: flow 5s linear infinite;
-        }
-        @keyframes flow { 0% {background-position: 0%} 100% {background-position: 100%} }
+        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
+        .filter-btn.active { background-color: #2563eb !important; color: white !important; border-color: #2563eb; }
         
-        #notice-board marquee { font-weight: 800; color: #39FF14; font-size: 18px; }
+        #site-logo { max-height: 80px; width: auto; }
+        
+        .product-card { height: auto !important; min-height: 340px; display: flex; flex-direction: column; justify-content: space-between; padding: 12px !important; }
+        .img-box { height: 140px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; }
+
+        .notice-wrapper { padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
+        @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
     </style>
 </head>
-<body id="main-body" class="bg-slate-100 font-sans">
+<body id="main-body" class="font-sans text-slate-900 bg-slate-50">
 
-    <div id="loader"><div class="animate-spin rounded-full h-10 w-10 border-t-2 border-purple-600"></div></div>
-    <div id="view-switcher" onclick="toggleView()">📱 View Mode</div>
-
-    <div id="terms-modal" class="hidden fixed inset-0 bg-black/80 z-[10000] flex items-center justify-center p-5">
-        <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center">
-            <h2 class="text-xl font-bold text-red-600 mb-3 uppercase">Important Notice</h2>
-            <p class="text-sm text-slate-600 mb-4">Core11 provides verified links for Amazon, Flipkart & Myntra. All payments and deliveries are handled by them directly.</p>
-            <button onclick="closeTerms()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold uppercase">I Agree</button>
-        </div>
-    </div>
+    <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>
+    <div id="loader" class="fixed inset-0 bg-white z-[200] flex items-center justify-center"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
 
     <div id="mode-container">
         <div class="fixed-header-wrapper">
-            <div class="max-w-7xl mx-auto p-2">
+            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">
                 <div class="notice-wrapper">
-                    <div class="bg-black rounded-md p-1.5 overflow-hidden">
-                        <div id="notice-board"></div>
+                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">
+                        <div id="notice-board" class="font-mono text-[16px] md:text-[24px] text-green-400 w-full"></div>
                     </div>
                 </div>
             </div>
 
-            <header class="bg-white px-4 py-2 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <img id="site-logo" src="https://via.placeholder.com/80" alt="Logo" class="h-10 w-auto">
+            <header class="bg-white border-b py-2 px-4 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <img id="site-logo" src="" alt="Logo">
                     <div>
-                        <h1 class="text-lg md:text-2xl font-black text-purple-700 italic leading-none">Core11 Store</h1>
-                        <p class="text-[10px] font-bold text-blue-500">M.A. GOHAR</p>
+                        <h1 class="text-[22px] md:text-[32px] font-black text-purple-600 italic">Core11 Store</h1>
+                        <p class="text-[10px] text-blue-600 font-bold uppercase">Powered By-M.A. Gohar</p>
                     </div>
                 </div>
-                <button onclick="showTerms()" class="text-[10px] text-slate-400 font-bold uppercase underline">Terms</button>
             </header>
 
-            <div class="bg-white p-2 flex gap-1 overflow-x-auto no-scrollbar border-b">
-                <button onclick="filterCategory('all', this)" class="filter-btn active bg-slate-100 px-4 py-1.5 rounded-full text-[10px] font-black uppercase">All</button>
-                <button onclick="filterCategory('apk', this)" class="filter-btn bg-slate-100 px-4 py-1.5 rounded-full text-[10px] font-black uppercase">Apps</button>
-                <button onclick="filterCategory('men', this)" class="filter-btn bg-slate-100 px-4 py-1.5 rounded-full text-[10px] font-black uppercase">Men</button>
-                <button onclick="filterCategory('local', this)" class="filter-btn bg-purple-100 text-purple-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase">Local</button>
+            <div class="py-2 px-2 bg-slate-50 border-b overflow-x-auto">
+                <div class="flex gap-1.5 min-w-max">
+                    <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-1.5 rounded-lg bg-white">ALL</button>
+                    <button onclick="filterCategory('apk', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">APPS</button>
+                    <button onclick="filterCategory('men', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">MEN</button>
+                    <button onclick="filterCategory('women', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">WOMEN</button>
+                    <button onclick="filterCategory('local', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-purple-50">LOCAL</button>
+                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">CDR</button>
+                </div>
             </div>
         </div>
 
         <main class="max-w-7xl mx-auto p-3">
-            <div class="flex flex-col lg:flex-row gap-4">
-                <div id="product-container" class="lg:w-3/4 grid grid-cols-2 md:grid-cols-3 gap-3"></div>
-                <div class="lg:w-1/4 space-y-4">
-                    <h3 class="text-xs font-black uppercase border-b-2 border-blue-500 pb-1">Demos</h3>
-                    <div id="sidebar-content" class="grid grid-cols-1 gap-4"></div>
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div id="product-container" class="lg:w-3/4 grid grid-cols-2 gap-3"></div>
+                <div id="video-sidebar" class="lg:w-1/4 space-y-4">
+                    <h3 class="text-xs font-black uppercase border-b-2 border-blue-600 pb-1">Demos</h3>
+                    <div id="sidebar-content" class="space-y-4"></div>
                 </div>
+            </div>
+
+            <div id="cdr-section" class="mt-8 border-t pt-6 hidden">
+                <h2 class="text-lg font-black uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
+                <div id="cdr-container" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
             </div>
         </main>
     </div>
 
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
+        const myWhatsApp = "7841806171"; 
         let allItems = [];
 
-        function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
-        function closeTerms() { 
-            document.getElementById('terms-modal').style.display = 'none'; 
-            localStorage.setItem('core11_agreed', 'true');
+        async function loadStore() {
+            try {
+                const res = await fetch(sheetUrl);
+                const csvText = await res.text();
+                const rows = csvText.split('\n').slice(1).filter(r => r.trim());
+
+                allItems = rows.map((row, idx) => {
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    if (cols.length < 4) return null;
+                    return {
+                        name: cols[0].replace(/"/g, '').trim(),
+                        desc: cols[1].replace(/"/g, '').trim(),
+                        images: cols[2].replace(/"/g, '').split(',').map(img => img.trim()),
+                        link: cols[3].replace(/"/g, '').trim(),
+                        video: cols[4] ? cols[4].replace(/"/g, '').trim() : null,
+                        id: idx
+                    };
+                }).filter(i => i);
+                renderAll();
+            } catch (e) { console.error("Load Error"); }
+        }
+
+        function renderAll() {
+            const logo = allItems.find(i => i.name.toLowerCase() === 'logo');
+            if (logo) document.getElementById('site-logo').src = logo.images[0];
+            
+            const notice = allItems.find(i => i.name.toLowerCase() === 'notice');
+            document.getElementById('notice-board').innerHTML = `<marquee scrollamount="8">${notice ? notice.desc : "Welcome to Core11 Store"}</marquee>`;
+
+            renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
+            renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
+            
+            // Video Sidebar with Auto-play & Mobile support
+            const vids = [...new Set(allItems.filter(i => i.video).map(i => i.video.split(',')).flat())];
+            document.getElementById('sidebar-content').innerHTML = vids.slice(0, 5).map(link => {
+                let vid = link.includes("shorts/") ? link.split("shorts/")[1] : (link.includes("v=") ? link.split("v=")[1] : link.split("youtu.be/")[1]);
+                if (vid) vid = vid.split(/[?&]/)[0];
+                return `<div class="bg-black rounded-xl overflow-hidden shadow-lg border-2 border-white">
+                    <iframe class="w-full aspect-[9/16] md:aspect-video" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&playsinline=1&controls=0" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                </div>`;
+            }).join('');
+
+            document.getElementById('loader').style.display = 'none';
+        }
+
+        function renderItems(items) {
+            const container = document.getElementById('product-container');
+            container.innerHTML = items.map(item => {
+                const isLocal = item.desc.includes('`');
+                return `
+                <div class="bg-white rounded-2xl p-3 border border-slate-100 product-card shadow-sm" data-desc="${item.desc}" data-link="${item.link}">
+                    <div class="img-box"><img src="${item.images[0]}" class="max-h-full object-contain" loading="lazy"></div>
+                    <div class="mt-2">
+                        <h3 class="text-[12px] font-black uppercase truncate">${item.name}</h3>
+                        <p class="text-slate-500 text-[10px] line-clamp-2">${item.desc.replace(/[.,`]/g, '')}</p>
+                    </div>
+                    <a href="${item.link}" target="_blank" class="mt-2 block w-full text-center text-white text-[10px] font-black py-2 rounded-lg ${isLocal ? 'bg-purple-600' : 'bg-blue-600'} uppercase italic">View Details</a>
+                </div>`;
+            }).join('');
+        }
+
+        function renderCDR(items) {
+            const container = document.getElementById('cdr-container');
+            container.innerHTML = items.map(item => `
+                <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center">
+                    <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-lg mb-2" loading="lazy">
+                    <h4 class="text-[10px] font-bold truncate uppercase">${item.name}</h4>
+                    <a href="https://wa.me/${myWhatsApp}?text=CDR Request: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-1.5 rounded-md mt-1">GET CDR</a>
+                </div>`).join('');
+        }
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const products = document.querySelectorAll('.product-card');
+            const cdrSec = document.getElementById('cdr-section');
+
+            if (cat === 'cdr') {
+                products.forEach(p => p.style.display = 'none');
+                cdrSec.classList.remove('hidden');
+            } else {
+                cdrSec.classList.add('hidden');
+                products.forEach(p => {
+                    const d = p.dataset.desc;
+                    const l = p.dataset.link;
+                    let s = (cat === 'all');
+                    if (cat === 'apk') s = l.toLowerCase().endsWith('.apk');
+                    if (cat === 'women') s = d.includes(',');
+                    if (cat === 'men') s = d.includes('.');
+                    if (cat === 'local') s = d.includes('`');
+                    p.style.display = s ? 'flex' : 'none';
+                });
+            }
         }
 
         function toggleView() {
             document.getElementById('main-body').classList.toggle('mobile-view-active');
-        }
-
-        async function loadStore() {
-            if(!localStorage.getItem('core11_agreed')) showTerms();
-            
-            try {
-                const res = await fetch(sheetUrl);
-                const csv = await res.text();
-                const rows = csv.split('\n').slice(1).filter(r => r.trim());
-
-                allItems = rows.map((row, idx) => {
-                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    return {
-                        name: cols[0]?.replace(/"/g, '').trim(),
-                        desc: cols[1]?.replace(/"/g, '').trim(),
-                        images: cols[2]?.replace(/"/g, '').split(',').map(img => img.trim()),
-                        link: cols[3]?.replace(/"/g, '').trim(),
-                        video: cols[4]?.replace(/"/g, '').trim(),
-                        id: idx
-                    };
-                }).filter(i => i.name);
-
-                render();
-                document.getElementById('loader').style.display = 'none';
-            } catch (e) { console.error("Error loading data"); }
-        }
-
-        function render() {
-            const logo = allItems.find(i => i.name.toLowerCase() === 'logo');
-            if(logo) document.getElementById('site-logo').src = logo.images[0];
-
-            const notice = allItems.find(i => i.name.toLowerCase() === 'notice');
-            document.getElementById('notice-board').innerHTML = `<marquee scrollamount="6">${notice ? notice.desc : 'Core11 Store Live Now!'}</marquee>`;
-
-            // Products
-            const mainItems = allItems.filter(i => !['logo', 'notice', 'background'].includes(i.name.toLowerCase()));
-            document.getElementById('product-container').innerHTML = mainItems.map(item => `
-                <div class="product-card bg-white rounded-xl shadow-sm border border-slate-200" data-link="${item.link.toLowerCase()}" data-desc="${item.desc.toLowerCase()}">
-                    <div class="img-box">
-                        <img id="img-${item.id}" src="${item.images[0]}" class="max-h-full object-contain" loading="lazy">
-                    </div>
-                    <div class="mt-2 flex-grow">
-                        <h3 class="text-[12px] font-bold uppercase truncate">${item.name}</h3>
-                        <p class="text-[10px] text-slate-500 line-clamp-2">${item.desc.replace('`','')}</p>
-                    </div>
-                    <a href="${item.link}" target="_blank" class="mt-2 block text-center bg-blue-600 text-white text-[10px] font-bold py-2 rounded-lg uppercase">Open</a>
-                </div>
-            `).join('');
-
-            // Sidebar Videos - Fixed for Phone Autoplay
-            const videos = allItems.filter(i => i.video).map(i => i.video);
-            document.getElementById('sidebar-content').innerHTML = videos.slice(0, 3).map(v => {
-                let id = v.split('v=')[1] || v.split('/').pop();
-                return `
-                    <div class="rounded-xl overflow-hidden bg-black aspect-video border-2 border-white shadow-md">
-                        <iframe class="w-full h-full" 
-                            src="https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&playsinline=1" 
-                            allow="autoplay; encrypted-media" 
-                            playsinline
-                            frameborder="0">
-                        </iframe>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-blue-600', 'text-white'));
-            btn.classList.add('bg-blue-600', 'text-white');
-            
-            document.querySelectorAll('.product-card').forEach(card => {
-                const link = card.dataset.link;
-                const desc = card.dataset.desc;
-                if(cat === 'all') card.style.display = 'flex';
-                else if(cat === 'apk') card.style.display = link.includes('.apk') ? 'flex' : 'none';
-                else if(cat === 'men') card.style.display = desc.includes('.') ? 'flex' : 'none';
-                else if(cat === 'local') card.style.display = desc.includes('`') ? 'flex' : 'none';
-            });
         }
 
         loadStore();
