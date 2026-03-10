@@ -77,7 +77,6 @@
         
         #site-logo { max-height: 40px; width: auto; }
         
-        /* UPDATED CARD LOGIC: Side-by-Side Friendly */
         .product-card { 
             height: auto !important; 
             min-height: 340px; 
@@ -118,8 +117,8 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 300;
+            background: rgba(0,0,0,0.85);
+            z-index: 10000; /* Isko sabse upar rakha hai */
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -132,20 +131,21 @@
 
     <div id="loader"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
 
-    <div id="mode-container">
-        <div id="terms-modal" onclick="closeTerms()">
-            <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl" onclick="event.stopPropagation()">
-                <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
-                <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
-                    <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 my-4 text-sm">
-                        <span class="block font-bold text-black mb-1">Important Update:</span>
-                        Verified links from Amazon, Flipkart, Myntra. Payment/Delivery is their responsibility.
-                    </p>
-                </div>
-                <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest">I Agree</button>
+    <div id="terms-modal">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl relative">
+            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
+            <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
+                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 my-4 text-sm">
+                    <span class="block font-bold text-black mb-1">Information Update:</span>
+                    All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.
+                </p>
+                <p class="text-[11px] text-slate-500">By using this store, you agree to our terms of service.</p>
             </div>
+            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Agree & Continue</button>
         </div>
+    </div>
 
+    <div id="mode-container">
         <div class="fixed-header-wrapper">
             <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">
                 <div class="notice-wrapper">
@@ -161,7 +161,10 @@
                     <img id="site-logo" src="https://via.placeholder.com/150x100" alt="Logo">
                     <div class="border-l-2 border-slate-200 pl-2">
                         <h1 class="text-[18px] md:text-[26px] font-black text-purple-600 italic leading-none">Core11</h1>
-                        <p class="text-[9px] text-blue-600 font-black uppercase">M.A. Gohar</p>
+                        <div class="flex items-center gap-2">
+                            <p class="text-[9px] text-blue-600 font-black uppercase">M.A. Gohar</p>
+                            <button onclick="showTerms()" class="text-[8px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms</button>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -204,6 +207,19 @@
         const myWhatsApp = "7841806171"; 
         let allItems = [];
 
+        // Terms logic
+        window.onload = function() {
+            if(!localStorage.getItem('core11_agreed')) {
+                showTerms();
+            }
+        };
+
+        function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
+        function closeTerms() { 
+            document.getElementById('terms-modal').style.display = 'none'; 
+            localStorage.setItem('core11_agreed', 'true');
+        }
+
         function toggleView() {
             const body = document.getElementById('main-body');
             const btn = document.getElementById('view-switcher');
@@ -215,9 +231,6 @@
                 btn.innerText = "💻 Switch to Desktop View";
             }
         }
-
-        function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
-        function closeTerms() { document.getElementById('terms-modal').style.display = 'none'; }
 
         async function loadStore() {
             try {
@@ -244,14 +257,11 @@
         function renderAll() {
             setupSiteAssets(allItems);
             updateNoticeBoard(allItems);
-            
             const mainItems = allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr'));
             renderItems(mainItems);
-            
             renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
             renderSidebar(allItems);
             renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));
-
             document.getElementById('loader').style.display = 'none';
             startSliders();
         }
@@ -367,14 +377,12 @@
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             const productCards = document.querySelectorAll('.product-card');
             const cdrSection = document.getElementById('cdr-section');
 
             if (cat === 'cdr') {
                 productCards.forEach(card => card.style.display = 'none');
                 cdrSection.classList.remove('hidden');
-                document.getElementById('mode-container').scrollTo({ top: cdrSection.offsetTop, behavior: 'smooth' });
             } else {
                 cdrSection.classList.add('hidden');
                 productCards.forEach(card => {
