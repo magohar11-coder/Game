@@ -80,7 +80,7 @@
         .product-card { height: 440px !important; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
         .img-box { height: 220px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; }
 
-        #loader { position: fixed; inset: 0; background: white; z-index: 200; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease-out; }
+        #loader { position: fixed; inset: 0; background: white; z-index: 400; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease-out; }
         
         .notice-wrapper {
             position: relative;
@@ -117,19 +117,22 @@
 
     <div id="mode-container">
         <div id="terms-modal" onclick="closeTerms()">
-            <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl" onclick="event.stopPropagation()">
-                <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
-                <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
-                    <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 my-4">
-                        <span class="block font-bold text-black mb-1">Important Update:</span>
-                        We only bring you verified links from world-renowned brands like Amazon, Flipkart, and Myntra. Since your purchase happens directly on their official websites, they will take full responsibility for your payment and delivery. 
-                    </p>
-                    <p class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500 my-4">
-                        <span class="block font-bold text-black mb-1">जरूरी सूचना:</span>
-                        हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के लिंक्स लाते हैं। पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है।
-                    </p>
+            <div class="bg-white rounded-3xl p-6 max-w-4xl w-full shadow-2xl" onclick="event.stopPropagation()">
+                <h2 class="text-2xl font-black text-red-600 mb-6 border-b pb-2 uppercase italic text-center">Important Notice</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700 font-medium leading-relaxed">
+                    <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">
+                        <span class="block font-bold text-black mb-1 text-sm uppercase">Secure Shopping:</span>
+                        <p class="text-sm">We only bring you verified links from world-renowned brands like Amazon, Flipkart, and Myntra. Since your purchase happens directly on their official websites, they will take full responsibility for your payment and delivery.</p>
+                    </div>
+
+                    <div class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500">
+                        <span class="block font-bold text-black mb-1 text-sm uppercase">ज़रूरी सूचना:</span>
+                        <p class="text-sm">हम आपके लिए Amazon और Flipkart जैसे बड़े ब्रैंड्स से सबसे बेहतरीन चीज़ें चुनकर लाते हैं। आपकी पेमेंट और डिलीवरी पूरी तरह सुरक्षित है क्योंकि ये सीधे उन्हीं के ऑफिशियल स्टोर्स से होती है। आप बेफ़िक्र होकर शॉपिंग करें! ❤️</p>
+                    </div>
                 </div>
-                <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Agree and Continue</button>
+
+                <button onclick="closeTerms()" class="mt-8 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Agree and Continue</button>
             </div>
         </div>
 
@@ -388,9 +391,9 @@
 
                     if (cat === 'all') show = true;
                     else if (cat === 'apk') show = link.endsWith('.apk');
-                    else if (cat === 'women') show = desc.includes(','); // CARD LOGIC: COMMA FOR WOMEN
-                    else if (cat === 'men') show = desc.includes('.');   // CARD LOGIC: DOT FOR MEN
-                    else if (cat === 'local') show = desc.includes('`'); // CARD LOGIC: BACKTICK FOR LOCAL
+                    else if (cat === 'women') show = desc.includes(','); 
+                    else if (cat === 'men') show = desc.includes('.');  
+                    else if (cat === 'local') show = desc.includes('`'); 
 
                     card.style.display = show ? 'flex' : 'none';
                 });
