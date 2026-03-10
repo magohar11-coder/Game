@@ -117,15 +117,18 @@
         <main class="max-w-7xl mx-auto p-3">
             <div class="flex flex-col lg:flex-row gap-6">
                 <div id="product-container" class="lg:w-3/4 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3"></div>
-                <div id="video-sidebar" class="lg:w-1/4 space-y-4">
-                    <h3 class="text-xs font-black uppercase border-b-2 border-blue-600 pb-1">Demos</h3>
-                    <div id="sidebar-content" class="space-y-4"></div>
-                </div>
-            </div>
+                
+                <div class="lg:w-1/4 flex flex-col gap-6">
+                    <div id="cdr-section" class="border-t lg:border-t-0 pt-6 lg:pt-0 hidden">
+                        <h2 class="text-lg font-black uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
+                        <div id="cdr-container" class="grid grid-cols-2 gap-3"></div>
+                    </div>
 
-            <div id="cdr-section" class="mt-8 border-t pt-6 hidden">
-                <h2 class="text-lg font-black uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
-                <div id="cdr-container" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
+                    <div id="video-sidebar" class="space-y-4">
+                        <h3 class="text-xs font-black uppercase border-b-2 border-blue-600 pb-1">Demos</h3>
+                        <div id="sidebar-content" class="space-y-4"></div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -178,13 +181,13 @@
             renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
             renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
             
-            // Fixed Video Auto-play with muted+playsinline
+            // Fixed Video Auto-play: Muted, No Controls, No Logo
             const vids = [...new Set(allItems.filter(i => i.video).map(i => i.video.split(',')).flat())];
             document.getElementById('sidebar-content').innerHTML = vids.slice(0, 5).map(link => {
                 let vid = link.includes("shorts/") ? link.split("shorts/")[1] : (link.includes("v=") ? link.split("v=")[1] : link.split("youtu.be/")[1]);
                 if (vid) vid = vid.split(/[?&]/)[0];
                 return `<div class="bg-black rounded-xl overflow-hidden shadow-lg border-2 border-white">
-                    <iframe class="w-full aspect-[9/16] md:aspect-video" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&playsinline=1&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                    <iframe class="w-full aspect-[9/16] md:aspect-video pointer-events-none" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&playsinline=1&controls=0&modestbranding=1&rel=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
                 </div>`;
             }).join('');
 
