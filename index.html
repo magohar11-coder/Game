@@ -137,8 +137,9 @@
             <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
                 <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 my-4 text-sm">
                     <span class="block font-bold text-black mb-1">Information Update:</span>
-                    All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service.
-                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं।</p>
+                    All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.
+                </p>
+                <p>हम आपके लिए सिर्फ Amazon,Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। </p>
                 <p class="text-[11px] text-slate-500">By using this store, you agree to our terms of service.</p>
             </div>
             <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Agree & Continue</button>
@@ -160,10 +161,10 @@
                 <div class="flex items-center gap-2">
                     <img id="site-logo" src="https://via.placeholder.com/150x100" alt="Logo">
                     <div class="border-l-2 border-slate-200 pl-2">
-                        <h1 class="text-[24px] md:text-[36px] font-black text-purple-600 italic leading-none">Core11 Store</h1>
+                        <h1 class="text-[24px] md:text-[36px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>
                         <div class="flex items-center gap-2">
                             <p class="text-[14px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>
-                            <button onclick="showTerms()" class="text-[14px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms</button>
+                            <button onclick="showTerms()" class="text-[14px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Condtion</button>
                         </div>
                     </div>
                 </div>
@@ -186,21 +187,18 @@
                 <div id="product-container" class="lg:w-3/4 grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
                 
                 <div id="video-sidebar" class="lg:w-1/4 space-y-6">
-                    <div id="cdr-sidebar-section" class="hidden">
-                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-emerald-500 pb-1 mb-3">CDR Files</h3>
-                        <div id="cdr-container" class="grid grid-cols-2 lg:grid-cols-1 gap-3"></div>
-                    </div>
-
                     <div id="corner-section" class="hidden">
                         <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>
                         <div id="corner-container" class="space-y-4"></div>
                     </div>
-
-                    <div id="demo-section">
-                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>
-                        <div id="sidebar-content" class="space-y-4"></div>
-                    </div>
+                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>
+                    <div id="sidebar-content" class="space-y-4"></div>
                 </div>
+            </div>
+
+            <div id="cdr-section" class="mt-8 hidden border-t pt-6">
+                <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
+                <div id="cdr-container" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
             </div>
         </main>
     </div>
@@ -211,8 +209,9 @@
         let allItems = [];
 
         window.onload = function() {
-            if(!localStorage.getItem('core11_agreed')) showTerms();
-            loadStore();
+            if(!localStorage.getItem('core11_agreed')) {
+                showTerms();
+            }
         };
 
         function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
@@ -238,6 +237,7 @@
                 const res = await fetch(sheetUrl);
                 const csvText = await res.text();
                 const rows = csvText.split('\n').slice(1).filter(r => r.trim());
+
                 allItems = rows.map((row, idx) => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     if (cols.length < 4) return null;
@@ -266,17 +266,17 @@
             startSliders();
         }
 
+        function updateNoticeBoard(items) {
+            const board = document.getElementById('notice-board');
+            const notice = items.find(i => i.name.toLowerCase() === 'notice');
+            board.innerHTML = `<marquee scrollamount="8">${notice ? notice.desc : "Welcome to Core-11 Store!"}</marquee>`;
+        }
+
         function setupSiteAssets(items) {
             const logo = items.find(i => i.name.toLowerCase() === 'logo');
             if (logo) document.getElementById('site-logo').src = logo.images[0];
             const bg = items.find(i => i.name.toLowerCase() === 'background');
             if (bg) document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.95), rgba(240,242,245,0.95)), url('${bg.images[0]}')`;
-        }
-
-        function updateNoticeBoard(items) {
-            const board = document.getElementById('notice-board');
-            const notice = items.find(i => i.name.toLowerCase() === 'notice');
-            board.innerHTML = `<marquee scrollamount="8">${notice ? notice.desc : "Welcome to Core-11 Store!"}</marquee>`;
         }
 
         function renderItems(items) {
@@ -285,44 +285,49 @@
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
                 const isLocal = item.desc.includes('`');
                 
-                // Description handling logic
-                let displayDesc = item.desc.replace(/[.`]/g, '');
-                let priceTag = "";
-
                 if (isLocal) {
                     const localData = item.desc.replace('`','').split('|');
-                    priceTag = `<div class="mt-1"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-black text-[10px]">₹${localData[0]}</span></div>`;
+                    return `
+                    <div class="card-hover bg-white rounded-2xl p-4 border-2 border-purple-100 product-card shadow-sm" 
+                         data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
+                        <div class="img-box bg-purple-50">
+                            <img id="img-${item.id}" src="${item.images[0]}" class="max-h-full object-contain p-2" loading="lazy">
+                        </div>
+                        <div class="mt-3">
+                            <h3 class="text-[14px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
+                            <div class="mt-1"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-black text-[10px]">₹${localData[0] || 'Price'}</span></div>
+                        </div>
+                        <a href="https://wa.me/${myWhatsApp}?text=Interest: ${item.name}" target="_blank" class="mt-3 block w-full text-center bg-purple-600 text-white font-black py-2 rounded-lg uppercase text-[10px] italic shadow-md">Contact</a>
+                    </div>`;
                 }
 
-                const actionBtn = isAPK ? 
+                const btn = isAPK ? 
                     `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[10px] font-black py-2.5 rounded-lg bg-emerald-500 uppercase italic shadow-md">Install Now</a>` : 
-                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[10px] font-black py-2.5 rounded-lg bg-blue-600 uppercase italic shadow-md">View Details</a>`;
+                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[10px] font-black py-2.5 rounded-lg bg-blue-600 uppercase italic shadow-md">View All Details</a>`;
 
                 return `
-                <div class="card-hover bg-white rounded-2xl p-4 border border-slate-100 product-card shadow-sm" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
+                <div class="card-hover bg-white rounded-2xl p-4 border border-slate-100 product-card shadow-sm" 
+                     data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
                     <div class="img-box">
                         <img id="img-${item.id}" src="${item.images[0]}" class="max-h-full object-contain p-2" loading="lazy">
                     </div>
                     <div class="mt-3">
                         <h3 class="text-[14px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
-                        ${priceTag}
-                        <p class="text-slate-500 text-[11px] font-medium mt-1 line-clamp-2">${displayDesc}</p>
+                        <p class="text-slate-500 text-[11px] font-medium mt-1 line-clamp-2">${item.desc}</p>
                     </div>
-                    <div class="mt-auto pt-3">${isLocal ? `<a href="https://wa.me/${myWhatsApp}?text=Interest: ${item.name}" target="_blank" class="block w-full text-center bg-purple-600 text-white font-black py-2 rounded-lg uppercase text-[10px] italic shadow-md">Contact</a>` : actionBtn}</div>
+                    <div class="mt-auto pt-3">${btn}</div>
                 </div>`;
             }).join('');
         }
 
         function renderCDR(items) {
             if (!items.length) return;
-            document.getElementById('cdr-sidebar-section').classList.remove('hidden');
+            document.getElementById('cdr-section').classList.remove('hidden');
             document.getElementById('cdr-container').innerHTML = items.map(item => `
-                <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center card-hover flex lg:flex-col items-center gap-2">
-                    <img src="${item.images[0]}" class="w-16 h-16 lg:w-full lg:aspect-square object-cover rounded-lg" loading="lazy">
-                    <div class="flex-grow text-left lg:text-center overflow-hidden">
-                        <h4 class="text-[10px] font-bold text-slate-700 mb-1 truncate uppercase">${item.name}</h4>
-                        <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR: ${item.name}" target="_blank" class="inline-block lg:block bg-emerald-500 text-white text-[9px] font-bold px-3 py-1.5 rounded-md uppercase">Get CDR</a>
-                    </div>
+                <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center card-hover">
+                    <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-lg mb-2" loading="lazy">
+                    <h4 class="text-[10px] font-bold text-slate-700 mb-1 truncate uppercase">${item.name}</h4>
+                    <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-1.5 rounded-md uppercase">Get CDR</a>
                 </div>
             `).join('');
         }
@@ -336,7 +341,7 @@
                         <img src="${item.images[0] || 'https://via.placeholder.com/150'}" class="w-full aspect-square object-cover rounded-lg">
                         <img src="${item.images[1] || item.images[0]}" class="w-full aspect-square object-cover rounded-lg">
                     </div>
-                    <h4 class="text-[12px] font-black text-slate-800 uppercase mb-1">${item.name}</h4>
+                    <h4 class="text-[12px] font-black text-slate-800 uppercase mb-1">${item.desc.split('|')[0] || item.name}</h4>
                     <a href="${item.link}" target="_blank" class="block w-full text-center bg-purple-600 text-white text-[9px] font-black py-2 rounded-lg uppercase italic">Grab Deal</a>
                 </div>
             `).join('');
@@ -373,19 +378,28 @@
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             const productCards = document.querySelectorAll('.product-card');
-            productCards.forEach(card => {
-                const desc = card.dataset.desc;
-                const link = card.dataset.link;
-                let show = false;
-                if (cat === 'all') show = true;
-                else if (cat === 'apk') show = link.endsWith('.apk');
-                else if (cat === 'women') show = desc.includes(','); 
-                else if (cat === 'men') show = desc.includes('.');   
-                else if (cat === 'local') show = desc.includes('`');
-                else if (cat === 'cdr') show = false; // CDR filters are handled by sidebar visibility in this version
-                card.style.display = show ? 'flex' : 'none';
-            });
+            const cdrSection = document.getElementById('cdr-section');
+
+            if (cat === 'cdr') {
+                productCards.forEach(card => card.style.display = 'none');
+                cdrSection.classList.remove('hidden');
+            } else {
+                cdrSection.classList.add('hidden');
+                productCards.forEach(card => {
+                    const desc = card.dataset.desc;
+                    const link = card.dataset.link;
+                    let show = false;
+                    if (cat === 'all') show = true;
+                    else if (cat === 'apk') show = link.endsWith('.apk');
+                    else if (cat === 'women') show = desc.includes(','); 
+                    else if (cat === 'men') show = desc.includes('.');   
+                    else if (cat === 'local') show = desc.includes('`'); 
+                    card.style.display = show ? 'flex' : 'none';
+                });
+            }
         }
+        
+        loadStore();
     </script>
 </body>
 </html>
