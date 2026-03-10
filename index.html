@@ -35,7 +35,7 @@
         .filter-btn {
             transition: all 0.2s;
             border: 2px solid #e2e8f0;
-            font-size: 13px !important;
+            font-size: 11px !important; /* Mobile ke liye chota kiya */
             letter-spacing: 0.5px;
             font-weight: 900;
         }
@@ -43,10 +43,10 @@
             background-color: #2563eb !important; 
             color: white !important; 
             border-color: #2563eb;
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
         
-        #site-logo { max-height: 75px; width: auto; }
+        #site-logo { max-height: 55px; width: auto; } /* Mobile par logo chota kiya */
         
         .product-card { height: 440px !important; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
         .img-box { height: 220px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; }
@@ -55,10 +55,10 @@
         
         .notice-wrapper {
             position: relative;
-            padding: 3px;
+            padding: 2px;
             background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000);
             background-size: 400%;
-            border-radius: 15px;
+            border-radius: 12px;
             animation: moveBorder 8s linear infinite;
         }
         @keyframes moveBorder {
@@ -68,15 +68,21 @@
 
         #notice-board marquee { font-weight: 900; color: #39FF14; }
 
+        /* TERMS POPUP OPTIMIZED FOR MOBILE */
         #terms-modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             z-index: 300;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
+        }
+        .modal-content {
+            max-height: 85vh;
+            overflow-y: auto;
+            width: 100%;
         }
     </style>
 </head>
@@ -85,73 +91,70 @@
     <div id="loader"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
 
     <div id="terms-modal" onclick="closeTerms()">
-        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl" onclick="event.stopPropagation()">
-            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
-            <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
-                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 my-4">
+        <div class="bg-white rounded-2xl p-5 max-w-md w-full shadow-2xl modal-content" onclick="event.stopPropagation()">
+            <h2 class="text-xl font-black text-red-600 mb-3 border-b pb-2 uppercase italic text-center">Important Notice</h2>
+            <div class="space-y-3 text-slate-700 font-medium leading-tight text-sm">
+                <p class="bg-blue-50 p-3 rounded-xl border-l-4 border-blue-500">
                     <span class="block font-bold text-black mb-1">Important Update:</span>
-We only bring you verified links from world-renowned brands like Amazon, Flipkart, and Myntra. Since your purchase happens directly on their official websites, they will take full responsibility for your payment and delivery. Should you face any issues with quality or payment, please feel free to reach out to their support team—they will be more than happy to assist you completely!                </p>
-                <p class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500 my-4">
+                    We only bring you verified links from world-renowned brands like Amazon, Flipkart, and Myntra. Since your purchase happens directly on their official websites, they take full responsibility.
+                </p>
+                <p class="bg-yellow-50 p-3 rounded-xl border-l-4 border-yellow-500">
                     <span class="block font-bold text-black mb-1">जरूरी सूचना:</span>
-हम आपके लिए सिर्फ Amazon,Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे।                </p>
-                                <span class="block font-bold text-black mb-1">जरूरी सूचना:</span>
-            "Links 100% verificados das maiores lojas oficiais. Compra, pagamento e entrega garantidos diretamente pela Amazon, Flipkart ou Myntra. Suporte via canais oficiais das marcas."</div>
-            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Agree and Continue </button>
+                    हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे भरोसेमंद ब्रांड्स के लिंक्स लाते हैं। आपकी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, पेमेंट और डिलिवरी की जिम्मेदारी उन्हीं की है।
+                </p>
+                <p class="bg-slate-50 p-3 rounded-xl border-l-4 border-slate-400">
+                    <span class="block font-bold text-black mb-1">Official Support:</span>
+                    Links 100% verificados das maiores lojas oficiais. Compra, pagamento e entrega garantidos diretamente pelas marcas.
+                </p>
+            </div>
+            <button onclick="closeTerms()" class="mt-5 w-full bg-slate-900 text-white font-black py-3 rounded-xl uppercase tracking-widest hover:bg-black transition-colors">I Agree and Continue </button>
         </div>
     </div>
 
     <div class="fixed-header-wrapper">
-        <div class="bg-blue-600 text-white text-[10px] font-bold py-1 px-4 text-center uppercase tracking-widest">
-            100% Secure & Ads-Free Apps | Zero Permission Required
+        <div class="bg-blue-600 text-white text-[9px] font-bold py-1 px-4 text-center uppercase tracking-widest">
+            100% Secure & Ads-Free | Zero Permission
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 mt-2 mb-2">
+        <div class="max-w-7xl mx-auto px-4 mt-1 mb-1">
             <div class="notice-wrapper">
-                <div class="bg-black rounded-[12px] p-3 flex items-center overflow-hidden relative">
-                    <div class="bg-yellow-400 text-black px-3 py-1 font-black italic rounded mr-3 text-xs uppercase">Notice</div>
-                    <div id="notice-board" class="font-mono text-[18px] md:text-[24px] whitespace-nowrap w-full"></div>
+                <div class="bg-black rounded-[10px] p-2 flex items-center overflow-hidden relative">
+                    <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] uppercase">Notice</div>
+                    <div id="notice-board" class="font-mono text-[16px] md:text-[20px] whitespace-nowrap w-full"></div>
                 </div>
             </div>
         </div>
 
-        <header class="bg-white border-b py-3 px-6 flex flex-wrap justify-between items-center gap-4">
-            <div class="flex items-center gap-4">
+        <header class="bg-white border-b py-2 px-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
                 <img id="site-logo" src="https://via.placeholder.com/150x100" alt="Logo">
-                <div class="border-l-2 border-slate-200 pl-4">
-                    <h1 class="text-[24px] md:text-[32px] font-black text-purple-600 italic leading-none">Core11 Apps Store & DEALS</h1>
-                    <p class="text-[12px] md:text-[14px] text-blue-600 font-black tracking-widest uppercase">Powered By M.A. Gohar</p>
+                <div class="border-l-2 border-slate-200 pl-3">
+                    <h1 class="text-[18px] md:text-[28px] font-black text-purple-600 italic leading-none">Core11 Store</h1>
+                    <p class="text-[10px] md:text-[12px] text-blue-600 font-black tracking-widest uppercase">By M.A. Gohar</p>
                 </div>
             </div>
             
-            <div class="flex flex-wrap gap-2 items-center justify-center">
-                <div class="hidden md:block">
-                </div>
-                <div class="hidden md:flex gap-2">
-                    <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-2 rounded-full uppercase">All Items</button>
-                    <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase">Apps</button>
-                    <button onclick="filterCategory('men', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase">Men</button>
-                    <button onclick="filterCategory('women', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase">Women</button>
-                    <button onclick="filterCategory('local', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase text-purple-600 border-purple-200">Nearby Store</button>
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn bg-white px-4 py-2 rounded-full uppercase">Laser/CNC CDR File</button>
-                    <button onclick="showTerms()" class="bg-red-50 text-red-600 border-2 border-red-200 px-4 py-2 rounded-full font-black uppercase hover:bg-red-600 hover:text-white transition-all">Terms & Condition</button>
-                </div>
+            <div class="hidden md:flex gap-2">
+                <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-full uppercase">All Items</button>
+                <button onclick="filterCategory('apk', this)" class="filter-btn bg-white px-3 py-1.5 rounded-full uppercase">Apps</button>
+                <button onclick="showTerms()" class="bg-red-50 text-red-600 border-2 border-red-200 px-3 py-1.5 rounded-full font-black uppercase">Terms</button>
             </div>
         </header>
 
-        <div class="md:hidden py-3 px-2 bg-slate-50 border-b">
-            <div class="flex flex-wrap justify-center gap-2 max-w-full mx-auto">
-                <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">All</button>
-                <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">Apps</button>
-                <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">Men</button>
-                <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">Women</button>
-                <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local</button>
-                <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-2 rounded-xl uppercase bg-white shadow-sm flex-grow">CDR</button>
-                <button onclick="showTerms()" class="bg-red-600 text-white px-3 py-2 rounded-xl font-black uppercase shadow-md flex-grow text-center">Terms</button>
+        <div class="md:hidden py-2 px-2 bg-slate-50 border-b">
+            <div class="grid grid-cols-4 gap-1">
+                <button onclick="filterCategory('all', this)" class="filter-btn active py-2 rounded-lg uppercase bg-white shadow-sm">All</button>
+                <button onclick="filterCategory('apk', this)" class="filter-btn py-2 rounded-lg uppercase bg-white shadow-sm">Apps</button>
+                <button onclick="filterCategory('men', this)" class="filter-btn py-2 rounded-lg uppercase bg-white shadow-sm">Men</button>
+                <button onclick="filterCategory('women', this)" class="filter-btn py-2 rounded-lg uppercase bg-white shadow-sm">Women</button>
+                <button onclick="filterCategory('local', this)" class="filter-btn py-2 rounded-lg uppercase bg-purple-50 text-purple-600">Local</button>
+                <button onclick="filterCategory('cdr', this)" class="filter-btn py-2 rounded-lg uppercase bg-white shadow-sm">CDR</button>
+                <button onclick="showTerms()" class="bg-red-600 text-white py-2 rounded-lg font-black uppercase shadow-md col-span-2 text-center">Terms</button>
             </div>
         </div>
     </div>
 
-    <main class="max-w-7xl mx-auto p-4 md:p-6 mt-4">
+    <main class="max-w-7xl mx-auto p-4 md:p-6 mt-2">
         <div class="flex flex-col lg:flex-row gap-8">
             <div id="product-container" class="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"></div>
             
@@ -219,7 +222,7 @@ We only bring you verified links from world-renowned brands like Amazon, Flipkar
         function updateNoticeBoard(items) {
             const board = document.getElementById('notice-board');
             const notice = items.find(i => i.name.toLowerCase() === 'notice');
-            board.innerHTML = `<marquee scrollamount="10">${notice ? notice.desc : "Welcome to Core-11 Apps Store!"}</marquee>`;
+            board.innerHTML = `<marquee scrollamount="8">${notice ? notice.desc : "Welcome to Core-11 Apps Store!"}</marquee>`;
         }
 
         function setupSiteAssets(items) {
@@ -329,7 +332,7 @@ We only bring you verified links from world-renowned brands like Amazon, Flipkar
         }
 
         function filterCategory(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-blue-600', 'text-white'));
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
             const productCards = document.querySelectorAll('.product-card');
