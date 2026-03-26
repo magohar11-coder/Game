@@ -182,6 +182,26 @@
                     <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>
                     <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>
                     <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR</button>
+                <button class="nav-btn quran-btn" onclick="openQuranModal()">Quran</button>
+
+<div id="quranModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Sawab-e-Jariya</h3>
+        </div>
+        <div class="modal-body">
+            <p>Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>
+            <p><i>JazakAllah Khair.</i></p>
+        </div>
+        <div class="modal-footer">
+            <button class="whatsapp-send-btn" onclick="sendWhatsAppMessage()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" width="20"> 
+                SEND MESSAGE
+            </button>
+            <button class="cancel-btn" onclick="closeQuranModal()">CANCEL</button>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
         </div>
