@@ -4,190 +4,259 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Core11 Apps Store & DEALS</title>
+    <link rel="dns-prefetch" href="https://docs.google.com">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
             background-attachment: fixed; background-size: cover; background-position: center; 
             transition: background-image 0.5s ease-in-out;
+            text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
         }
-
-        #mode-container { transition: all 0.5s ease; width: 100%; margin: 0 auto; }
-
-        /* Mobile View Frame */
+        #mode-container { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); margin: 0 auto; width: 100%; }
         .mobile-view-active #mode-container {
-            max-width: 400px !important;
-            height: 90vh;
-            margin: 20px auto;
-            border: 12px solid #333;
-            border-radius: 40px;
-            overflow-y: auto;
-            background: white;
-            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
+            max-width: 400px !important; height: 90vh; margin: 20px auto;
+            border: 12px solid #333; border-radius: 40px; overflow-y: auto;
+            overflow-x: hidden; background: white; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
             position: relative;
         }
-
-        /* Quran Modal & Button */
-        .quran-btn {
-            background: #6a1b9a !important; color: white !important;
-            padding: 8px 16px; border-radius: 8px; font-weight: 900;
-            text-transform: uppercase; font-size: 11px;
-        }
-
-        .modal-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(0, 0, 0, 0.8); z-index: 20000;
-            justify-content: center; align-items: center; padding: 20px;
-        }
-
-        .modal-content-quran {
-            background: white; width: 100%; max-width: 380px;
-            padding: 25px; border-radius: 20px; text-align: center;
-        }
-
-        /* Branding Colors */
-        .text-core-purple { color: #9333ea; }
-        .text-core-blue { color: #2563eb; }
-
-        .filter-btn { transition: 0.2s; border: 2px solid #e2e8f0; font-size: 11px; font-weight: 900; }
-        .filter-btn.active { background-color: #2563eb !important; color: white !important; }
-
-        .product-card { border-radius: 1.5rem; background: white; border: 1px solid #f1f5f9; transition: transform 0.2s; }
-        .product-card:hover { transform: translateY(-5px); }
-
-        .install-btn {
-            background: #10b981; color: white; width: 100%;
-            padding: 10px; border-radius: 10px; font-weight: 900;
-            text-transform: uppercase; font-size: 12px;
-        }
-
-        #view-switcher {
-            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
-            background: #9333ea; color: white; padding: 12px 20px;
-            border-radius: 50px; font-weight: 900; cursor: pointer;
-            border: 2px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+        /* Quran Modal Styles */
+        .quran-btn { background: #6a1b9a !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content-quran { background: white; width: 100%; max-width: 380px; padding: 25px; border-radius: 20px; text-align: center; }
+        
+        #view-switcher { position: fixed; bottom: 25px; right: 25px; z-index: 1000; background: #9333ea; color: white; padding: 12px 24px; border-radius: 50px; font-weight: 900; cursor: pointer; border: 2px solid white; }
+        .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
+        .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }
+        .product-card { min-height: 340px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; }
+        .img-box { height: 280px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; overflow: hidden; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        #loader { position: fixed; inset: 0; background: white; z-index: 200; display: flex; align-items: center; justify-content: center; }
+        .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
+        @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        #notice-board marquee { font-weight: 900; color: #39FF14; font-size: 20px; }
+        #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
     </style>
 </head>
-<body id="main-body" class="bg-slate-50 font-sans">
+<body id="main-body" class="font-sans text-slate-900 bg-slate-50">
 
     <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>
+    <div id="loader"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
 
     <div id="quranModal" class="modal-overlay">
-        <div class="modal-content-quran">
-            <h3 class="text-xl font-black text-purple-700 mb-4 italic">Sawab-e-Jariya</h3>
-            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.
-                <br><br><b>JazakAllah Khair.</b>
-            </p>
-            <button onclick="sendWhatsAppMessage()" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex justify-center items-center gap-2 mb-3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> SEND MESSAGE
+        <div class="modal-content-quran shadow-2xl">
+            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>
+            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>
+            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message
             </button>
             <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>
         </div>
     </div>
 
+    <div id="terms-modal">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">
+            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
+            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">
+                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra.</p>
+                <p>Hum aapke liye sirf bharosemand brands ke verified links laate hain. Payment aur delivery ki zimmedari unhi platforms ki hoti hai.</p>
+            </div>
+            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>
+        </div>
+    </div>
+
     <div id="mode-container">
-        <div class="sticky top-0 z-50 bg-white shadow-sm">
-            <header class="p-4 border-b flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <img id="site-logo" src="" class="h-12 w-12 rounded-full object-cover border-2 border-purple-100" alt="Core11">
-                    <div>
-                        <h1 class="text-xl md:text-2xl font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>
-                        <p class="text-[10px] text-blue-600 font-black uppercase tracking-wider">Powered By-M.A. Gohar</p>
+        <div class="fixed-header-wrapper">
+            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">
+                <div class="notice-wrapper">
+                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">
+                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] uppercase">Notice</div>
+                        <div id="notice-board" class="w-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">
+                <div class="flex items-center gap-2">
+                    <img id="site-logo" src="" alt="Logo" class="h-12">
+                    <div class="border-l-2 border-slate-200 pl-2">
+                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>
+                        <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>
                     </div>
                 </div>
             </header>
 
-            <div class="p-2 bg-slate-50 flex gap-1.5 overflow-x-auto justify-center no-scrollbar">
-                <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-1.5 rounded-lg bg-white">ALL</button>
-                <button onclick="filterCategory('apk', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">APPS</button>
-                <button onclick="filterCategory('men', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">MEN</button>
-                <button onclick="filterCategory('women', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">WOMEN</button>
-                <button onclick="filterCategory('local', this)" class="filter-btn px-4 py-1.5 rounded-lg bg-white">LOCAL AREA</button>
-                <button onclick="openQuranModal()" class="quran-btn">QURAN</button>
+            <div class="py-2 px-2 bg-slate-50 border-b">
+                <div class="flex flex-wrap justify-center gap-1.5">
+                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>
+                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>
+                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>
+                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>
+                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>
+                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR</button>
+                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>
+                </div>
             </div>
         </div>
 
-        <main class="max-w-7xl mx-auto p-4">
-            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <main class="max-w-7xl mx-auto p-3 mt-2">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div id="product-container" class="lg:w-3/4 grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
+                <div id="video-sidebar" class="lg:w-1/4 space-y-6">
+                    <div id="corner-section" class="hidden">
+                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>
+                        <div id="corner-container" class="space-y-4"></div>
+                    </div>
+                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>
+                    <div id="sidebar-content" class="space-y-4"></div>
                 </div>
+            </div>
+
+            <div id="cdr-section" class="mt-8 hidden border-t pt-6">
+                <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
+                <div id="cdr-container" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
+            </div>
         </main>
     </div>
 
     <script>
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
         const myWhatsApp = "7841806171";
-        let allData = [];
+        let allItems = [];
 
-        async function initStore() {
-            const response = await fetch(sheetUrl);
-            const data = await response.text();
-            const rows = data.split('\n').slice(1);
-
-            allData = rows.map(row => {
-                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                return {
-                    name: cols[0]?.replace(/"/g, '').trim(),
-                    desc: cols[1]?.replace(/"/g, '').trim(),
-                    img: cols[2]?.replace(/"/g, '').split(',')[0].trim(),
-                    link: cols[3]?.replace(/"/g, '').trim()
-                };
-            }).filter(item => item.name);
-
-            // Setup Logo and BG
-            const logo = allData.find(i => i.name.toLowerCase() === 'logo');
-            if(logo) document.getElementById('site-logo').src = logo.img;
-
-            const bg = allData.find(i => i.name.toLowerCase() === 'background');
-            if(bg) document.body.style.backgroundImage = `url('${bg.img}')`;
-
-            renderProducts(allData.filter(i => !['logo', 'background', 'notice'].includes(i.name.toLowerCase())));
+        window.onload = () => { if(!localStorage.getItem('core11_agreed')) showTerms(); };
+        function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
+        function closeTerms() { document.getElementById('terms-modal').style.display = 'none'; localStorage.setItem('core11_agreed', 'true'); }
+        function openQuranModal() { document.getElementById('quranModal').style.display = 'flex'; }
+        function closeQuranModal() { document.getElementById('quranModal').style.display = 'none'; }
+        function toggleView() { document.getElementById('main-body').classList.toggle('mobile-view-active'); }
+        
+        function sendWhatsAppMessage(text) {
+            window.open(`https://wa.me/${myWhatsApp}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        function renderProducts(items) {
-            const container = document.getElementById('product-grid');
-            container.innerHTML = items.map(item => `
-                <div class="product-card p-3 flex flex-col shadow-sm" data-desc="${item.desc}" data-link="${item.link}">
-                    <div class="h-40 bg-slate-50 rounded-xl overflow-hidden mb-3">
-                        <img src="${item.img}" class="w-full h-full object-contain">
+        async function loadStore() {
+            try {
+                const res = await fetch(sheetUrl);
+                const csvText = await res.text();
+                const rows = csvText.split('\n').slice(1).filter(r => r.trim());
+                allItems = rows.map((row, idx) => {
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    return {
+                        name: cols[0]?.replace(/"/g, '').trim(),
+                        desc: cols[1]?.replace(/"/g, '').trim(),
+                        images: cols[2]?.replace(/"/g, '').split(',').map(img => img.trim()),
+                        link: cols[3]?.replace(/"/g, '').trim(),
+                        video: cols[4] ? cols[4].replace(/"/g, '').trim() : null,
+                        id: idx
+                    };
+                }).filter(i => i.name);
+                renderAll();
+            } catch (e) { console.error("Load Error"); }
+        }
+
+        function renderAll() {
+            const logo = allItems.find(i => i.name.toLowerCase() === 'logo');
+            if (logo) document.getElementById('site-logo').src = logo.images[0];
+            
+            const bg = allItems.find(i => i.name.toLowerCase() === 'background');
+            if (bg) document.body.style.backgroundImage = `url('${bg.images[0]}')`;
+
+            const notice = allItems.find(i => i.name.toLowerCase() === 'notice');
+            document.getElementById('notice-board').innerHTML = `<marquee scrollamount="8">${notice ? notice.desc : "Welcome!"}</marquee>`;
+
+            renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
+            renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
+            renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));
+            renderSidebar(allItems);
+            document.getElementById('loader').style.display = 'none';
+        }
+
+        function renderItems(items) {
+            const container = document.getElementById('product-container');
+            container.innerHTML = items.map(item => {
+                const isLocal = item.desc.includes('`');
+                const isAPK = item.link.toLowerCase().endsWith('.apk');
+                let btnLabel = "Buy Now";
+                let btnClass = "bg-blue-600";
+                let btnAction = `href="${item.link}" target="_blank"`;
+
+                if(isLocal) {
+                    btnLabel = "Order on WhatsApp";
+                    btnClass = "bg-purple-600";
+                    btnAction = `onclick="sendWhatsAppMessage('Interested in: ${item.name}')" style="cursor:pointer"`;
+                } else if(isAPK) {
+                    btnLabel = "Install Now";
+                    btnClass = "bg-emerald-500";
+                }
+
+                return `
+                <div class="bg-white rounded-2xl p-4 border border-slate-100 product-card shadow-sm" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
+                    <div class="img-box"><img src="${item.images[0]}" loading="lazy"></div>
+                    <div class="mt-3">
+                        <h3 class="text-[14px] font-black text-slate-800 truncate uppercase">${item.name}</h3>
+                        <p class="text-slate-500 text-[11px] font-medium mt-1 line-clamp-2">${item.desc.replace(/[.`]/g, '')}</p>
                     </div>
-                    <h3 class="font-black text-sm uppercase mb-1 line-clamp-1">${item.name}</h3>
-                    <p class="text-[10px] text-slate-500 mb-3 line-clamp-2">${item.desc.replace(/[`.,]/g, '')}</p>
-                    <a href="${item.link}" target="_blank" class="install-btn text-center mt-auto">INSTALL NOW</a>
-                </div>
-            `).join('');
+                    <div class="mt-auto pt-3">
+                        <a ${btnAction} class="block w-full text-center text-white text-[10px] font-black py-2.5 rounded-lg ${btnClass} uppercase italic shadow-md">${btnLabel}</a>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderCDR(items) {
+            if (!items.length) return;
+            document.getElementById('cdr-section').classList.remove('hidden');
+            document.getElementById('cdr-container').innerHTML = items.map(item => `
+                <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center">
+                    <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-lg mb-2">
+                    <h4 class="text-[10px] font-bold text-slate-700 truncate uppercase">${item.name}</h4>
+                    <button onclick="sendWhatsAppMessage('I want CDR: ${item.name}')" class="w-full mt-2 bg-emerald-500 text-white text-[9px] font-bold py-1.5 rounded-md uppercase">Get CDR</button>
+                </div>`).join('');
+        }
+
+        function renderCorner(items) {
+            if (!items.length) return;
+            document.getElementById('corner-section').classList.remove('hidden');
+            document.getElementById('corner-container').innerHTML = items.map(item => `
+                <div class="bg-white p-3 rounded-2xl shadow-md border-2 border-purple-100">
+                    <img src="${item.images[0]}" class="w-full rounded-lg mb-2">
+                    <h4 class="text-[12px] font-black uppercase mb-1">${item.name}</h4>
+                    <a href="${item.link}" target="_blank" class="block w-full text-center bg-purple-600 text-white text-[9px] font-black py-2 rounded-lg uppercase italic">Grab Deal</a>
+                </div>`).join('');
+        }
+
+        function renderSidebar(items) {
+            const vids = [...new Set(items.filter(i => i.video).map(i => i.video.split(',')).flat())];
+            document.getElementById('sidebar-content').innerHTML = vids.slice(0, 4).map(link => {
+                let vid = link.includes("shorts/") ? link.split("shorts/")[1] : (link.includes("v=") ? link.split("v=")[1] : link.split("youtu.be/")[1]);
+                if (vid) vid = vid.split(/[?&]/)[0];
+                return `<div class="bg-black rounded-xl overflow-hidden shadow-lg border-2 border-white">
+                    <iframe class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&controls=0&loop=1&playlist=${vid}" frameborder="0"></iframe>
+                </div>`;
+            }).join('');
         }
 
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
             const cards = document.querySelectorAll('.product-card');
-            cards.forEach(card => {
-                const desc = card.dataset.desc;
-                const link = card.dataset.link;
-                let show = false;
-
-                if(cat === 'all') show = true;
-                else if(cat === 'apk') show = link.toLowerCase().includes('.apk');
-                else if(cat === 'men') show = desc.includes('.');
-                else if(cat === 'women') show = desc.includes(',');
-                else if(cat === 'local') show = desc.includes('`');
-
-                card.style.display = show ? 'flex' : 'none';
-            });
+            const cdrSection = document.getElementById('cdr-section');
+            if (cat === 'cdr') {
+                cards.forEach(c => c.style.display = 'none');
+                cdrSection.classList.remove('hidden');
+            } else {
+                cdrSection.classList.add('hidden');
+                cards.forEach(card => {
+                    const desc = card.dataset.desc;
+                    const link = card.dataset.link;
+                    let show = (cat === 'all') || (cat === 'apk' && link.endsWith('.apk')) || (cat === 'women' && desc.includes(',')) || (cat === 'men' && desc.includes('.')) || (cat === 'local' && desc.includes('`'));
+                    card.style.display = show ? 'flex' : 'none';
+                });
+            }
         }
-
-        function openQuranModal() { document.getElementById('quranModal').style.display = 'flex'; }
-        function closeQuranModal() { document.getElementById('quranModal').style.display = 'none'; }
-        function sendWhatsAppMessage() {
-            const msg = "Assalam-o-Alaikum, Mujhe apne marhum ke sawab ke liye Quran parhwana hai. Details batayein.";
-            window.open(`https://wa.me/${myWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-        function toggleView() { document.getElementById('main-body').classList.toggle('mobile-view-active'); }
-
-        initStore();
+        loadStore();
     </script>
 </body>
 </html>
