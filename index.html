@@ -74,8 +74,10 @@
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">
             <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
             <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">
-                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra.</p>
-                <p>Hum aapke liye sirf bharosemand brands ke verified links laate hain. Payment aur delivery ki zimmedari unhi platforms ki hoti hai.</p>
+                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>
+                <p>हम आपके लिए सिर्फ Amazon,Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे।
+
+By using this store, you agree to our terms of service.</p>
             </div>
             <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>
         </div>
@@ -101,7 +103,7 @@
                         <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>
                         <div class="flex items-center gap-3">
                             <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>
-                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms</button>
+                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>
                         </div>
                     </div>
                 </div>
@@ -114,7 +116,7 @@
                     <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>
                     <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>
                     <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR</button>
+                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR File</button>
                     <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>
                 </div>
             </div>
@@ -202,7 +204,7 @@
             container.innerHTML = items.map(item => {
                 const isLocal = item.desc.includes('`');
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
-                let btnLabel = "Buy Now";
+                let btnLabel = "View More";
                 let btnClass = "bg-blue-600";
                 let btnAction = `href="${item.link}" target="_blank" rel="noreferrer"`;
 
