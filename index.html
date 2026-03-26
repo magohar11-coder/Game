@@ -29,14 +29,12 @@
         .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }
         
-        /* Fudakne wala Effect */
         .product-card { 
             min-height: 340px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; 
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .product-card:hover { transform: translateY(-10px) scale(1.02); shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+        .product-card:hover { transform: translateY(-10px) scale(1.02); }
 
-        /* Full Image View */
         .img-box { height: 280px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: contain; padding: 10px; }
         
@@ -113,7 +111,15 @@
 
         <main class="max-w-7xl mx-auto p-3 mt-2">
             <div class="flex flex-col lg:flex-row gap-6">
-                <div id="product-container" class="lg:w-3/4 grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
+                <div id="product-list-area" class="lg:w-3/4">
+                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
+                    
+                    <div id="cdr-section" class="mt-8 hidden">
+                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
+                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+                    </div>
+                </div>
+
                 <div id="video-sidebar" class="lg:w-1/4 space-y-6">
                     <div id="corner-section" class="hidden">
                         <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>
@@ -123,11 +129,6 @@
                     <div id="sidebar-content" class="space-y-4"></div>
                 </div>
             </div>
-
-            <div id="cdr-section" class="mt-8 hidden border-t pt-6">
-                <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
-                <div id="cdr-container" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
-            </div>
         </main>
     </div>
 
@@ -136,7 +137,7 @@
         const myWhatsApp = "7841806171";
         let allItems = [];
 
-        window.onload = () => { if(!localStorage.getItem('core11_agreed')) showTerms(); };
+        window.onload = () => { if(!localStorage.getItem('core11_agreed')) showTerms(); loadStore(); };
         function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
         function closeTerms() { document.getElementById('terms-modal').style.display = 'none'; localStorage.setItem('core11_agreed', 'true'); }
         function openQuranModal() { document.getElementById('quranModal').style.display = 'flex'; }
@@ -217,9 +218,8 @@
         }
 
         function renderCDR(items) {
-            if (!items.length) return;
-            document.getElementById('cdr-section').classList.remove('hidden');
-            document.getElementById('cdr-container').innerHTML = items.map(item => `
+            const container = document.getElementById('cdr-container');
+            container.innerHTML = items.map(item => `
                 <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center product-card">
                     <img src="${item.images[0]}" class="w-full aspect-square object-contain rounded-lg mb-2">
                     <h4 class="text-[10px] font-bold text-slate-700 truncate uppercase">${item.name}</h4>
@@ -252,22 +252,29 @@
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            const cards = document.querySelectorAll('.product-card');
+            
+            const productContainer = document.getElementById('product-container');
             const cdrSection = document.getElementById('cdr-section');
+            const cards = document.querySelectorAll('#product-container .product-card');
+
             if (cat === 'cdr') {
-                cards.forEach(c => c.style.display = 'none');
+                productContainer.classList.add('hidden');
                 cdrSection.classList.remove('hidden');
             } else {
+                productContainer.classList.remove('hidden');
                 cdrSection.classList.add('hidden');
                 cards.forEach(card => {
                     const desc = card.dataset.desc;
                     const link = card.dataset.link;
-                    let show = (cat === 'all') || (cat === 'apk' && link.endsWith('.apk')) || (cat === 'women' && desc.includes(',')) || (cat === 'men' && desc.includes('.')) || (cat === 'local' && desc.includes('`'));
+                    let show = (cat === 'all') || 
+                               (cat === 'apk' && link.endsWith('.apk')) || 
+                               (cat === 'women' && desc.includes(',')) || 
+                               (cat === 'men' && desc.includes('.')) || 
+                               (cat === 'local' && desc.includes('`'));
                     card.style.display = show ? 'flex' : 'none';
                 });
             }
         }
-        loadStore();
     </script>
 </body>
 </html>
