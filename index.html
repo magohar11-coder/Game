@@ -20,7 +20,6 @@
             overflow-x: hidden; background: white; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
             position: relative;
         }
-        /* Quran Modal Styles */
         .quran-btn { background: #6a1b9a !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content-quran { background: white; width: 100%; max-width: 380px; padding: 25px; border-radius: 20px; text-align: center; }
@@ -29,9 +28,18 @@
         .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }
-        .product-card { min-height: 340px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; }
+        
+        /* Fudakne wala Effect */
+        .product-card { 
+            min-height: 340px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; 
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .product-card:hover { transform: translateY(-10px) scale(1.02); shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+
+        /* Full Image View */
         .img-box { height: 280px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; overflow: hidden; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .img-box img { width: 100%; height: 100%; object-fit: contain; padding: 10px; }
+        
         #loader { position: fixed; inset: 0; background: white; z-index: 200; display: flex; align-items: center; justify-content: center; }
         .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
         @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
@@ -82,7 +90,10 @@
                     <img id="site-logo" src="" alt="Logo" class="h-12">
                     <div class="border-l-2 border-slate-200 pl-2">
                         <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>
-                        <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>
+                        <div class="flex items-center gap-3">
+                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>
+                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms</button>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -209,8 +220,8 @@
             if (!items.length) return;
             document.getElementById('cdr-section').classList.remove('hidden');
             document.getElementById('cdr-container').innerHTML = items.map(item => `
-                <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center">
-                    <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-lg mb-2">
+                <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center product-card">
+                    <img src="${item.images[0]}" class="w-full aspect-square object-contain rounded-lg mb-2">
                     <h4 class="text-[10px] font-bold text-slate-700 truncate uppercase">${item.name}</h4>
                     <button onclick="sendWhatsAppMessage('I want CDR: ${item.name}')" class="w-full mt-2 bg-emerald-500 text-white text-[9px] font-bold py-1.5 rounded-md uppercase">Get CDR</button>
                 </div>`).join('');
@@ -220,8 +231,8 @@
             if (!items.length) return;
             document.getElementById('corner-section').classList.remove('hidden');
             document.getElementById('corner-container').innerHTML = items.map(item => `
-                <div class="bg-white p-3 rounded-2xl shadow-md border-2 border-purple-100">
-                    <img src="${item.images[0]}" class="w-full rounded-lg mb-2">
+                <div class="bg-white p-3 rounded-2xl shadow-md border-2 border-purple-100 product-card">
+                    <img src="${item.images[0]}" class="w-full rounded-lg mb-2 object-contain">
                     <h4 class="text-[12px] font-black uppercase mb-1">${item.name}</h4>
                     <a href="${item.link}" target="_blank" class="block w-full text-center bg-purple-600 text-white text-[9px] font-black py-2 rounded-lg uppercase italic">Grab Deal</a>
                 </div>`).join('');
