@@ -33,8 +33,69 @@
             position: relative;
         }
 
-        .mobile-view-active #mode-container::-webkit-scrollbar { width: 0px; }
+        /* Quran Button Style */
+        .quran-btn {
+            background: #6a1b9a !important;
+            color: white !important;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 11px !important;
+        }
 
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 20000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Modal Box */
+        .modal-content-quran {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-header-quran h3 { margin: 0 0 15px 0; color: #6a1b9a; font-weight: 900; font-size: 20px; }
+        .modal-body-quran p { font-size: 14px; line-height: 1.6; color: #444; margin-bottom: 15px; }
+
+        .whatsapp-send-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .cancel-btn-quran {
+            background: none; border: none; color: #999;
+            cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 12px;
+        }
+
+        /* Baki existing CSS */
         #view-switcher {
             position: fixed; bottom: 25px; right: 25px; z-index: 1000;
             background: #9333ea; color: white; padding: 12px 24px;
@@ -44,171 +105,52 @@
             border: 2px solid white;
         }
 
-        .fixed-header-wrapper {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-hover { 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            will-change: transform;
-        }
-        .card-hover:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .filter-btn {
-            transition: all 0.2s;
-            border: 2px solid #e2e8f0;
-            font-size: 11px !important;
-            letter-spacing: 0.5px;
-            font-weight: 900;
-        }
-        .filter-btn.active { 
-            background-color: #2563eb !important; 
-            color: white !important; 
-            border-color: #2563eb;
-            transform: scale(1.05);
-        }
-        
-        #site-logo { max-height: 60px; width: auto; }
-        
-        .product-card { 
-            height: auto !important; 
-            min-height: 340px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-            overflow: hidden; 
-            padding: 10px !important;
-        }
-        .img-box { 
-            height: 280px; 
-            width: 100%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            background: #f8fafc; 
-            border-radius: 1rem; 
-        }
-.img-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-}
-        #loader { position: fixed; inset: 0; background: white; z-index: 200; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease-out; }
-        
-        .notice-wrapper {
-            position: relative;
-            padding: 2px;
-            background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000);
-            background-size: 400%;
-            border-radius: 10px;
-            animation: moveBorder 8s linear infinite;
-        }
-        @keyframes moveBorder {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
+        .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
+        .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }
+        .product-card { min-height: 340px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; }
+        .img-box { height: 280px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; overflow: hidden; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        #loader { position: fixed; inset: 0; background: white; z-index: 200; display: flex; align-items: center; justify-content: center; }
+        .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
+        @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
         #notice-board marquee { font-weight: 900; color: #39FF14; }
-
-        #terms-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 10000; /* Isko sabse upar rakha hai */
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-    </style>/* Quran Button Style */
-.quran-btn {
-    background: #6a1b9a; /* Purple color jaisa screenshot mein hai */
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* Modal Overlay */
-.modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Modal Box */
-.modal-content {
-    background: white;
-    width: 90%;
-    max-width: 400px;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    color: #333;
-}
-
-.modal-header h3 { margin: 0; color: #6a1b9a; }
-.modal-body p { font-size: 15px; line-height: 1.5; color: #555; }
-
-/* Buttons inside Modal */
-.whatsapp-send-btn {
-    background: #25D366;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.cancel-btn {
-    background: none;
-    border: none;
-    color: #888;
-    cursor: pointer;
-    font-weight: bold;
-}
+        #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
+    </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
 
     <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>
-
     <div id="loader"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>
+
+    <div id="quranModal" class="modal-overlay">
+        <div class="modal-content-quran">
+            <div class="modal-header-quran">
+                <h3>Sawab-e-Jariya</h3>
+            </div>
+            <div class="modal-body-quran">
+                <p>Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>
+                <p><b>JazakAllah Khair.</b></p>
+            </div>
+            <div class="modal-footer-quran">
+                <button class="whatsapp-send-btn" onclick="sendWhatsAppMessage()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" width="22"> 
+                    SEND MESSAGE
+                </button>
+                <button class="cancel-btn-quran" onclick="closeQuranModal()">CLOSE</button>
+            </div>
+        </div>
+    </div>
 
     <div id="terms-modal">
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl relative">
             <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
             <div class="space-y-4 text-slate-700 font-medium leading-relaxed">
-                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 my-4 text-sm">
-                    <span class="block font-bold text-black mb-1">Information Update:</span>
-                    All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.
-               <p>>हम आपके लिए सिर्फ Amazon,Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। </p>
-                <p class="text-[11px] text-slate-500">By using this store, you agree to our terms of service.</p>
+                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500 text-sm">
+                    All product links are from verified platforms like Amazon, Flipkart, and Myntra.
+                </p>
+                <button onclick="closeTerms()" class="w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Agree & Continue</button>
             </div>
-            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-black transition-colors">I Agree & Continue</button>
         </div>
     </div>
 
@@ -216,7 +158,7 @@
         <div class="fixed-header-wrapper">
             <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">
                 <div class="notice-wrapper">
-                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden relative">
+                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">
                         <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] uppercase">Notice</div>
                         <div id="notice-board" class="font-mono text-[16px] md:text-[24px] whitespace-nowrap w-full"></div>
                     </div>
@@ -227,283 +169,11 @@
                 <div class="flex items-center gap-2">
                     <img id="site-logo" src="https://via.placeholder.com/150x100" alt="Logo">
                     <div class="border-l-2 border-slate-200 pl-2">
-                        <h1 class="text-[24px] md:text-[36px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>
-                        <div class="flex items-center gap-2">
-                            <p class="text-[14px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>
-                            <button onclick="showTerms()" class="text-[14px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Condtion</button>
-                        </div>
+                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>
+                        <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>
                     </div>
                 </div>
             </header>
 
             <div class="py-2 px-2 bg-slate-50 border-b">
-                <div class="flex flex-wrap justify-center gap-1.5">
-                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>
-                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>
-                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>
-                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>
-                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR</button>
-                <button class="nav-btn quran-btn" onclick="openQuranModal()">Quran</button>
-
-<div id="quranModal" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Sawab-e-Jariya</h3>
-        </div>
-        <div class="modal-body">
-            <p>Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>
-            <p><i>JazakAllah Khair.</i></p>
-        </div>
-        <div class="modal-footer">
-            <button class="whatsapp-send-btn" onclick="sendWhatsAppMessage()">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" width="20"> 
-                SEND MESSAGE
-            </button>
-            <button class="cancel-btn" onclick="closeQuranModal()">CANCEL</button>
-        </div>
-
-        <main class="max-w-7xl mx-auto p-3 mt-2">
-            <div class="flex flex-col lg:flex-row gap-6">
-                <div id="product-container" class="lg:w-3/4 grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
-                
-                <div id="video-sidebar" class="lg:w-1/4 space-y-6">
-                    <div id="corner-section" class="hidden">
-                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>
-                        <div id="corner-container" class="space-y-4"></div>
-                    </div>
-                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>
-                    <div id="sidebar-content" class="space-y-4"></div>
-                </div>
-            </div>
-
-            <div id="cdr-section" class="mt-8 hidden border-t pt-6">
-                <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
-                <div id="cdr-container" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
-            </div>
-        </main>
-    </div>
-
-    <script>
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
-        const myWhatsApp = "7841806171"; 
-        let allItems = [];
-
-        // Terms logic
-        window.onload = function() {
-            if(!localStorage.getItem('core11_agreed')) {
-                showTerms();
-            }
-        };
-
-        function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
-        function closeTerms() { 
-            document.getElementById('terms-modal').style.display = 'none'; 
-            localStorage.setItem('core11_agreed', 'true');
-        }
-
-        function toggleView() {
-            const body = document.getElementById('main-body');
-            const btn = document.getElementById('view-switcher');
-            if(body.classList.contains('mobile-view-active')) {
-                body.classList.remove('mobile-view-active');
-                btn.innerText = "📱 Switch to Mobile View";
-            } else {
-                body.classList.add('mobile-view-active');
-                btn.innerText = "💻 Switch to Desktop View";
-            }
-        }
-
-        async function loadStore() {
-            try {
-                const res = await fetch(sheetUrl);
-                const csvText = await res.text();
-                const rows = csvText.split('\n').slice(1).filter(r => r.trim());
-
-                allItems = rows.map((row, idx) => {
-                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if (cols.length < 4) return null;
-                    return {
-                        name: cols[0].replace(/"/g, '').trim(),
-                        desc: cols[1].replace(/"/g, '').trim(),
-                        images: cols[2].replace(/"/g, '').split(',').map(img => img.trim()),
-                        link: cols[3].replace(/"/g, '').trim(),
-                        video: cols[4] ? cols[4].replace(/"/g, '').trim() : null,
-                        id: idx
-                    };
-                }).filter(i => i);
-                renderAll();
-            } catch (e) { console.error("Load Error"); }
-        }
-
-        function renderAll() {
-            setupSiteAssets(allItems);
-            updateNoticeBoard(allItems);
-            const mainItems = allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr'));
-            renderItems(mainItems);
-            renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
-            renderSidebar(allItems);
-            renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));
-            document.getElementById('loader').style.display = 'none';
-            startSliders();
-        }
-
-        function updateNoticeBoard(items) {
-            const board = document.getElementById('notice-board');
-            const notice = items.find(i => i.name.toLowerCase() === 'notice');
-            board.innerHTML = `<marquee scrollamount="8">${notice ? notice.desc : "Welcome to Core-11 Store!"}</marquee>`;
-        }
-
-        function setupSiteAssets(items) {
-            const logo = items.find(i => i.name.toLowerCase() === 'logo');
-            if (logo) document.getElementById('site-logo').src = logo.images[0];
-            const bg = items.find(i => i.name.toLowerCase() === 'background');
-            if (bg) document.body.style.backgroundImage = `linear-gradient(rgba(240,242,245,0.95), rgba(240,242,245,0.95)), url('${bg.images[0]}')`;
-        }
-
-        function renderItems(items) {
-            const container = document.getElementById('product-container');
-            container.innerHTML = items.map(item => {
-                const isAPK = item.link.toLowerCase().endsWith('.apk');
-                const isLocal = item.desc.includes('`');
-                
-                if (isLocal) {
-                    const localData = item.desc.replace('`','').split('|');
-                    return `
-                    <div class="card-hover bg-white rounded-2xl p-4 border-2 border-purple-100 product-card shadow-sm" 
-                         data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
-                        <div class="img-box bg-purple-50">
-                            <img id="img-${item.id}" src="${item.images[0]}" class="max-h-full object-contain p-2" loading="lazy">
-                        </div>
-                        <div class="mt-3">
-                            <h3 class="text-[14px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
-                            <div class="mt-1"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-black text-[10px]">₹${localData[0] || 'Price'}</span></div>
-                        </div>
-                        <a href="https://wa.me/${myWhatsApp}?text=Interest: ${item.name}" target="_blank" class="mt-3 block w-full text-center bg-purple-600 text-white font-black py-2 rounded-lg uppercase text-[10px] italic shadow-md">Contact</a>
-                    </div>`;
-                }
-
-                const btn = isAPK ? 
-                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[10px] font-black py-2.5 rounded-lg bg-emerald-500 uppercase italic shadow-md">Install Now</a>` : 
-                    `<a href="${item.link}" target="_blank" class="block w-full text-center text-white text-[10px] font-black py-2.5 rounded-lg bg-blue-600 uppercase italic shadow-md">View All Details</a>`;
-
-                return `
-                <div class="card-hover bg-white rounded-2xl p-4 border border-slate-100 product-card shadow-sm" 
-                     data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
-                    <div class="img-box">
-                        <img id="img-${item.id}" src="${item.images[0]}" class="max-h-full object-contain p-2" loading="lazy">
-                    </div>
-                    <div class="mt-3">
-                        <h3 class="text-[14px] font-black text-slate-800 leading-tight truncate uppercase">${item.name}</h3>
-                        <p class="text-slate-500 text-[11px] font-medium mt-1 ">${item.desc.replace(/[.,`]/g, '')}</p>
-                    </div>
-                    <div class="mt-auto pt-3">${btn}</div>
-                </div>`;
-            }).join('');
-        }
-
-        function renderCDR(items) {
-            if (!items.length) return;
-            document.getElementById('cdr-section').classList.remove('hidden');
-            document.getElementById('cdr-container').innerHTML = items.map(item => `
-                <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center card-hover">
-                    <img src="${item.images[0]}" class="w-full aspect-square object-cover rounded-lg mb-2" loading="lazy">
-                    <h4 class="text-[10px] font-bold text-slate-700 mb-1 truncate uppercase">${item.name}</h4>
-                    <a href="https://wa.me/${myWhatsApp}?text=Hi, I want this CDR: ${item.name}" target="_blank" class="block bg-emerald-500 text-white text-[9px] font-bold py-1.5 rounded-md uppercase">Get CDR</a>
-                </div>
-            `).join('');
-        }
-
-        function renderCorner(items) {
-            if (!items.length) return;
-            document.getElementById('corner-section').classList.remove('hidden');
-            document.getElementById('corner-container').innerHTML = items.map(item => `
-                <div class="bg-white p-3 rounded-2xl shadow-md border-2 border-purple-100 card-hover">
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <img src="${item.images[0] || 'https://via.placeholder.com/150'}" class="w-full aspect-square object-cover rounded-lg">
-                        <img src="${item.images[1] || item.images[0]}" class="w-full aspect-square object-cover rounded-lg">
-                    </div>
-                    <h4 class="text-[12px] font-black text-slate-800 uppercase mb-1">${item.desc.split('|')[0] || item.name}</h4>
-                    <a href="${item.link}" target="_blank" class="block w-full text-center bg-purple-600 text-white text-[9px] font-black py-2 rounded-lg uppercase italic">Grab Deal</a>
-                </div>
-            `).join('');
-        }
-
-        function renderSidebar(items) {
-            const container = document.getElementById('sidebar-content');
-            const vids = [...new Set(items.filter(i => i.video).map(i => i.video.split(',')).flat())];
-            container.innerHTML = vids.slice(0, 4).map(link => {
-                let vid = link.includes("shorts/") ? link.split("shorts/")[1] : (link.includes("v=") ? link.split("v=")[1] : link.split("youtu.be/")[1]);
-                if (vid) vid = vid.split(/[?&]/)[0];
-                return `<div class="bg-black rounded-xl overflow-hidden shadow-lg border-2 border-white">
-                    <iframe class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&controls=0&loop=1&playlist=${vid}" frameborder="0" allow="autoplay; encrypted-media"></iframe>
-                </div>`;
-            }).join('');
-        }
-
-        function startSliders() {
-            allItems.forEach(item => {
-                if (item.images.length > 1 && !['logo', 'background', 'notice', 'corner'].includes(item.name.toLowerCase())) {
-                    let c = 0;
-                    setInterval(() => {
-                        const el = document.getElementById(`img-${item.id}`);
-                        if (el && document.visibilityState === 'visible') {
-                            c = (c + 1) % item.images.length;
-                            el.src = item.images[c];
-                        }
-                    }, 4000);
-                }
-            });
-        }
-
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const productCards = document.querySelectorAll('.product-card');
-            const cdrSection = document.getElementById('cdr-section');
-
-            if (cat === 'cdr') {
-                productCards.forEach(card => card.style.display = 'none');
-                cdrSection.classList.remove('hidden');
-            } else {
-                cdrSection.classList.add('hidden');
-                productCards.forEach(card => {
-                    const desc = card.dataset.desc;
-                    const link = card.dataset.link;
-                    let show = false;
-                    if (cat === 'all') show = true;
-                    else if (cat === 'apk') show = link.endsWith('.apk');
-                    else if (cat === 'women') show = desc.includes(','); 
-                    else if (cat === 'men') show = desc.includes('.');   
-                    else if (cat === 'local') show = desc.includes('`'); 
-                    card.style.display = show ? 'flex' : 'none';
-                });
-            }
-        }
-        function openQuranModal() {
-    document.getElementById('quranModal').style.display = 'flex';
-}
-
-function closeQuranModal() {
-    document.getElementById('quranModal').style.display = 'none';
-}
-
-function sendWhatsAppMessage() {
-    var phoneNumber = "91XXXXXXXXXX"; // <-- YAHAN APNA WHATSAPP NUMBER DALO
-    var message = "Assalam-o-Alaikum, Mujhe apne marhum ke sawab ke liye Quran parhwana hai. Baraye meharbani details batayein.";
-    
-    var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
-    window.open(url, '_blank');
-}
-
-// Window ke bahar click karne par modal close ho jaye
-window.onclick = function(event) {
-    var modal = document.getElementById('quranModal');
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-        loadStore();
-    </script>
-</body>
-</html>
+                <div class="flex flex
