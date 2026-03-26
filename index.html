@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Core11 Apps Store & DEALS</title>
+    <link rel="preconnect" href="https://www.flipkart.com">
+    <link rel="preconnect" href="https://www.amazon.in">
     <link rel="dns-prefetch" href="https://docs.google.com">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
             background-attachment: fixed; background-size: cover; background-position: center; 
             transition: background-image 0.5s ease-in-out;
-            text-rendering: optimizeLegibility;
+            text-rendering: optimizeSpeed; /* Faster rendering */
             -webkit-font-smoothing: antialiased;
         }
         #mode-container { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); margin: 0 auto; width: 100%; }
@@ -31,9 +33,10 @@
         
         .product-card { 
             min-height: 340px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; 
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.2s ease; /* Simplified for speed */
+            will-change: transform;
         }
-        .product-card:hover { transform: translateY(-10px) scale(1.02); }
+        .product-card:hover { transform: translateY(-5px); }
 
         /* Slide System CSS */
         .img-box { height: 280px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; overflow: hidden; position: relative; }
@@ -41,9 +44,15 @@
         .slide-container img { min-width: 100%; height: 100%; object-fit: contain; padding: 10px; flex-shrink: 0; }
         
         #loader { position: fixed; inset: 0; background: white; z-index: 200; display: flex; align-items: center; justify-content: center; }
+        
+        /* Fixed Marquee System */
         .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
         @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-        #notice-board marquee { font-weight: 900; color: #39FF14; font-size: 20px; }
+        
+        .marquee-container { width: 100%; overflow: hidden; white-space: nowrap; position: relative; background: black; border-radius: 6px; }
+        .marquee-text { display: inline-block; padding-left: 100%; animation: marquee-scroll 15s linear infinite; font-weight: 900; color: #39FF14; font-size: 18px; }
+        @keyframes marquee-scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
     </style>
 </head>
@@ -79,8 +88,10 @@
             <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">
                 <div class="notice-wrapper">
                     <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">
-                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] uppercase">Notice</div>
-                        <div id="notice-board" class="w-full"></div>
+                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>
+                        <div class="marquee-container">
+                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -115,13 +126,11 @@
             <div class="flex flex-col lg:flex-row gap-6">
                 <div id="product-list-area" class="lg:w-3/4">
                     <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
-                    
                     <div id="cdr-section" class="mt-8 hidden">
                         <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
                         <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>
                     </div>
                 </div>
-
                 <div id="video-sidebar" class="lg:w-1/4 space-y-6">
                     <div id="corner-section" class="hidden">
                         <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>
@@ -167,7 +176,7 @@
                     };
                 }).filter(i => i.name);
                 renderAll();
-                startAutoSlide(); // Start sliding after render
+                startAutoSlide();
             } catch (e) { console.error("Load Error"); }
         }
 
@@ -179,7 +188,9 @@
             if (bg) document.body.style.backgroundImage = `url('${bg.images[0]}')`;
 
             const notice = allItems.find(i => i.name.toLowerCase() === 'notice');
-            document.getElementById('notice-board').innerHTML = `<marquee scrollamount="8">${notice ? notice.desc : "Welcome!"}</marquee>`;
+            if(notice) {
+                document.getElementById('notice-board').textContent = notice.desc;
+            }
 
             renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
             renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
@@ -195,7 +206,8 @@
                 const isAPK = item.link.toLowerCase().endsWith('.apk');
                 let btnLabel = "Buy Now";
                 let btnClass = "bg-blue-600";
-                let btnAction = `href="${item.link}" target="_blank"`;
+                // Added rel="noreferrer" for faster external app opening
+                let btnAction = `href="${item.link}" target="_blank" rel="noreferrer"`;
 
                 if(isLocal) {
                     btnLabel = "Order on WhatsApp";
@@ -206,12 +218,11 @@
                     btnClass = "bg-emerald-500";
                 }
 
-                // Description updated to show full text (removed truncate/line-clamp)
                 return `
                 <div class="bg-white rounded-2xl p-4 border border-slate-100 product-card shadow-sm" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">
                     <div class="img-box">
                         <div class="slide-container" id="slide-${item.id}">
-                            ${item.images.map(img => `<img src="${img}" loading="lazy">`).join('')}
+                            ${item.images.map(img => `<img src="${img}" loading="lazy" decoding="async">`).join('')}
                         </div>
                     </div>
                     <div class="mt-3">
@@ -230,20 +241,19 @@
                 document.querySelectorAll('.slide-container').forEach(slider => {
                     const imgs = slider.querySelectorAll('img');
                     if (imgs.length <= 1) return;
-                    
                     let currentIdx = parseInt(slider.dataset.index || 0);
                     currentIdx = (currentIdx + 1) % imgs.length;
                     slider.style.transform = `translateX(-${currentIdx * 100}%)`;
                     slider.dataset.index = currentIdx;
                 });
-            }, 3000); // 3 seconds interval
+            }, 3000);
         }
 
         function renderCDR(items) {
             const container = document.getElementById('cdr-container');
             container.innerHTML = items.map(item => `
                 <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center product-card">
-                    <img src="${item.images[0]}" class="w-full aspect-square object-contain rounded-lg mb-2">
+                    <img src="${item.images[0]}" loading="lazy" class="w-full aspect-square object-contain rounded-lg mb-2">
                     <h4 class="text-[10px] font-bold text-slate-700 uppercase">${item.name}</h4>
                     <button onclick="sendWhatsAppMessage('I want CDR: ${item.name}')" class="w-full mt-2 bg-emerald-500 text-white text-[9px] font-bold py-1.5 rounded-md uppercase">Get CDR</button>
                 </div>`).join('');
@@ -254,9 +264,9 @@
             document.getElementById('corner-section').classList.remove('hidden');
             document.getElementById('corner-container').innerHTML = items.map(item => `
                 <div class="bg-white p-3 rounded-2xl shadow-md border-2 border-purple-100 product-card">
-                    <img src="${item.images[0]}" class="w-full rounded-lg mb-2 object-contain">
+                    <img src="${item.images[0]}" loading="lazy" class="w-full rounded-lg mb-2 object-contain">
                     <h4 class="text-[12px] font-black uppercase mb-1">${item.name}</h4>
-                    <a href="${item.link}" target="_blank" class="block w-full text-center bg-purple-600 text-white text-[9px] font-black py-2 rounded-lg uppercase italic">Grab Deal</a>
+                    <a href="${item.link}" target="_blank" rel="noreferrer" class="block w-full text-center bg-purple-600 text-white text-[9px] font-black py-2 rounded-lg uppercase italic">Grab Deal</a>
                 </div>`).join('');
         }
 
@@ -266,7 +276,7 @@
                 let vid = link.includes("shorts/") ? link.split("shorts/")[1] : (link.includes("v=") ? link.split("v=")[1] : link.split("youtu.be/")[1]);
                 if (vid) vid = vid.split(/[?&]/)[0];
                 return `<div class="bg-black rounded-xl overflow-hidden shadow-lg border-2 border-white">
-                    <iframe class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&controls=0&loop=1&playlist=${vid}" frameborder="0"></iframe>
+                    <iframe loading="lazy" class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/${vid}?autoplay=0&mute=1&controls=0&loop=1&playlist=${vid}" frameborder="0"></iframe>
                 </div>`;
             }).join('');
         }
@@ -274,7 +284,6 @@
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             const productContainer = document.getElementById('product-container');
             const cdrSection = document.getElementById('cdr-section');
             const cards = document.querySelectorAll('#product-container .product-card');
