@@ -23,6 +23,7 @@
             position: relative;
         }
         .quran-btn { background: #6a1b9a !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; }
+        .foryou-btn { background: linear-gradient(135deg, #ec4899, #f43f5e) !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content-quran { background: white; width: 100%; max-width: 380px; padding: 25px; border-radius: 20px; text-align: center; }        
         #view-switcher { position: fixed; bottom: 25px; right: 25px; z-index: 1000; background: #9333ea; color: white; padding: 12px 24px; border-radius: 50px; font-weight: 900; cursor: pointer; border: 2px solid white; }
@@ -39,40 +40,62 @@
         .slide-container { display: flex; transition: transform 0.5s ease-in-out; width: 100%; height: 100%; }
         .slide-container img { min-width: 100%; height: 100%; object-fit: contain; padding: 10px; flex-shrink: 0; }        
         
-        /* FAST-LOADING SATELLITE LOADER FROM IMAGE_D4A0D1.JPG */
-        #loader { position: fixed; inset: 0; background: #0c101d; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-        .satellite-system { position: relative; width: 320px; height: 240px; background: radial-gradient(circle at center, #1e293b 0%, transparent 70%); }
+        /* REALISTIC HIGH-TECH SATELLITE LOADER */
+        #loader { position: fixed; inset: 0; background: #070b19; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .satellite-system { position: relative; width: 360px; height: 280px; background: radial-gradient(circle at center, rgba(30,41,59,0.6) 0%, transparent 75%); }
         
-        /* Central Satellite Body */
-        .main-satellite { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 50px; height: 65px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3s ease-in-out infinite alternate; }
-        .sat-core { width: 32px; height: 45px; background: #cbd5e1; border: 2px solid #64748b; border-radius: 4px; position: relative; box-shadow: 0 0 15px rgba(255,255,255,0.1); }
-        .sat-dish-bottom { width: 36px; height: 18px; background: #94a3b8; border: 2px solid #475569; border-radius: 50% 50% 0 0; margin-top: -2px; position: relative; }
-        .sat-dish-bottom::after { content: ''; position: absolute; bottom: -6px; left: 15px; width: 2px; height: 6px; background: #f97316; }
+        /* Realistic Satellite Body */
+        .main-satellite { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 70px; height: 90px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3.5s ease-in-out infinite alternate; z-index: 10; }
+        .sat-core { width: 34px; height: 50px; background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%); border: 2px solid #475569; border-radius: 6px; position: relative; box-shadow: inset -3px -3px 0px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.1); }
+        /* Instrument details on satellite body */
+        .sat-core::before { content: ''; position: absolute; top: 8px; left: 6px; width: 18px; height: 8px; background: #1e293b; border-radius: 2px; border: 1px solid #64748b; }
+        .sat-core::after { content: ''; position: absolute; bottom: 8px; left: 12px; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
         
-        /* Solar Wings (Blue Matrix grid) */
-        .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 45px; height: 22px; background: linear-gradient(45deg, #1e40af, #3b82f6); border: 1.5px solid #93c5fd; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; padding: 1px; }
-        .solar-wing-left { left: -47px; transform: skewY(-4deg); border-radius: 3px 0 0 3px; }
-        .solar-wing-right { right: -47px; transform: skewY(4deg); border-radius: 0 3px 3px 0; }
-        .solar-wing-left div, .solar-wing-right div { background: #1d4ed8; border: 0.5px solid #60a5fa; }
+        /* Realistic Curved Metallic Dish on Satellite Base */
+        .sat-dish-bottom { width: 54px; height: 18px; background: linear-gradient(180deg, #94a3b8 0%, #475569 100%); border: 2px solid #334155; border-radius: 0 0 100px 100px; margin-top: -1px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        /* Feed horn rod sticking down from central satellite dish */
+        .sat-dish-bottom::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 3px; height: 10px; background: #cbd5e1; }
+        .sat-feed-horn { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); width: 7px; height: 5px; background: #f97316; border-radius: 50%; box-shadow: 0 0 8px #f97316; }
+        
+        /* High-Detail Solar Grid Wings */
+        .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 65px; height: 26px; background: #0f172a; border: 2px solid #38bdf8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; box-shadow: 0 0 15px rgba(56,189,248,0.3); }
+        .solar-wing-left { left: -67px; transform: perspective(100px) rotateY(20deg); border-radius: 4px 0 0 4px; }
+        .solar-wing-right { right: -67px; transform: perspective(100px) rotateY(-20deg); border-radius: 0 4px 4px 0; }
+        .solar-wing-left div, .solar-wing-right div { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); border: 1px solid #60a5fa; border-radius: 1px; }
 
-        /* Twin Receiving Dishes (Left & Right) */
-        .ground-dish-left { position: absolute; bottom: 20px; left: 20px; width: 45px; height: 45px; transform: rotate(35px); }
-        .ground-dish-right { position: absolute; bottom: 20px; right: 20px; width: 45px; height: 45px; transform: rotate(-35deg); }
-        .dish-bowl { width: 40px; height: 40px; background: #475569; border: 2px solid #94a3b8; border-radius: 50%; position: relative; display: flex; align-items: center; justify-content: center; }
-        .dish-bowl::before { content: ''; position: absolute; width: 12px; height: 12px; background: #334155; border-radius: 50%; }
-        .dish-receiver-rod { width: 2px; height: 14px; background: #cbd5e1; position: absolute; }
-        .ground-dish-left .dish-receiver-rod { top: -4px; right: -4px; transform: rotate(45deg); }
-        .ground-dish-right .dish-receiver-rod { top: -4px; left: -4px; transform: rotate(-45deg); }
-        .dish-stand { width: 16px; height: 12px; background: #64748b; margin: -2px auto 0; border-radius: 2px; }
-
-        /* Orange Wave Transmissions matching image_d4a0d1.jpg */
-        .wave-line-left, .wave-line-right { position: absolute; top: 80px; height: 110px; width: 90px; border-top: 3px dashed #ea580c; opacity: 0; }
-        .wave-line-left { left: 55px; border-left: 3px dashed #ea580c; border-radius: 100% 0 0 0; animation: transmitLeft 1.5s linear infinite; }
-        .wave-line-right { right: 55px; border-right: 3px dashed #ea580c; border-radius: 0 100% 0 0; animation: transmitRight 1.5s linear infinite; }
+        /* REAL SCIENTIFIC GROUND DISH ANTENNAS (Left & Right) */
+        .ground-dish-left { position: absolute; bottom: 15px; left: 15px; width: 65px; height: 75px; }
+        .ground-dish-right { position: absolute; bottom: 15px; right: 15px; width: 65px; height: 75px; }
         
-        @keyframes floatSat { 0% { transform: translateX(-50%) translateY(0); } 100% { transform: translateX(-50%) translateY(-8px); } }
-        @keyframes transmitLeft { 0% { opacity: 0; transform: scale(0.3) translate(30px, -20px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1) translate(-20px, 15px); } }
-        @keyframes transmitRight { 0% { opacity: 0; transform: scale(0.3) translate(-30px, -20px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1) translate(20px, 15px); } }
+        /* Realistic Parabolic Curved Bowl Shape */
+        .dish-bowl { width: 56px; height: 32px; background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 60%, #475569 100%); border: 2px solid #64748b; border-radius: 50% 50% 100px 100px / 20px 20px 100px 100px; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 12px rgba(0,0,0,0.4); transform-origin: center bottom; }
+        .ground-dish-left .dish-bowl { transform: rotate(28deg); }
+        .ground-dish-right .dish-bowl { transform: rotate(-28deg); }
+        
+        /* Dish Grid Texture Lines */
+        .dish-bowl::before { content: ''; position: absolute; inset: 2px; border-radius: inherit; border: 1px dashed rgba(255,255,255,0.4); }
+        
+        /* Substantial Feed Horn Spar (Receiver Rod) pointing towards satellite */
+        .dish-receiver-rod { width: 3px; height: 22px; background: linear-gradient(0deg, #475569, #cbd5e1); position: absolute; transform-origin: bottom center; bottom: 14px; }
+        .ground-dish-left .dish-receiver-rod { left: 60%; transform: rotate(-25deg); }
+        .ground-dish-right .dish-receiver-rod { right: 60%; transform: rotate(25deg); }
+        
+        /* Feed LNB Cap Tip */
+        .dish-receiver-rod::after { content: ''; position: absolute; top: -4px; left: -2px; width: 7px; height: 7px; background: #ea580c; border-radius: 50%; box-shadow: 0 0 6px #ea580c; }
+        
+        /* Solid Heavy Steel Triangle Base Mounts */
+        .dish-stand { width: 24px; height: 26px; background: transparent; border-left: 4px solid #334155; border-right: 4px solid #334155; border-top: 14px solid #475569; margin: -2px auto 0; border-radius: 2px; position: relative; }
+        .dish-stand::after { content: ''; position: absolute; bottom: -4px; left: -8px; width: 32px; height: 4px; background: #1e293b; border-radius: 2px; }
+
+        /* Orange Wave Transmissions */
+        .wave-line-left, .wave-line-right { position: absolute; top: 100px; height: 110px; width: 90px; border-top: 3px dashed #ea580c; opacity: 0; }
+        .wave-line-left { left: 65px; border-left: 3px dashed #ea580c; border-radius: 100% 0 0 0; animation: transmitLeft 1.5s linear infinite; }
+        .wave-line-right { right: 65px; border-right: 3px dashed #ea580c; border-radius: 0 100% 0 0; animation: transmitRight 1.5s linear infinite; }
+        
+        @keyframes floatSat { 0% { transform: translateX(-50%) translateY(0) rotate(0deg); } 100% { transform: translateX(-50%) translateY(-12px) rotate(1deg); } }
+        @keyframes transmitLeft { 0% { opacity: 0; transform: scale(0.3) translate(40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(-25px, 20px); } }
+        @keyframes transmitRight { 0% { opacity: 0; transform: scale(0.3) translate(-40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(20px, 20px); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
         .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
         @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }        
@@ -89,23 +112,29 @@
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
     <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>    
     
-    <!-- BRAND NEW ACCURATE HIGH TECH LOADER -->
+    <!-- BRAND NEW REALISTIC HIGH TECH SATELLITE & DISH LOADER -->
     <div id="loader">
         <div class="satellite-system">
             <div class="main-satellite">
-                <div class="solar-wing-left"><div></div><div></div><div></div></div>
+                <div class="solar-wing-left"><div></div><div></div><div></div><div></div></div>
                 <div class="sat-core"></div>
-                <div class="solar-wing-right"><div></div><div></div><div></div></div>
-                <div class="sat-dish-bottom"></div>
+                <div class="solar-wing-right"><div></div><div></div><div></div><div></div></div>
+                <div class="sat-dish-bottom">
+                    <div class="sat-feed-horn"></div>
+                </div>
             </div>
             <div class="wave-line-left"></div>
             <div class="wave-line-right"></div>
             <div class="ground-dish-left">
-                <div class="dish-bowl"><div class="dish-receiver-rod"></div></div>
+                <div class="dish-bowl">
+                    <div class="dish-receiver-rod"></div>
+                </div>
                 <div class="dish-stand"></div>
             </div>
             <div class="ground-dish-right">
-                <div class="dish-bowl"><div class="dish-receiver-rod"></div></div>
+                <div class="dish-bowl">
+                    <div class="dish-receiver-rod"></div>
+                </div>
                 <div class="dish-stand"></div>
             </div>
         </div>
@@ -122,12 +151,26 @@
         </div>
     </div>
 
-    <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
+    <!-- FOR YOU NOTICE BOARD POPUP MODAL -->
+    <div id="foryouModal" class="modal-overlay">
+        <div class="modal-content-quran shadow-2xl border-t-8 border-pink-500">
+            <h3 class="text-2xl font-black text-pink-600 italic mb-2 uppercase tracking-wide">✨ For You Store Deal ✨</h3>
+            <div class="w-12 h-1 bg-pink-500 mx-auto mb-4 rounded-full"></div>
+            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Kya aap bhi apne products ya apni shop ke deals hamare is platform par live add karwana chahte hain?</p>
+            <p class="text-slate-500 text-xs mb-6 leading-relaxed">Naye logon ke liye sunehra mauka! Apne items live karke zyada customers tak pahunchein. Abhi niche click karke humse contact karein.</p>
+            <button onclick="sendWhatsAppMessage('Hello Core11, I want to add my products on your store.')" class="w-full bg-[#25D366] text-white font-black {{btnClass}} py-3.5 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic tracking-wider shadow-lg transform hover:scale-105 transition">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Contact Us To Add
+            </button>
+            <button onclick="closeForyouModal()" class="text-slate-400 font-black text-xs uppercase tracking-widest hover:text-slate-600">✕ Close Board</button>
+        </div>
+    </div>
+
+    <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
     <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        </div>    </div>
     <div id="mode-container">        <div class="fixed-header-wrapper">            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">                <div class="notice-wrapper">                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>                        <div class="marquee-container">                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>                        </div>                    </div>                </div>            </div>
             <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">                <div class="flex items-center gap-2">                    <img id="site-logo" src="" alt="Logo" class="h-12">                    <div class="border-l-2 border-slate-200 pl-2">                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>                        <div class="flex items-center gap-3">                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>                        </div>                    </div>                </div>            </header>
             
-            <div class="py-2 px-2 bg-slate-50 border-b">                <div class="flex flex-wrap justify-center gap-1.5">                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR File</button>                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>                </div>            </div>
+            <div class="py-2 px-2 bg-slate-50 border-b">                <div class="flex flex-wrap justify-center gap-1.5">                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR File</button>                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>                    <button onclick="openForyouModal()" class="foryou-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow animated pulse infinite">❤️ For You</button>                </div>            </div>
 
             <div class="py-2 px-2 bg-purple-50 border-b overflow-x-auto flex gap-1.5 items-center justify-start md:justify-center">
                 <span class="text-[10px] font-black uppercase text-purple-700 border-r pr-2 shrink-0"><i class="fas fa-store"></i> Showrooms:</span>
@@ -146,6 +189,8 @@
         function closeTerms() { document.getElementById('terms-modal').style.display = 'none'; localStorage.setItem('core11_agreed', 'true'); }        
         function openQuranModal() { document.getElementById('quranModal').style.display = 'flex'; }        
         function closeQuranModal() { document.getElementById('quranModal').style.display = 'none'; }        
+        function openForyouModal() { document.getElementById('foryouModal').style.display = 'flex'; }        
+        function closeForyouModal() { document.getElementById('foryouModal').style.display = 'none'; }        
         function toggleView() { document.getElementById('main-body').classList.toggle('mobile-view-active'); }                
         function sendWhatsAppMessage(text) { window.open(`https://wa.me/${myWhatsApp}?text=${encodeURIComponent(text)}`, '_blank'); }
         function sendVendorWhatsApp(number, text) { window.open(`https://wa.me/${number}?text=${encodeURIComponent(text)}`, '_blank'); }
@@ -207,8 +252,8 @@
         function playUnboxingVideo(videoUrl) {
             const vidId = extractYouTubeId(videoUrl);
             if (vidId) {
-                // Autoplay set with muted to respect modern browser logic
-                const embedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1`;
+                // Strict volume mapping setup to completely mute audio playback
+                const embedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&volume=0`;
                 document.getElementById('unboxing-iframe').src = embedUrl;
                 document.getElementById('unboxingModal').style.display = 'flex';
             }
@@ -264,8 +309,7 @@
                     slider.style.transform = `translateX(-${currentIdx * 100}%)`;                    
                     slider.dataset.index = currentIdx;                
                 });            
-            }, 3000);        
-        }
+            }, 3000);        }
 
         function renderCDR(items) {            
             const container = document.getElementById('cdr-container');            
@@ -281,7 +325,7 @@
             document.getElementById('sidebar-content').innerHTML = vids.slice(0, 4).map(link => {                
                 let vid = extractYouTubeId(link);                
                 if (!vid) return ""; 
-                return `<div class="bg-black rounded-xl overflow-hidden shadow-lg border-2 border-white">                    <iframe                         loading="lazy"                         class="w-full aspect-[16/9]"                         src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&controls=0"                         frameborder="0"                         allow="autoplay; encrypted-media"                         allowfullscreen>                    </iframe>                </div>`;            }).join('');        }
+                return `<div class="bg-black rounded-xl overflow-hidden shadow-lg border-2 border-white">                    <iframe                         loading="lazy"                         class="w-full aspect-[16/9]"                         src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&volume=0&loop=1&playlist=${vid}&controls=0"                         frameborder="0"                         allow="autoplay; encrypted-media"                         allowfullscreen>                    </iframe>                </div>`;            }).join('');        }
         
         let activeVendorPhone = "";
         function filterShowroom(code, phone, btn) {
@@ -332,8 +376,8 @@
                                (cat === 'apk' && link.endsWith('.apk')) ||                                
                                (cat === 'women' && desc.includes(',')) ||                                
                                (cat === 'men' && desc.includes('.')) ||                                
-                               (cat === 'local' && desc.includes('`'));                    
-                    card.style.display = show ? 'flex' : 'none';                
+                               (cat === 'local' && desc.includes('`'));                                
+                    card.style.display = show ? 'flex' : 'none';
                 });
             }
         }
