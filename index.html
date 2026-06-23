@@ -39,23 +39,41 @@
         .slide-container { display: flex; transition: transform 0.5s ease-in-out; width: 100%; height: 100%; }
         .slide-container img { min-width: 100%; height: 100%; object-fit: contain; padding: 10px; flex-shrink: 0; }        
         
-        /* HIGH TECH SATELLITE LOADER ANIMATION */
-        #loader { position: fixed; inset: 0; background: #0b0f19; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-        .space-scene { position: relative; width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
-        .satellite-wrap { animation: orbit 4s ease-in-out infinite alternate; display: flex; flex-direction: column; align-items: center; }
-        .satellite { width: 60px; height: 35px; background: #38bdf8; border-radius: 6px; position: relative; border: 2px solid #0284c7; box-shadow: 0 0 15px rgba(56, 189, 248, 0.5); }
-        .satellite::before, .satellite::after { content: ''; position: absolute; top: 7px; width: 25px; height: 16px; background: #0284c7; border: 1px solid #38bdf8; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; }
-        .satellite::before { left: -27px; border-radius: 3px 0 0 3px; }
-        .satellite::after { right: -27px; border-radius: 0 3px 3px 0; }
-        .dish-antenna { width: 50px; height: 25px; background: #64748b; border-radius: 0 0 50px 50px; position: relative; border-top: 4px solid #94a3b8; }
-        .dish-antenna::after { content: ''; position: absolute; top: -12px; left: 22px; width: 6px; height: 12px; background: #94a3b8; border-radius: 2px; }
-        .tech-waves { position: absolute; top: 45px; bottom: 30px; left: 50%; width: 2px; transform: translateX(-50%); display: flex; flex-direction: column; justify-content: space-around; align-items: center; }
-        .wave-pulse { width: 8px; height: 8px; background: #38bdf8; border-radius: 50%; opacity: 0; animation: transmit 2s linear infinite; box-shadow: 0 0 8px #38bdf8; }
-        .wave-pulse:nth-child(2) { animation-delay: 0.6s; }
-        .wave-pulse:nth-child(3) { animation-delay: 1.2s; }
-        @keyframes orbit { 0% { transform: translateX(-40px) rotate(-5deg); } 100% { transform: translateX(40px) rotate(5deg); } }
-        @keyframes transmit { 0% { transform: translateY(0) scale(0.5); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(140px) scale(1.5); opacity: 0; } }
+        /* FAST-LOADING SATELLITE LOADER FROM IMAGE_D4A0D1.JPG */
+        #loader { position: fixed; inset: 0; background: #0c101d; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .satellite-system { position: relative; width: 320px; height: 240px; background: radial-gradient(circle at center, #1e293b 0%, transparent 70%); }
         
+        /* Central Satellite Body */
+        .main-satellite { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 50px; height: 65px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3s ease-in-out infinite alternate; }
+        .sat-core { width: 32px; height: 45px; background: #cbd5e1; border: 2px solid #64748b; border-radius: 4px; position: relative; box-shadow: 0 0 15px rgba(255,255,255,0.1); }
+        .sat-dish-bottom { width: 36px; height: 18px; background: #94a3b8; border: 2px solid #475569; border-radius: 50% 50% 0 0; margin-top: -2px; position: relative; }
+        .sat-dish-bottom::after { content: ''; position: absolute; bottom: -6px; left: 15px; width: 2px; height: 6px; background: #f97316; }
+        
+        /* Solar Wings (Blue Matrix grid) */
+        .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 45px; height: 22px; background: linear-gradient(45deg, #1e40af, #3b82f6); border: 1.5px solid #93c5fd; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; padding: 1px; }
+        .solar-wing-left { left: -47px; transform: skewY(-4deg); border-radius: 3px 0 0 3px; }
+        .solar-wing-right { right: -47px; transform: skewY(4deg); border-radius: 0 3px 3px 0; }
+        .solar-wing-left div, .solar-wing-right div { background: #1d4ed8; border: 0.5px solid #60a5fa; }
+
+        /* Twin Receiving Dishes (Left & Right) */
+        .ground-dish-left { position: absolute; bottom: 20px; left: 20px; width: 45px; height: 45px; transform: rotate(35px); }
+        .ground-dish-right { position: absolute; bottom: 20px; right: 20px; width: 45px; height: 45px; transform: rotate(-35deg); }
+        .dish-bowl { width: 40px; height: 40px; background: #475569; border: 2px solid #94a3b8; border-radius: 50%; position: relative; display: flex; align-items: center; justify-content: center; }
+        .dish-bowl::before { content: ''; position: absolute; width: 12px; height: 12px; background: #334155; border-radius: 50%; }
+        .dish-receiver-rod { width: 2px; height: 14px; background: #cbd5e1; position: absolute; }
+        .ground-dish-left .dish-receiver-rod { top: -4px; right: -4px; transform: rotate(45deg); }
+        .ground-dish-right .dish-receiver-rod { top: -4px; left: -4px; transform: rotate(-45deg); }
+        .dish-stand { width: 16px; height: 12px; background: #64748b; margin: -2px auto 0; border-radius: 2px; }
+
+        /* Orange Wave Transmissions matching image_d4a0d1.jpg */
+        .wave-line-left, .wave-line-right { position: absolute; top: 80px; height: 110px; width: 90px; border-top: 3px dashed #ea580c; opacity: 0; }
+        .wave-line-left { left: 55px; border-left: 3px dashed #ea580c; border-radius: 100% 0 0 0; animation: transmitLeft 1.5s linear infinite; }
+        .wave-line-right { right: 55px; border-right: 3px dashed #ea580c; border-radius: 0 100% 0 0; animation: transmitRight 1.5s linear infinite; }
+        
+        @keyframes floatSat { 0% { transform: translateX(-50%) translateY(0); } 100% { transform: translateX(-50%) translateY(-8px); } }
+        @keyframes transmitLeft { 0% { opacity: 0; transform: scale(0.3) translate(30px, -20px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1) translate(-20px, 15px); } }
+        @keyframes transmitRight { 0% { opacity: 0; transform: scale(0.3) translate(-30px, -20px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1) translate(20px, 15px); } }
+
         .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
         @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }        
         .marquee-container { width: 100%; overflow: hidden; white-space: nowrap; position: relative; background: black; border-radius: 6px; }
@@ -65,28 +83,33 @@
         
         .showroom-btn { transition: all 0.2s; border: 2px solid #a855f7; font-size: 11px !important; font-weight: 900; white-space: nowrap; }
         .showroom-btn.active { background-color: #a855f7 !important; color: white !important; transform: scale(1.05); }
-
-        /* UNBOXING VIDEO MODAL STYLE */
         #unboxingModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 30000; justify-content: center; align-items: center; padding: 15px; }
     </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
     <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>    
     
-    <!-- HIGH TECH SATELLITE LOADER HTML -->
+    <!-- BRAND NEW ACCURATE HIGH TECH LOADER -->
     <div id="loader">
-        <div class="space-scene">
-            <div class="satellite-wrap">
-                <div class="satellite"></div>
+        <div class="satellite-system">
+            <div class="main-satellite">
+                <div class="solar-wing-left"><div></div><div></div><div></div></div>
+                <div class="sat-core"></div>
+                <div class="solar-wing-right"><div></div><div></div><div></div></div>
+                <div class="sat-dish-bottom"></div>
             </div>
-            <div class="tech-waves">
-                <div class="wave-pulse"></div>
-                <div class="wave-pulse"></div>
-                <div class="wave-pulse"></div>
+            <div class="wave-line-left"></div>
+            <div class="wave-line-right"></div>
+            <div class="ground-dish-left">
+                <div class="dish-bowl"><div class="dish-receiver-rod"></div></div>
+                <div class="dish-stand"></div>
             </div>
-            <div class="dish-antenna"></div>
+            <div class="ground-dish-right">
+                <div class="dish-bowl"><div class="dish-receiver-rod"></div></div>
+                <div class="dish-stand"></div>
+            </div>
         </div>
-        <p class="text-sky-400 font-black tracking-widest text-xs uppercase mt-4 animate-pulse">Connecting to Core11 Satellite...</p>
+        <p class="text-orange-500 font-black tracking-widest text-[11px] uppercase mt-4 animate-pulse">Syncing Core11 Datalink...</p>
     </div>
 
     <!-- UNBOXING VIDEO POPUP MODAL -->
@@ -128,7 +151,6 @@ By using this store, you agree to our terms of service.</p>            </div>   
             const notice = allItems.find(i => i.name.toLowerCase() === 'notice');            if(notice) {                document.getElementById('notice-board').textContent = notice.desc;            }
             renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));            renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));            renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));            renderSidebar(allItems);            document.getElementById('loader').style.display = 'none';        }
         
-        // OPEN & CLOSE UNBOXING POPUP MODAL LOGIC
         function playUnboxingVideo(videoUrl) {
             let vidId = "";
             if (videoUrl.includes("shorts/")) {
@@ -164,9 +186,9 @@ By using this store, you agree to our terms of service.</p>            </div>   
                 
                 const cleanDesc = item.desc.replace(/#\w+(\s+\w+)?/g, '').replace(/[.`]/g, '').trim();
 
-                // DYNAMIC UNBOXING BUTTON SYSTEM (ADJUSTED INSIDE CARD STRUCTURE)
+                // FIXED: UNBOXING VIDEO BUTTON IS NOW STRICTLY ALLOWED ONLY FOR SHOWROOM CARDS WITH '#'
                 let unboxingBtnHtml = "";
-                if(item.video && item.video.trim() !== "") {
+                if(isShowroom && item.video && item.video.trim() !== "") {
                     unboxingBtnHtml = `
                     <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 text-[10px] font-black py-1 rounded-lg uppercase tracking-wider flex items-center justify-center gap-1">
                         📦 Customer Unboxing
