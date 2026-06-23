@@ -88,7 +88,6 @@ By using this store, you agree to our terms of service.</p>            </div>   
                 const isAPK = item.link.toLowerCase().endsWith('.apk');                let btnLabel = "View More";                let btnClass = "bg-blue-600";                let btnAction = `href="${item.link}" target="_blank" rel="noreferrer"`;
 
                 if(isShowroom) {
-                    // Extract Vendor Custom Number if injected via template data attributes dynamically
                     btnLabel = "Order from Showroom";
                     btnClass = "bg-purple-600";
                     btnAction = `data-showroom-item="${item.name}" onclick="handleShowroomClick(this)" style="cursor:pointer"`;
@@ -106,7 +105,6 @@ By using this store, you agree to our terms of service.</p>            </div>   
         // EXCLUSIVELY SEPARATED FILTER SYSTEMS FOR SHOWROOMS
         let activeVendorPhone = "";
         function filterShowroom(code, phone, btn) {
-            // Reset main categories states
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.showroom-btn').forEach(b => b.classList.remove('active'));
             
@@ -118,11 +116,10 @@ By using this store, you agree to our terms of service.</p>            </div>   
             const cards = document.querySelectorAll('#product-container .product-card');
 
             productContainer.classList.remove('hidden');
-            cdrSection.add && cdrSection.classList.add('hidden');
+            if(cdrSection) cdrSection.classList.add('hidden');
 
             cards.forEach(card => {
                 const desc = card.dataset.desc;
-                // Target item containing special tag format e.g: "#sharma"
                 card.style.display = desc.includes('#' + code.toLowerCase()) ? 'flex' : 'none';
             });
         }
@@ -146,14 +143,16 @@ By using this store, you agree to our terms of service.</p>            </div>   
 
             if (cat === 'cdr') {
                 productContainer.classList.add('hidden');
-                cdrSection.classList.remove('hidden');
+                if(cdrSection) cdrSection.classList.remove('hidden');
             } else {
                 productContainer.classList.remove('hidden');
-                cdrSection.classList.add('hidden');
+                if(cdrSection) cdrSection.classList.add('hidden');
                 cards.forEach(card => {
                     const desc = card.dataset.desc;
                     const link = card.dataset.link;
                     let show = (cat === 'all') ||                                (cat === 'apk' && link.endsWith('.apk')) ||                                (cat === 'women' && desc.includes(',')) ||                                (cat === 'men' && desc.includes('.')) ||                                (cat === 'local' && desc.includes('`'));                    card.style.display = show ? 'flex' : 'none';                });
             }
         }
-    </script></body></html>
+    </script>
+</body>
+</html>
