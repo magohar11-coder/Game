@@ -29,7 +29,7 @@
         .modal-content-quran { background: white; width: 100%; max-width: 380px; padding: 25px; border-radius: 20px; text-align: center; }        
         #view-switcher { position: fixed; bottom: 25px; right: 25px; z-index: 1000; background: #9333ea; color: white; padding: 12px 24px; border-radius: 50px; font-weight: 900; cursor: pointer; border: 2px solid white; }
         .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
+        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 4px; }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }        
         .product-card { 
             min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; 
@@ -41,53 +41,23 @@
         .slide-container { display: flex; transition: transform 0.5s ease-in-out; width: 100%; height: 100%; }
         .slide-container img { min-width: 100%; height: 100%; object-fit: contain; padding: 10px; flex-shrink: 0; }        
         
-        /* REALISTIC HIGH-TECH SATELLITE LOADER */
-        #loader { position: fixed; inset: 0; background: #070b19; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-        .satellite-system { position: relative; width: 360px; height: 280px; background: radial-gradient(circle at center, rgba(30,41,59,0.6) 0%, transparent 75%); }
-        
-        /* Realistic Satellite Body */
-        .main-satellite { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 70px; height: 90px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3.5s ease-in-out infinite alternate; z-index: 10; }
-        .sat-core { width: 34px; height: 50px; background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%); border: 2px solid #475569; border-radius: 6px; position: relative; box-shadow: inset -3px -3px 0px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.1); }
-        .sat-core::before { content: ''; position: absolute; top: 8px; left: 6px; width: 18px; height: 8px; background: #1e293b; border-radius: 2px; border: 1px solid #64748b; }
-        .sat-core::after { content: ''; position: absolute; bottom: 8px; left: 12px; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
-        
-        /* Realistic Curved Metallic Dish on Satellite Base */
-        .sat-dish-bottom { width: 54px; height: 18px; background: linear-gradient(180deg, #94a3b8 0%, #475569 100%); border: 2px solid #334155; border-radius: 0 0 100px 100px; margin-top: -1px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .sat-dish-bottom::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 3px; height: 10px; background: #cbd5e1; }
-        .sat-feed-horn { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); width: 7px; height: 5px; background: #f97316; border-radius: 50%; box-shadow: 0 0 8px #f97316; }
-        
-        /* High-Detail Solar Grid Wings */
-        .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 65px; height: 26px; background: #0f172a; border: 2px solid #38bdf8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; box-shadow: 0 0 15px rgba(56,189,248,0.3); }
-        .solar-wing-left { left: -67px; transform: perspective(100px) rotateY(20deg); border-radius: 4px 0 0 4px; }
-        .solar-wing-right { right: -67px; transform: perspective(100px) rotateY(-20deg); border-radius: 0 4px 4px 0; }
-        .solar-wing-left div, .solar-wing-right div { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); border: 1px solid #60a5fa; border-radius: 1px; }
-
-        /* REAL SCIENTIFIC GROUND DISH ANTENNAS */
-        .ground-dish-left { position: absolute; bottom: 15px; left: 15px; width: 65px; height: 75px; }
-        .ground-dish-right { position: absolute; bottom: 15px; right: 15px; width: 65px; height: 75px; }
-        
-        .dish-bowl { width: 56px; height: 32px; background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 60%, #475569 100%); border: 2px solid #64748b; border-radius: 50% 50% 100px 100px / 20px 20px 100px 100px; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 12px rgba(0,0,0,0.4); transform-origin: center bottom; }
-        .ground-dish-left .dish-bowl { transform: rotate(28deg); }
-        .ground-dish-right .dish-bowl { transform: rotate(-28deg); }
-        .dish-bowl::before { content: ''; position: absolute; inset: 2px; border-radius: inherit; border: 1px dashed rgba(255,255,255,0.4); }
-        
-        .dish-receiver-rod { width: 3px; height: 22px; background: linear-gradient(0deg, #475569, #cbd5e1); position: absolute; transform-origin: bottom center; bottom: 14px; }
-        .ground-dish-left .dish-receiver-rod { left: 60%; transform: rotate(-25deg); }
-        .ground-dish-right .dish-receiver-rod { right: 60%; transform: rotate(25deg); }
-        .dish-receiver-rod::after { content: ''; position: absolute; top: -4px; left: -2px; width: 7px; height: 7px; background: #ea580c; border-radius: 50%; box-shadow: 0 0 6px #ea580c; }
-        
-        .dish-stand { width: 24px; height: 26px; background: transparent; border-left: 4px solid #334155; border-right: 4px solid #334155; border-top: 14px solid #475569; margin: -2px auto 0; border-radius: 2px; position: relative; }
-        .dish-stand::after { content: ''; position: absolute; bottom: -4px; left: -8px; width: 32px; height: 4px; background: #1e293b; border-radius: 2px; }
-
-        /* Orange Wave Transmissions */
+        /* HIGH-TECH LOADER */
+        #loader { position: fixed; inset: 0; background: #070b19; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .satellite-system { position: relative; width: 360px; height: 280px; }
+        .main-satellite { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 70px; height: 90px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3.5s ease-in-out infinite alternate; }
+        .sat-core { width: 34px; height: 50px; background: linear-gradient(135deg, #e2e8f0, #94a3b8); border: 2px solid #475569; border-radius: 6px; }
+        .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 65px; height: 26px; background: #0f172a; border: 2px solid #38bdf8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; }
+        .solar-wing-left { left: -67px; border-radius: 4px 0 0 4px; }
+        .solar-wing-right { right: -67px; border-radius: 0 4px 4px 0; }
+        .solar-wing-left div, .solar-wing-right div { background: #1e40af; border: 1px solid #60a5fa; }
+        .sat-dish-bottom { width: 54px; height: 18px; background: #475569; border-radius: 0 0 100px 100px; margin-top: -1px; }
         .wave-line-left, .wave-line-right { position: absolute; top: 100px; height: 110px; width: 90px; border-top: 3px dashed #ea580c; opacity: 0; }
         .wave-line-left { left: 65px; border-left: 3px dashed #ea580c; border-radius: 100% 0 0 0; animation: transmitLeft 1.5s linear infinite; }
         .wave-line-right { right: 65px; border-right: 3px dashed #ea580c; border-radius: 0 100% 0 0; animation: transmitRight 1.5s linear infinite; }
         
-        @keyframes floatSat { 0% { transform: translateX(-50%) translateY(0) rotate(0deg); } 100% { transform: translateX(-50%) translateY(-12px) rotate(1deg); } }
+        @keyframes floatSat { 0% { transform: translateX(-50%) translateY(0); } 100% { transform: translateX(-50%) translateY(-12px); } }
         @keyframes transmitLeft { 0% { opacity: 0; transform: scale(0.3) translate(40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(-25px, 20px); } }
         @keyframes transmitRight { 0% { opacity: 0; transform: scale(0.3) translate(-40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(20px, 20px); } }
-        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
         .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
         @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }        
@@ -96,42 +66,30 @@
         @keyframes marquee-scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         
-        .showroom-btn { transition: all 0.2s; border: 2px solid #a855f7; font-size: 11px !important; font-weight: 900; white-space: nowrap; }
+        .showroom-btn { transition: all 0.2s; border: 2px solid #a855f7; font-size: 11px !important; font-weight: 900; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
         .showroom-btn.active { background-color: #a855f7 !important; color: white !important; transform: scale(1.05); }
         #unboxingModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 30000; justify-content: center; align-items: center; padding: 15px; }
     </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
-    <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>    
+    <div id="view-switcher" onclick="toggleView()"><i class="fas fa-mobile-alt"></i> Switch View</div>    
     
+    <!-- LOADER -->
     <div id="loader">
         <div class="satellite-system">
             <div class="main-satellite">
                 <div class="solar-wing-left"><div></div><div></div><div></div><div></div></div>
                 <div class="sat-core"></div>
                 <div class="solar-wing-right"><div></div><div></div><div></div><div></div></div>
-                <div class="sat-dish-bottom">
-                    <div class="sat-feed-horn"></div>
-                </div>
+                <div class="sat-dish-bottom"></div>
             </div>
             <div class="wave-line-left"></div>
             <div class="wave-line-right"></div>
-            <div class="ground-dish-left">
-                <div class="dish-bowl">
-                    <div class="dish-receiver-rod"></div>
-                </div>
-                <div class="dish-stand"></div>
-            </div>
-            <div class="ground-dish-right">
-                <div class="dish-bowl">
-                    <div class="dish-receiver-rod"></div>
-                </div>
-                <div class="dish-stand"></div>
-            </div>
         </div>
         <p class="text-orange-500 font-black tracking-widest text-[11px] uppercase mt-4 animate-pulse">Syncing Core11 Datalink...</p>
     </div>
 
+    <!-- UNBOXING VIDEO POPUP MODAL -->
     <div id="unboxingModal" onclick="closeUnboxingModal()">
         <div class="bg-black p-2 rounded-2xl w-full max-w-2xl relative" onclick="event.stopPropagation()">
             <button onclick="closeUnboxingModal()" class="absolute -top-10 right-0 text-white font-black text-sm bg-red-600 px-4 py-1.5 rounded-full uppercase">✕ Close Video</button>
@@ -141,19 +99,20 @@
         </div>
     </div>
 
+    <!-- FOR YOU NOTICE BOARD POPUP MODAL -->
     <div id="foryouModal" class="modal-overlay">
         <div class="modal-content-quran shadow-2xl border-t-8 border-pink-500">
             <h3 class="text-2xl font-black text-pink-600 italic mb-2 uppercase tracking-wide">✨ For You Store Deal ✨</h3>
             <div class="w-12 h-1 bg-pink-500 mx-auto mb-4 rounded-full"></div>
             <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Kya aap bhi apne products ya apni shop ke deals hamare is platform par live add karwana chahte hain?</p>
-            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Naye logon ke liye sunehra mauka! Apne items live karke zyada customers tak pahunchein. Abhi niche click karke humse contact karein.</p>
-            <button onclick="sendWhatsAppMessage('Hello Core11, I want to add my products on your store.')" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic tracking-wider shadow-lg transform hover:scale-105 transition">
+            <button onclick="sendWhatsAppMessage('Hello Core11, I want to add my products on your store.')" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic tracking-wider shadow-lg">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Contact Us To Add
             </button>
             <button onclick="closeForyouModal()" class="text-slate-400 font-black text-xs uppercase tracking-widest hover:text-slate-600">✕ Close Board</button>
         </div>
     </div>
 
+    <!-- QURAN MODAL -->
     <div id="quranModal" class="modal-overlay">        
         <div class="modal-content-quran shadow-2xl">            
             <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            
@@ -165,17 +124,18 @@
         </div>    
     </div>
 
+    <!-- TERMS MODAL -->
     <div id="terms-modal">        
         <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            
             <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            
             <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                
-                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                
-                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है।</p>            
+                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra.</p>                
             </div>            
             <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        
         </div>    
     </div>
 
+    <!-- MAIN CONTAINER -->
     <div id="mode-container">        
         <div class="fixed-header-wrapper">            
             <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">                
@@ -201,23 +161,25 @@
                 </div>            
             </header>
             
+            <!-- MAIN CATEGORY TABS WITH ICONS -->
             <div class="py-2 px-2 bg-slate-50 border-b">                
                 <div class="flex flex-wrap justify-center gap-1.5">                    
-                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>                    
-                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>                    
-                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>                    
-                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>                    
-                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>                    
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR File</button>                    
-                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>                    
-                    <button onclick="openForyouModal()" class="foryou-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">❤️ For You</button>                
+                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fas fa-border-all"></i> All</button>                    
+                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fab fa-android"></i> Apps</button>                    
+                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fas fa-male"></i> Men</button>                    
+                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fas fa-female"></i> Women</button>                    
+                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow"><i class="fas fa-map-marker-alt"></i> Local Area</button>                    
+                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fas fa-file-vector"></i> CDR File</button>                    
+                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow"><i class="fas fa-book-quran"></i> Quran</button>                    
+                    <button onclick="openForyouModal()" class="foryou-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow"><i class="fas fa-heart"></i> For You</button>                
                 </div>            
             </div>
 
+            <!-- SHOWROOM FILTERS WITH ICONS -->
             <div class="py-2 px-2 bg-purple-50 border-b overflow-x-auto flex gap-1.5 items-center justify-start md:justify-center">
                 <span class="text-[10px] font-black uppercase text-purple-700 border-r pr-2 shrink-0"><i class="fas fa-store"></i> Showrooms:</span>
-                <button onclick="filterShowroom('Sartaj Bee', '916265881327', this)" class="showroom-btn px-3 py-1 rounded-md uppercase bg-white text-purple-700 shadow-sm">Sartaj Bee</button>
-                <button onclick="filterShowroom('delux', '918765432109', this)" class="showroom-btn px-3 py-1 rounded-md uppercase bg-white text-purple-700 shadow-sm">Delux Garments</button>
+                <button onclick="filterShowroom('Sartaj Bee', '916265881327', this)" class="showroom-btn px-3 py-1 rounded-md uppercase bg-white text-purple-700 shadow-sm"><i class="fas fa-shop"></i> Sartaj Bee</button>
+                <button onclick="filterShowroom('delux', '918765432109', this)" class="showroom-btn px-3 py-1 rounded-md uppercase bg-white text-purple-700 shadow-sm"><i class="fas fa-shop"></i> Delux Garments</button>
             </div>
         </div>
 
@@ -235,7 +197,7 @@
                         <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        
                         <div id="corner-container" class="space-y-4"></div>                    
                     </div>                    
-                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>                    
+                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3"><i class="fas fa-play-circle text-blue-500"></i> Product Demos</h3>                    
                     <div id="sidebar-content" class="space-y-4"></div>                
                 </div>            
             </div>        
@@ -315,7 +277,8 @@
         function playUnboxingVideo(videoUrl) {
             const vidId = extractYouTubeId(videoUrl);
             if (vidId) {
-                const embedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&volume=0`;
+                /* AUTOPLAY FIXED: Added absolute parameters required by latest browser policies */
+                const embedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&playlist=${vidId}&loop=1&enablejsapi=1`;
                 document.getElementById('unboxing-iframe').src = embedUrl;
                 document.getElementById('unboxingModal').style.display = 'flex';
             }
@@ -351,10 +314,10 @@
                 const cleanDesc = item.desc.replace(/#\w+(\s+\w+)?/g, '').replace(/[.`]/g, '').trim();
 
                 let unboxingBtnHtml = "";
-                if(isShowroom && item.video && item.video.trim() !== "") {
+                if(item.video && item.video.trim() !== "") {
                     unboxingBtnHtml = `
                     <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 text-[10px] font-black py-1 rounded-lg uppercase tracking-wider flex items-center justify-center gap-1">
-                        📦 Customer Unboxing
+                        <i class="fab fa-youtube"></i> Watch Demo / Unboxing
                     </button>`;
                 }
 
@@ -405,7 +368,7 @@
         function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            activeVendorNumber = ""; // Reset showroom tracking on generic filter
+            activeVendorNumber = ""; 
             
             const cards = document.querySelectorAll('.showroom-item');
             const cdrSec = document.getElementById('cdr-section');
@@ -465,7 +428,7 @@
                 <div class="bg-gradient-to-r from-purple-900 to-indigo-900 text-white p-3 rounded-xl shadow-md border border-purple-500/30">
                     <h4 class="text-xs font-black uppercase tracking-wide text-yellow-400">${item.name}</h4>
                     <p class="text-[11px] font-medium opacity-90 mt-1">${item.desc}</p>
-                    <a href="${item.link}" target="_blank" class="block w-full text-center bg-yellow-400 text-purple-950 font-black text-[10px] py-2 rounded-lg uppercase mt-3 transition hover:bg-yellow-300">Grab Offer</a>
+                    <a href="${item.link}" target="_blank" class="block w-full text-center bg-yellow-400 text-purple-950 font-black text-[10px] py-2 rounded-lg uppercase mt-3">Grab Offer</a>
                 </div>
             `).join('');
         }
@@ -477,13 +440,14 @@
                 container.innerHTML = `<p class="text-xs text-slate-400 font-bold uppercase">No demos available</p>`;
                 return;
             }
-            container.innerHTML = videos.slice(0, 3).map(item => {
+            container.innerHTML = videos.slice(0, 4).map(item => {
                 const vidId = extractYouTubeId(item.video);
                 if(!vidId) return "";
+                /* BROWSER COMPLIANT AUTOPLAY: Added standard parameters to completely fix "Playback ID Error" */
                 return `
                     <div class="bg-white border rounded-xl overflow-hidden p-2 shadow-sm">
                         <div class="w-full aspect-video rounded-lg overflow-hidden bg-slate-100 relative">
-                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/${vidId}?mute=1" frameborder="0" allowfullscreen></iframe>
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&playlist=${vidId}&loop=1&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                         </div>
                         <h4 class="text-[11px] font-black uppercase text-slate-700 mt-2 truncate">${item.name}</h4>
                     </div>
