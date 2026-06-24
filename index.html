@@ -82,7 +82,7 @@
         @keyframes marquee-scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         
-        /* NEW DYNAMIC ICON CAROUSEL SYSTEM */
+        /* BRAND NEW DYNAMIC LOGO SWIPER STYLES */
         .showroom-carousel-wrapper { position: relative; display: flex; align-items: center; background: white; padding: 8px 4px; }
         .showroom-scroll-container { display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; width: 100%; padding: 4px 8px; }
         .showroom-scroll-container::-webkit-scrollbar { display: none; }
@@ -90,7 +90,7 @@
         
         .showroom-avatar-btn { display: flex; flex-direction: column; align-items: center; cursor: pointer; shrink-0: 0; min-width: 68px; transition: transform 0.2s; }
         .showroom-avatar-btn:hover { transform: scale(1.05); }
-        .avatar-img-ring { width: 52px; height: 52px; border-radius: 50%; p: 2px; border: 2.5px solid #a855f7; display: flex; align-items: center; justify-content: center; background: white; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .avatar-img-ring { width: 52px; height: 52px; border-radius: 50%; padding: 2px; border: 2.5px solid #a855f7; display: flex; align-items: center; justify-content: center; background: white; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
         .avatar-img-ring img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
         .showroom-avatar-btn.active .avatar-img-ring { border-color: #2563eb; background-color: #eff6ff; box-shadow: 0 0 10px rgba(37,99,235,0.4); }
         
@@ -98,14 +98,11 @@
         .nav-scroll-btn:hover { background: #f8fafc; color: #000; }
         .nav-btn-left { left: 4px; }
         .nav-btn-right { right: 4px; }
-
-        #unboxingModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 30000; justify-content: center; align-items: center; padding: 15px; }
     </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
     <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>    
     
-    <!-- HIGH TECH LOADER -->
     <div id="loader">
         <div class="satellite-system">
             <div class="main-satellite">
@@ -121,7 +118,6 @@
         <p class="text-orange-500 font-black tracking-widest text-[11px] uppercase mt-4 animate-pulse">Syncing Core11 Datalink...</p>
     </div>
 
-    <!-- UNBOXING VIDEO POPUP MODAL -->
     <div id="unboxingModal" onclick="closeUnboxingModal()">
         <div class="bg-black p-2 rounded-2xl w-full max-w-2xl relative" onclick="event.stopPropagation()">
             <button onclick="closeUnboxingModal()" class="absolute -top-10 right-0 text-white font-black text-sm bg-red-600 px-4 py-1.5 rounded-full uppercase">✕ Close Video</button>
@@ -131,13 +127,13 @@
         </div>
     </div>
 
-    <!-- FOR YOU NOTICE BOARD POPUP MODAL -->
     <div id="foryouModal" class="modal-overlay">
         <div class="modal-content-quran shadow-2xl border-t-8 border-pink-500">
             <h3 class="text-2xl font-black text-pink-600 italic mb-2 uppercase tracking-wide">✨ For You Store Deal ✨</h3>
             <div class="w-12 h-1 bg-pink-500 mx-auto mb-4 rounded-full"></div>
             <p class="text-slate-800 text-base font-black mb-4 leading-relaxed">Kya aap bhi apne products ya apni shop ke deals hamare is platform par live add karwana chahte hain?</p>
             <p class="text-slate-700 text-sm font-black mb-6 leading-relaxed bg-pink-50 p-3 rounded-xl border border-pink-100">Naye logon ke liye sunehra mauka! Apne items live karke zyada customers tak pahunchein. Abhi niche click karke humse contact karein.</p>
+            <p class="text-slate-700 text-sm font-black mb-4 leading-relaxed">Do you want to list your products or shop deals live on our platform? A golden opportunity for new sellers! Reach more customers by showcasing your items live. Click below to contact us now.</p>
             <button onclick="sendWhatsAppMessage('Hello Core11, I want to add my products on your store.')" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic tracking-wider shadow-lg transform hover:scale-105 transition">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Contact Us To Add
             </button>
@@ -146,7 +142,7 @@
     </div>
 
     <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
-    <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        </div>    </div>
+    <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        </div>    </div>
     
     <div id="mode-container">        
         <div class="fixed-header-wrapper">            
@@ -180,14 +176,12 @@
                 </div>            
             </div>
 
-            <!-- MODEL 1 LOGO ICON SWIPER MAIN CONTAINER -->
             <div class="bg-purple-50/50 border-b px-2 py-1">
                 <p class="text-[10px] font-black uppercase text-purple-700 tracking-wider mb-1 pl-2">🏬 Partner Showrooms:</p>
                 <div class="showroom-carousel-wrapper">
                     <button class="nav-scroll-btn nav-btn-left" onclick="scrollShowrooms(-150)">❮</button>
                     <div id="showroom-avatar-container" class="showroom-scroll-container">
-                        <!-- Dynamic Logo Icons Will Load Here Via JS -->
-                    </div>
+                        </div>
                     <button class="nav-scroll-btn nav-btn-right" onclick="scrollShowrooms(150)">❯</button>
                 </div>
             </div>
@@ -253,7 +247,7 @@
                 const csvText = await res.text();                
                 const rows = csvText.split('\n').slice(1).filter(r => r.trim());                
                 allItems = rows.map((row, idx) => {                    
-                    const cols = row.split(/,(?=(?:(?:[^\"" ]*"){2})*[^""]*$)/);                    
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);                    
                     return {                        
                         name: cols[0]?.replace(/"/g, '').trim(),                        
                         desc: cols[1]?.replace(/"/g, '').trim(),                        
@@ -285,34 +279,10 @@
             document.getElementById('loader').style.display = 'none';        
         }
 
-        // GENERATES DYNAMIC GRAPHIC IMAGE LOGOS AUTOMATICALLY FROM THE SHEET DATA
+        // HANDLES COMPLETE DYNAMIC LOOKUP OF TARGET LOGO ROWS DEFINED VIA SHEET CONTROLS
         function buildDynamicShowroomList() {
             const container = document.getElementById('showroom-avatar-container');
-            let uniqueShowrooms = {};
-
-            allItems.forEach(item => {
-                if (item.desc && item.desc.includes('#')) {
-                    const matches = item.desc.match(/#([a-zA-Z0-9]+)/g);
-                    if (matches) {
-                        matches.forEach(m => {
-                            const code = m.replace('#', '').toLowerCase();
-                            if (!uniqueShowrooms[code]) {
-                                uniqueShowrooms[code] = {
-                                    code: code,
-                                    displayName: code.toUpperCase(),
-                                    image: item.images[0] || 'https://via.placeholder.com/100',
-                                    phone: "91" + myWhatsApp
-                                };
-                            }
-                        });
-                    }
-                }
-            });
-
-            // Hardcoded Phone mapping for specific showrooms if needed, else falls back dynamically
-            if(uniqueShowrooms['sartaj']) { uniqueShowrooms['sartaj'].displayName = "Sartaj Bee"; uniqueShowrooms['sartaj'].phone = "916265881327"; }
-            if(uniqueShowrooms['delux']) { uniqueShowrooms['delux'].displayName = "Delux Garments"; uniqueShowrooms['delux'].phone = "918765432109"; }
-
+            
             let htmlString = `
                 <div class="showroom-avatar-btn active" id="all-showroom-avatar" onclick="clearShowroomFilter(this)">
                     <div class="avatar-img-ring">
@@ -322,13 +292,21 @@
                 </div>
             `;
 
-            Object.values(uniqueShowrooms).forEach(showroom => {
+            // Extract all setup settings starting with unique prefix identifier 'logo_'
+            const showroomLogos = allItems.filter(item => item.name.toLowerCase().startsWith('logo_'));
+
+            showroomLogos.forEach(showroom => {
+                const code = showroom.name.split('_')[1].toLowerCase(); 
+                const displayName = showroom.desc; 
+                const logoImg = showroom.images[0]; 
+                const phone = showroom.link ? showroom.link.trim() : "91" + myWhatsApp; 
+
                 htmlString += `
-                    <div class="showroom-avatar-btn" onclick="filterShowroom('${showroom.code}', '${showroom.phone}', this)">
+                    <div class="showroom-avatar-btn" onclick="filterShowroom('${code}', '${phone}', this)">
                         <div class="avatar-img-ring">
-                            <img src="${showroom.image}" alt="${showroom.displayName}">
+                            <img src="${logoImg}" alt="${displayName}" onerror="this.src='https://via.placeholder.com/100'">
                         </div>
-                        <span class="text-[9px] font-black mt-1 text-slate-700 uppercase tracking-tight text-center max-w-[64px] truncate">${showroom.displayName}</span>
+                        <span class="text-[9px] font-black mt-1 text-slate-700 uppercase tracking-tight text-center max-w-[64px] truncate">${displayName}</span>
                     </div>
                 `;
             });
@@ -432,6 +410,7 @@
             document.getElementById('corner-section').classList.remove('hidden');            
             document.getElementById('corner-container').innerHTML = items.map(item => `                <div class="bg-white p-3 rounded-2xl shadow-md border-2 border-purple-100 product-card">                    <img src="${item.images[0]}" loading="lazy" class="w-full rounded-lg mb-2 object-contain">                    <h4 class="text-[12px] font-black uppercase mb-1">${item.name}</h4>                    <a href="${item.link}" target="_blank" rel="noreferrer" class="block w-full text-center bg-purple-600 text-white text-[9px] font-black py-2 rounded-lg uppercase italic">Grab Deal</a>                </div>`).join('');        }
 
+        // AUTO SIDEBAR PARSER EXTRACTOR
         function renderSidebar(items) {            
             const vids = [...new Set(items.filter(i => i.video).map(i => i.video.split(',')).flat())];            
             document.getElementById('sidebar-content').innerHTML = vids.slice(0, 4).map(link => {                
@@ -449,6 +428,7 @@
         }
 
         function filterCategory(cat, btn) {
+            document.querySelectorAll('.showroom-avatar-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
             
