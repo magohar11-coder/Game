@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://www.amazon.in">
     <link rel="dns-prefetch" href="https://docs.google.com">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { 
             background-attachment: fixed; background-size: cover; background-position: center; 
@@ -29,7 +28,7 @@
         .modal-content-quran { background: white; width: 100%; max-width: 380px; padding: 25px; border-radius: 20px; text-align: center; }        
         #view-switcher { position: fixed; bottom: 25px; right: 25px; z-index: 1000; background: #9333ea; color: white; padding: 12px 24px; border-radius: 50px; font-weight: 900; cursor: pointer; border: 2px solid white; }
         .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }        
         .product-card { 
             min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; 
@@ -41,24 +40,54 @@
         .slide-container { display: flex; transition: transform 0.5s ease-in-out; width: 100%; height: 100%; }
         .slide-container img { min-width: 100%; height: 100%; object-fit: contain; padding: 10px; flex-shrink: 0; }        
         
-        /* HIGH-TECH LOADER */
-        #loader { position: fixed; inset: 0; background: #070b19; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .satellite-system { position: relative; width: 360px; height: 280px; }
-        .main-satellite { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 70px; height: 90px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3.5s ease-in-out infinite alternate; }
-        .sat-core { width: 34px; height: 50px; background: linear-gradient(135deg, #e2e8f0, #94a3b8); border: 2px solid #475569; border-radius: 6px; }
-        .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 65px; height: 26px; background: #0f172a; border: 2px solid #38bdf8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; }
-        .solar-wing-left { left: -67px; border-radius: 4px 0 0 4px; }
-        .solar-wing-right { right: -67px; border-radius: 0 4px 4px 0; }
-        .solar-wing-left div, .solar-wing-right div { background: #1e40af; border: 1px solid #60a5fa; }
-        .sat-dish-bottom { width: 54px; height: 18px; background: #475569; border-radius: 0 0 100px 100px; margin-top: -1px; }
+        /* REALISTIC HIGH-TECH SATELLITE LOADER */
+        #loader { position: fixed; inset: 0; background: #070b19; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .satellite-system { position: relative; width: 360px; height: 280px; background: radial-gradient(circle at center, rgba(30,41,59,0.6) 0%, transparent 75%); }
+        
+        /* Realistic Satellite Body */
+        .main-satellite { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 70px; height: 90px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3.5s ease-in-out infinite alternate; z-index: 10; }
+        .sat-core { width: 34px; height: 50px; background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%); border: 2px solid #475569; border-radius: 6px; position: relative; box-shadow: inset -3px -3px 0px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.1); }
+        .sat-core::before { content: ''; position: absolute; top: 8px; left: 6px; width: 18px; height: 8px; background: #1e293b; border-radius: 2px; border: 1px solid #64748b; }
+        .sat-core::after { content: ''; position: absolute; bottom: 8px; left: 12px; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
+        
+        .sat-dish-bottom { width: 54px; height: 18px; background: linear-gradient(180deg, #94a3b8 0%, #475569 100%); border: 2px solid #334155; border-radius: 0 0 100px 100px; margin-top: -1px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .sat-dish-bottom::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 3px; height: 10px; background: #cbd5e1; }
+        .sat-feed-horn { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); width: 7px; height: 5px; background: #f97316; border-radius: 50%; box-shadow: 0 0 8px #f97316; }
+        
+        /* High-Detail Solar Grid Wings */
+        .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 65px; height: 26px; background: #0f172a; border: 2px solid #38bdf8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; box-shadow: 0 0 15px rgba(56,189,248,0.3); }
+        .solar-wing-left { left: -67px; transform: perspective(100px) rotateY(20deg); border-radius: 4px 0 0 4px; }
+        .solar-wing-right { right: -67px; transform: perspective(100px) rotateY(-20deg); border-radius: 0 4px 4px 0; }
+        .solar-wing-left div, .solar-wing-right div { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); border: 1px solid #60a5fa; border-radius: 1px; }
+
+        /* GROUND DISH ANTENNAS */
+        .ground-dish-left { position: absolute; bottom: 15px; left: 15px; width: 65px; height: 75px; }
+        .ground-dish-right { position: absolute; bottom: 15px; right: 15px; width: 65px; height: 75px; }
+        
+        .dish-bowl { width: 56px; height: 32px; background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 60%, #475569 100%); border: 2px solid #64748b; border-radius: 50% 50% 100px 100px / 20px 20px 100px 100px; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 12px rgba(0,0,0,0.4); transform-origin: center bottom; }
+        .ground-dish-left .dish-bowl { transform: rotate(28deg); }
+        .ground-dish-right .dish-bowl { transform: rotate(-28deg); }
+        .dish-bowl::before { content: ''; position: absolute; inset: 2px; border-radius: inherit; border: 1px dashed rgba(255,255,255,0.4); }
+        
+        .dish-receiver-rod { width: 3px; height: 22px; background: linear-gradient(0deg, #475569, #cbd5e1); position: absolute; transform-origin: bottom center; bottom: 14px; }
+        .ground-dish-left .dish-receiver-rod { left: 60%; transform: rotate(-25deg); }
+        .ground-dish-right .dish-receiver-rod { right: 60%; transform: rotate(25deg); }
+        .dish-receiver-rod::after { content: ''; position: absolute; top: -4px; left: -2px; width: 7px; height: 7px; background: #ea580c; border-radius: 50%; box-shadow: 0 0 6px #ea580c; }
+        
+        .dish-stand { width: 24px; height: 26px; background: transparent; border-left: 4px solid #334155; border-right: 4px solid #334155; border-top: 14px solid #475569; margin: -2px auto 0; border-radius: 2px; position: relative; }
+        .dish-stand::after { content: ''; position: absolute; bottom: -4px; left: -8px; width: 32px; height: 4px; background: #1e293b; border-radius: 2px; }
+
+        /* Transmission Waves */
         .wave-line-left, .wave-line-right { position: absolute; top: 100px; height: 110px; width: 90px; border-top: 3px dashed #ea580c; opacity: 0; }
         .wave-line-left { left: 65px; border-left: 3px dashed #ea580c; border-radius: 100% 0 0 0; animation: transmitLeft 1.5s linear infinite; }
         .wave-line-right { right: 65px; border-right: 3px dashed #ea580c; border-radius: 0 100% 0 0; animation: transmitRight 1.5s linear infinite; }
         
-        @keyframes floatSat { 0% { transform: translateX(-50%) translateY(0); } 100% { transform: translateX(-50%) translateY(-12px); } }
+        @keyframes floatSat { 0% { transform: translateX(-50%) translateY(0) rotate(0deg); } 100% { transform: translateX(-50%) translateY(-12px) rotate(1deg); } }
         @keyframes transmitLeft { 0% { opacity: 0; transform: scale(0.3) translate(40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(-25px, 20px); } }
         @keyframes transmitRight { 0% { opacity: 0; transform: scale(0.3) translate(-40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(20px, 20px); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
+        /* Notice Board Border Effect */
         .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
         @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }        
         .marquee-container { width: 100%; overflow: hidden; white-space: nowrap; position: relative; background: black; border-radius: 6px; }
@@ -66,149 +95,162 @@
         @keyframes marquee-scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         
-        .showroom-btn { transition: all 0.2s; border: 2px solid #a855f7; font-size: 11px !important; font-weight: 900; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
-        .showroom-btn.active { background-color: #a855f7 !important; color: white !important; transform: scale(1.05); }
-        #unboxingModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 30000; justify-content: center; align-items: center; padding: 15px; }
+        /* MODEL 1: ICON GRID SWIPE (SHOWROOMS) POSITION DESIGN */
+        .showroom-badge-btn {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-width: 65px; height: 65px; border-radius: 50%; font-weight: 900; font-size: 11px;
+            transition: all 0.3s ease; border: 2px solid #e2e8f0; text-transform: uppercase;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); cursor: pointer; background: white;
+        }
+        .showroom-badge-btn.active {
+            transform: scale(1.1); border-color: currentcolor; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .showroom-label { font-size: 9px; font-weight: 900; margin-top: 3px; text-transform: uppercase; color: #475569; text-align: center; max-width: 75px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
-    <div id="view-switcher" onclick="toggleView()"><i class="fas fa-mobile-alt"></i> Switch View</div>    
+    <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>    
     
-    <!-- LOADER -->
     <div id="loader">
         <div class="satellite-system">
             <div class="main-satellite">
                 <div class="solar-wing-left"><div></div><div></div><div></div><div></div></div>
                 <div class="sat-core"></div>
                 <div class="solar-wing-right"><div></div><div></div><div></div><div></div></div>
-                <div class="sat-dish-bottom"></div>
+                <div class="sat-dish-bottom">
+                    <div class="sat-feed-horn"></div>
+                </div>
             </div>
             <div class="wave-line-left"></div>
             <div class="wave-line-right"></div>
+            <div class="ground-dish-left">
+                <div class="dish-bowl"><div class="dish-receiver-rod"></div></div>
+                <div class="dish-stand"></div>
+            </div>
+            <div class="ground-dish-right">
+                <div class="dish-bowl"><div class="dish-receiver-rod"></div></div>
+                <div class="dish-stand"></div>
+            </div>
         </div>
         <p class="text-orange-500 font-black tracking-widest text-[11px] uppercase mt-4 animate-pulse">Syncing Core11 Datalink...</p>
     </div>
 
-    <!-- UNBOXING VIDEO POPUP MODAL -->
-    <div id="unboxingModal" onclick="closeUnboxingModal()">
-        <div class="bg-black p-2 rounded-2xl w-full max-w-2xl relative" onclick="event.stopPropagation()">
-            <button onclick="closeUnboxingModal()" class="absolute -top-10 right-0 text-white font-black text-sm bg-red-600 px-4 py-1.5 rounded-full uppercase">✕ Close Video</button>
-            <div class="w-full aspect-video rounded-xl overflow-hidden">
-                <iframe id="unboxing-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOR YOU NOTICE BOARD POPUP MODAL -->
     <div id="foryouModal" class="modal-overlay">
         <div class="modal-content-quran shadow-2xl border-t-8 border-pink-500">
             <h3 class="text-2xl font-black text-pink-600 italic mb-2 uppercase tracking-wide">✨ For You Store Deal ✨</h3>
             <div class="w-12 h-1 bg-pink-500 mx-auto mb-4 rounded-full"></div>
-            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Kya aap bhi apne products ya apni shop ke deals hamare is platform par live add karwana chahte hain?</p>
-            <button onclick="sendWhatsAppMessage('Hello Core11, I want to add my products on your store.')" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic tracking-wider shadow-lg">
+            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Kya aap bhi apne products ya apni shop ke deals hamare is platform par live add karwana chahte hain? Abhi niche click karke humse contact karein.</p>
+            <button onclick="sendWhatsAppMessage('Hello Core11, I want to add my products on your store.')" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic tracking-wider shadow-lg transform hover:scale-105 transition">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Contact Us To Add
             </button>
             <button onclick="closeForyouModal()" class="text-slate-400 font-black text-xs uppercase tracking-widest hover:text-slate-600">✕ Close Board</button>
         </div>
     </div>
 
-    <!-- QURAN MODAL -->
-    <div id="quranModal" class="modal-overlay">        
-        <div class="modal-content-quran shadow-2xl">            
-            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            
-            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            
-            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            
-            </button>            
-            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        
-        </div>    
+    <div id="quranModal" class="modal-overlay">
+        <div class="modal-content-quran shadow-2xl">
+            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>
+            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>
+            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message 
+            </button>
+            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>
+        </div>
     </div>
 
-    <!-- TERMS MODAL -->
-    <div id="terms-modal">        
-        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            
-            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            
-            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                
-                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra.</p>                
-            </div>            
-            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        
-        </div>    
-    </div>
-
-    <!-- MAIN CONTAINER -->
-    <div id="mode-container">        
-        <div class="fixed-header-wrapper">            
-            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">                
-                <div class="notice-wrapper">                    
-                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">                        
-                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>                        
-                        <div class="marquee-container">                            
-                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>                        
-                        </div>                    
-                    </div>                
-                </div>            
+    <div id="terms-modal">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">
+            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
+            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">
+                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>
+                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है। By using this store, you agree to our terms of service.</p>
             </div>
-            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">                
-                <div class="flex items-center gap-2">                    
-                    <img id="site-logo" src="" alt="Logo" class="h-12">                    
-                    <div class="border-l-2 border-slate-200 pl-2">                        
-                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>                        
-                        <div class="flex items-center gap-3">                            
-                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>                            
-                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>                        
-                        </div>                    
-                    </div>                
-                </div>            
+            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>
+        </div>
+    </div>
+
+    <div id="mode-container">
+        <div class="fixed-header-wrapper">
+            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">
+                <div class="notice-wrapper">
+                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">
+                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>
+                        <div class="marquee-container">
+                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">
+                <div class="flex items-center gap-2">
+                    <img id="site-logo" src="" alt="Logo" class="h-12">
+                    <div class="border-l-2 border-slate-200 pl-2">
+                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>
+                        <div class="flex items-center gap-3">
+                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>
+                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>
+                        </div>
+                    </div>
+                </div>
             </header>
             
-            <!-- MAIN CATEGORY TABS WITH ICONS -->
-            <div class="py-2 px-2 bg-slate-50 border-b">                
-                <div class="flex flex-wrap justify-center gap-1.5">                    
-                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fas fa-border-all"></i> All</button>                    
-                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fab fa-android"></i> Apps</button>                    
-                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fas fa-male"></i> Men</button>                    
-                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fas fa-female"></i> Women</button>                    
-                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow"><i class="fas fa-map-marker-alt"></i> Local Area</button>                    
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow"><i class="fas fa-file-vector"></i> CDR File</button>                    
-                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow"><i class="fas fa-book-quran"></i> Quran</button>                    
-                    <button onclick="openForyouModal()" class="foryou-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow"><i class="fas fa-heart"></i> For You</button>                
-                </div>            
+            <div class="py-2 px-2 bg-slate-50 border-b">
+                <div class="flex flex-wrap justify-center gap-1.5">
+                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>
+                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>
+                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>
+                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>
+                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>
+                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR File</button>
+                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>
+                    <button onclick="openForyouModal()" class="foryou-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">❤️ For You</button>
+                </div>
             </div>
 
-            <!-- SHOWROOM FILTERS WITH ICONS -->
-            <div class="py-2 px-2 bg-purple-50 border-b overflow-x-auto flex gap-1.5 items-center justify-start md:justify-center">
-                <span class="text-[10px] font-black uppercase text-purple-700 border-r pr-2 shrink-0"><i class="fas fa-store"></i> Showrooms:</span>
-                <button onclick="filterShowroom('Sartaj Bee', '916265881327', this)" class="showroom-btn px-3 py-1 rounded-md uppercase bg-white text-purple-700 shadow-sm"><i class="fas fa-shop"></i> Sartaj Bee</button>
-                <button onclick="filterShowroom('delux', '918765432109', this)" class="showroom-btn px-3 py-1 rounded-md uppercase bg-white text-purple-700 shadow-sm"><i class="fas fa-shop"></i> Delux Garments</button>
+            <div class="py-3 px-4 bg-purple-50 border-b">
+                <p class="text-[10px] font-black uppercase text-purple-700 mb-2 tracking-wider">🔥 Top Showrooms (Swipe Left-Right):</p>
+                <div class="flex gap-4 overflow-x-auto pb-1 scrollbar-hide justify-start items-center">
+                    
+                    <div class="flex flex-col items-center shrink-0">
+                        <button onclick="filterShowroom('#sartaj', '#ec4899', this)" class="showroom-badge-btn active text-pink-500 border-pink-500">SB</button>
+                        <span class="showroom-label">Sartaj Bee</span>
+                    </div>
+
+                    <div class="flex flex-col items-center shrink-0">
+                        <button onclick="filterShowroom('#delux', '#2563eb', this)" class="showroom-badge-btn text-blue-600 border-slate-200">DG</button>
+                        <span class="showroom-label">Delux Gar.</span>
+                    </div>
+
+                    <div class="flex flex-col items-center shrink-0">
+                        <button onclick="filterShowroom('#raza', '#dc2626', this)" class="showroom-badge-btn text-red-600 border-slate-200">RK</button>
+                        <span class="showroom-label">Raza King</span>
+                    </div>
+
+                    <div class="flex flex-col items-center shrink-0">
+                        <button onclick="filterShowroom('#zeenat', '#10b981', this)" class="showroom-badge-btn text-emerald-500 border-slate-200">Z1</button>
+                        <span class="showroom-label">Zeenat</span>
+                    </div>
+
+                </div>
             </div>
         </div>
 
-        <main class="max-w-7xl mx-auto p-3 mt-2">            
-            <div class="flex flex-col lg:flex-row gap-6">                
-                <div id="product-list-area" class="lg:w-3/4">                    
-                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>                    
-                    <div id="cdr-section" class="mt-8 hidden">                        
-                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>                        
-                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>                    
-                    </div>                
-                </div>                
-                <div id="video-sidebar" class="lg:w-1/4 space-y-6">                    
-                    <div id="corner-section" class="hidden">                        
-                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        
-                        <div id="corner-container" class="space-y-4"></div>                    
-                    </div>                    
-                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3"><i class="fas fa-play-circle text-blue-500"></i> Product Demos</h3>                    
-                    <div id="sidebar-content" class="space-y-4"></div>                
-                </div>            
-            </div>        
-        </main>    
+        <main class="max-w-7xl mx-auto p-3 mt-2">
+            <div id="product-container" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3"></div>
+            
+            <div id="cdr-section" class="mt-8 hidden">
+                <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
+                <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+            </div>
+        </main>
     </div>
 
     <script>        
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';        
         const myWhatsApp = "7841806171";        
         let allItems = [];
-        let activeVendorNumber = "";
+        let currentActiveShowroom = "all";
 
         window.onload = () => { if(!localStorage.getItem('core11_agreed')) showTerms(); loadStore(); };        
         function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }        
@@ -219,24 +261,6 @@
         function closeForyouModal() { document.getElementById('foryouModal').style.display = 'none'; }        
         function toggleView() { document.getElementById('main-body').classList.toggle('mobile-view-active'); }                
         function sendWhatsAppMessage(text) { window.open(`https://wa.me/${myWhatsApp}?text=${encodeURIComponent(text)}`, '_blank'); }
-        function sendVendorWhatsApp(number, text) { window.open(`https://wa.me/${number}?text=${encodeURIComponent(text)}`, '_blank'); }
-
-        function extractYouTubeId(url) {
-            if (!url) return "";
-            let vidId = "";
-            let cleanUrl = url.trim();
-            if (cleanUrl.includes("shorts/")) {
-                vidId = cleanUrl.split("shorts/")[1];
-            } else if (cleanUrl.includes("v=")) {
-                vidId = cleanUrl.split("v=")[1];
-            } else if (cleanUrl.includes("youtu.be/")) {
-                vidId = cleanUrl.split("youtu.be/")[1];
-            } else {
-                vidId = cleanUrl;
-            }
-            if (vidId) vidId = vidId.split(/[?&]/)[0];
-            return vidId;
-        }
 
         async function loadStore() {            
             try {                
@@ -250,13 +274,12 @@
                         desc: cols[1]?.replace(/"/g, '').trim(),                        
                         images: cols[2]?.replace(/"/g, '').split(',').map(img => img.trim()),                        
                         link: cols[3]?.replace(/"/g, '').trim(),                        
-                        video: cols[4] ? cols[4].replace(/"/g, '').trim() : null,                        
                         id: idx                    
                     };                
                 }).filter(i => i.name);                
                 renderAll();                
                 startAutoSlide();            
-            } catch (e) { console.error("Load Error", e); }        
+            } catch (e) { console.error("Load Error"); }        
         }
 
         function renderAll() {            
@@ -267,62 +290,90 @@
             const notice = allItems.find(i => i.name.toLowerCase() === 'notice');            
             if(notice) document.getElementById('notice-board').textContent = notice.desc;            
             
-            renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));            
-            renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));            
-            renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));            
-            renderSidebar(allItems);            
+            // Filters configuration
+            filterCategory('all', document.querySelector('.filter-btn'));
             document.getElementById('loader').style.display = 'none';        
         }
-        
-        function playUnboxingVideo(videoUrl) {
-            const vidId = extractYouTubeId(videoUrl);
-            if (vidId) {
-                /* AUTOPLAY FIXED: Added absolute parameters required by latest browser policies */
-                const embedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&playlist=${vidId}&loop=1&enablejsapi=1`;
-                document.getElementById('unboxing-iframe').src = embedUrl;
-                document.getElementById('unboxingModal').style.display = 'flex';
+
+        function filterCategory(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+
+            const cdrSection = document.getElementById('cdr-section');
+            if(category === 'cdr') {
+                cdrSection.classList.remove('hidden');
+                renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
+                document.getElementById('product-container').innerHTML = '';
+                return;
+            } else {
+                cdrSection.classList.add('hidden');
             }
+
+            let filtered = allItems.filter(i => !['logo', 'background', 'notice'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr'));
+
+            if(category === 'apk') {
+                filtered = filtered.filter(i => i.link.toLowerCase().endsWith('.apk'));
+            } else if(category === 'men') {
+                filtered = filtered.filter(i => i.desc.toLowerCase().includes('men') || i.name.toLowerCase().includes('men'));
+            } else if(category === 'women') {
+                filtered = filtered.filter(i => i.desc.toLowerCase().includes('women') || i.name.toLowerCase().includes('women') || i.desc.toLowerCase().includes('clutch'));
+            } else if(category === 'local') {
+                filtered = filtered.filter(i => i.desc.includes('`'));
+            }
+
+            if(currentActiveShowroom !== "all") {
+                filtered = filtered.filter(i => i.desc.toLowerCase().includes(currentActiveShowroom));
+            }
+
+            renderItems(filtered);
         }
 
-        function closeUnboxingModal() {
-            document.getElementById('unboxingModal').style.display = 'none';
-            document.getElementById('unboxing-iframe').src = "";
+        function filterShowroom(tag, colorCode, btn) {
+            const wasActive = btn.classList.contains('active');
+            
+            document.querySelectorAll('.showroom-badge-btn').forEach(b => {
+                b.classList.remove('active');
+                b.style.borderColor = '#e2e8f0';
+            });
+
+            if(wasActive) {
+                currentActiveShowroom = "all";
+            } else {
+                btn.classList.add('active');
+                btn.style.borderColor = colorCode;
+                currentActiveShowroom = tag.toLowerCase();
+            }
+
+            const activeCatBtn = document.querySelector('.filter-btn.active');
+            const currentCat = activeCatBtn ? activeCatBtn.textContent.toLowerCase() : 'all';
+            filterCategory(currentCat === 'apps' ? 'apk' : currentCat, activeCatBtn);
         }
 
         function renderItems(items) {            
             const container = document.getElementById('product-container');            
+            if(items.length === 0) {
+                container.innerHTML = '<p class="col-span-4 text-center text-slate-400 font-bold py-10">No items found in this category for the selected showroom.</p>';
+                return;
+            }
             container.innerHTML = items.map(item => {                
                 const isLocal = item.desc.includes('`');
-                const isShowroom = item.desc.includes('#');
                 const isAPK = item.link.toLowerCase().endsWith('.apk');                
                 let btnLabel = "View More";                
                 let btnClass = "bg-blue-600";                
                 let btnAction = `href="${item.link}" target="_blank" rel="noreferrer"`;
 
-                if(isShowroom) {
-                    btnLabel = "Order from Showroom";
-                    btnClass = "bg-purple-600";
-                    btnAction = `data-showroom-item="${item.name}" onclick="handleShowroomClick(this)" style="cursor:pointer"`;
-                } else if(isLocal) {                    
+                if(isLocal) {                    
                     btnLabel = "Order on WhatsApp";                    
                     btnClass = "bg-purple-600";                    
                     btnAction = `onclick="sendWhatsAppMessage('Interested in: ${item.name}')" style="cursor:pointer"`;                
                 } else if(isAPK) {                    
                     btnLabel = "Install Now";                    
-                    btnClass = "bg-emerald-500";                    
+                    btnClass = "bg-emerald-500";                
                 }                
                 const cleanDesc = item.desc.replace(/#\w+(\s+\w+)?/g, '').replace(/[.`]/g, '').trim();
 
-                let unboxingBtnHtml = "";
-                if(item.video && item.video.trim() !== "") {
-                    unboxingBtnHtml = `
-                    <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 text-[10px] font-black py-1 rounded-lg uppercase tracking-wider flex items-center justify-center gap-1">
-                        <i class="fab fa-youtube"></i> Watch Demo / Unboxing
-                    </button>`;
-                }
-
                 return `                
-                <div class="bg-white rounded-2xl p-4 border border-slate-100 product-card shadow-sm showroom-item" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">                    
+                <div class="bg-white rounded-2xl p-4 border border-slate-100 product-card shadow-sm">                    
                     <div class="img-box">                        
                         <div class="slide-container" id="slide-${item.id}">                            
                             ${item.images.map(img => `<img src="${img}" loading="lazy" decoding="async">`).join('')}                        
@@ -333,68 +384,10 @@
                         <p class="text-slate-500 text-[11px] font-medium mt-1">${cleanDesc}</p>                    
                     </div>                    
                     <div class="mt-auto pt-3">                        
-                        ${unboxingBtnHtml}                        
                         <a ${btnAction} class="block w-full text-center text-white text-[10px] font-black py-2.5 rounded-lg ${btnClass} uppercase italic shadow-md">${btnLabel}</a>                    
                     </div>                
                 </div>`;            
             }).join('');        
-        }
-
-        function handleShowroomClick(element) {
-            const itemName = element.getAttribute('data-showroom-item');
-            if(activeVendorNumber !== "") {
-                sendVendorWhatsApp(activeVendorNumber, `Hello, I want to order this product from your showroom: ${itemName}`);
-            } else {
-                sendWhatsAppMessage(`Hello Core11, I want to order from showroom: ${itemName}`);
-            }
-        }
-
-        function filterShowroom(tag, number, btn) {
-            document.querySelectorAll('.showroom-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            activeVendorNumber = number;
-            
-            const cards = document.querySelectorAll('.showroom-item');
-            cards.forEach(card => {
-                const desc = card.getAttribute('data-desc');
-                if(desc.includes(tag.toLowerCase())) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        }
-
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            activeVendorNumber = ""; 
-            
-            const cards = document.querySelectorAll('.showroom-item');
-            const cdrSec = document.getElementById('cdr-section');
-            
-            if(cat === 'cdr') {
-                cards.forEach(c => c.style.display = "none");
-                cdrSec.classList.remove('hidden');
-                return;
-            } else {
-                cdrSec.classList.add('hidden');
-            }
-
-            cards.forEach(card => {
-                const desc = card.getAttribute('data-desc');
-                const link = card.getAttribute('data-link');
-                
-                if(cat === 'all') {
-                    card.style.display = "flex";
-                } else if(cat === 'apk') {
-                    if(link.endsWith('.apk')) card.style.display = "flex";
-                    else card.style.display = "none";
-                } else {
-                    if(desc.includes(cat) || link.includes(cat)) card.style.display = "flex";
-                    else card.style.display = "none";
-                }
-            });
         }
 
         function startAutoSlide() {            
@@ -418,41 +411,6 @@
                     <h4 class="text-[10px] font-bold text-slate-700 uppercase">${item.name}</h4>                    
                     <button onclick="sendWhatsAppMessage('I want CDR: ${item.name}')" class="w-full mt-2 bg-emerald-500 text-white text-[9px] font-bold py-1.5 rounded-md uppercase">Get CDR</button>                
                 </div>`).join('');        
-        }
-
-        function renderCorner(items) {            
-            if (!items.length) return;            
-            document.getElementById('corner-section').classList.remove('hidden');
-            const container = document.getElementById('corner-container');
-            container.innerHTML = items.map(item => `
-                <div class="bg-gradient-to-r from-purple-900 to-indigo-900 text-white p-3 rounded-xl shadow-md border border-purple-500/30">
-                    <h4 class="text-xs font-black uppercase tracking-wide text-yellow-400">${item.name}</h4>
-                    <p class="text-[11px] font-medium opacity-90 mt-1">${item.desc}</p>
-                    <a href="${item.link}" target="_blank" class="block w-full text-center bg-yellow-400 text-purple-950 font-black text-[10px] py-2 rounded-lg uppercase mt-3">Grab Offer</a>
-                </div>
-            `).join('');
-        }
-
-        function renderSidebar(items) {
-            const container = document.getElementById('sidebar-content');
-            const videos = items.filter(i => i.video && i.video.trim() !== "");
-            if(!videos.length) {
-                container.innerHTML = `<p class="text-xs text-slate-400 font-bold uppercase">No demos available</p>`;
-                return;
-            }
-            container.innerHTML = videos.slice(0, 4).map(item => {
-                const vidId = extractYouTubeId(item.video);
-                if(!vidId) return "";
-                /* BROWSER COMPLIANT AUTOPLAY: Added standard parameters to completely fix "Playback ID Error" */
-                return `
-                    <div class="bg-white border rounded-xl overflow-hidden p-2 shadow-sm">
-                        <div class="w-full aspect-video rounded-lg overflow-hidden bg-slate-100 relative">
-                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&playlist=${vidId}&loop=1&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        </div>
-                        <h4 class="text-[11px] font-black uppercase text-slate-700 mt-2 truncate">${item.name}</h4>
-                    </div>
-                `;
-            }).join('');
         }
     </script>
 </body>
