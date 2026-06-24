@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://www.amazon.in">
     <link rel="dns-prefetch" href="https://docs.google.com">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { 
             background-attachment: fixed; background-size: cover; background-position: center; 
@@ -43,29 +44,42 @@
         /* REALISTIC HIGH-TECH SATELLITE LOADER */
         #loader { position: fixed; inset: 0; background: #070b19; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
         .satellite-system { position: relative; width: 360px; height: 280px; background: radial-gradient(circle at center, rgba(30,41,59,0.6) 0%, transparent 75%); }
+        
+        /* Realistic Satellite Body */
         .main-satellite { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 70px; height: 90px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3.5s ease-in-out infinite alternate; z-index: 10; }
         .sat-core { width: 34px; height: 50px; background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%); border: 2px solid #475569; border-radius: 6px; position: relative; box-shadow: inset -3px -3px 0px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.1); }
         .sat-core::before { content: ''; position: absolute; top: 8px; left: 6px; width: 18px; height: 8px; background: #1e293b; border-radius: 2px; border: 1px solid #64748b; }
         .sat-core::after { content: ''; position: absolute; bottom: 8px; left: 12px; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
+        
+        /* Realistic Curved Metallic Dish on Satellite Base */
         .sat-dish-bottom { width: 54px; height: 18px; background: linear-gradient(180deg, #94a3b8 0%, #475569 100%); border: 2px solid #334155; border-radius: 0 0 100px 100px; margin-top: -1px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .sat-dish-bottom::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 3px; height: 10px; background: #cbd5e1; }
         .sat-feed-horn { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); width: 7px; height: 5px; background: #f97316; border-radius: 50%; box-shadow: 0 0 8px #f97316; }
+        
+        /* High-Detail Solar Grid Wings */
         .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 65px; height: 26px; background: #0f172a; border: 2px solid #38bdf8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; box-shadow: 0 0 15px rgba(56,189,248,0.3); }
         .solar-wing-left { left: -67px; transform: perspective(100px) rotateY(20deg); border-radius: 4px 0 0 4px; }
         .solar-wing-right { right: -67px; transform: perspective(100px) rotateY(-20deg); border-radius: 0 4px 4px 0; }
         .solar-wing-left div, .solar-wing-right div { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); border: 1px solid #60a5fa; border-radius: 1px; }
+
+        /* REAL SCIENTIFIC GROUND DISH ANTENNAS */
         .ground-dish-left { position: absolute; bottom: 15px; left: 15px; width: 65px; height: 75px; }
         .ground-dish-right { position: absolute; bottom: 15px; right: 15px; width: 65px; height: 75px; }
+        
         .dish-bowl { width: 56px; height: 32px; background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 60%, #475569 100%); border: 2px solid #64748b; border-radius: 50% 50% 100px 100px / 20px 20px 100px 100px; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 12px rgba(0,0,0,0.4); transform-origin: center bottom; }
         .ground-dish-left .dish-bowl { transform: rotate(28deg); }
         .ground-dish-right .dish-bowl { transform: rotate(-28deg); }
         .dish-bowl::before { content: ''; position: absolute; inset: 2px; border-radius: inherit; border: 1px dashed rgba(255,255,255,0.4); }
+        
         .dish-receiver-rod { width: 3px; height: 22px; background: linear-gradient(0deg, #475569, #cbd5e1); position: absolute; transform-origin: bottom center; bottom: 14px; }
         .ground-dish-left .dish-receiver-rod { left: 60%; transform: rotate(-25deg); }
         .ground-dish-right .dish-receiver-rod { right: 60%; transform: rotate(25deg); }
         .dish-receiver-rod::after { content: ''; position: absolute; top: -4px; left: -2px; width: 7px; height: 7px; background: #ea580c; border-radius: 50%; box-shadow: 0 0 6px #ea580c; }
+        
         .dish-stand { width: 24px; height: 26px; background: transparent; border-left: 4px solid #334155; border-right: 4px solid #334155; border-top: 14px solid #475569; margin: -2px auto 0; border-radius: 2px; position: relative; }
         .dish-stand::after { content: ''; position: absolute; bottom: -4px; left: -8px; width: 32px; height: 4px; background: #1e293b; border-radius: 2px; }
+
+        /* Orange Wave Transmissions */
         .wave-line-left, .wave-line-right { position: absolute; top: 100px; height: 110px; width: 90px; border-top: 3px dashed #ea580c; opacity: 0; }
         .wave-line-left { left: 65px; border-left: 3px dashed #ea580c; border-radius: 100% 0 0 0; animation: transmitLeft 1.5s linear infinite; }
         .wave-line-right { right: 65px; border-right: 3px dashed #ea580c; border-radius: 0 100% 0 0; animation: transmitRight 1.5s linear infinite; }
@@ -82,22 +96,9 @@
         @keyframes marquee-scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         
-        /* BRAND NEW DYNAMIC LOGO SWIPER STYLES */
-        .showroom-carousel-wrapper { position: relative; display: flex; align-items: center; background: white; padding: 8px 4px; }
-        .showroom-scroll-container { display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; width: 100%; padding: 4px 8px; }
-        .showroom-scroll-container::-webkit-scrollbar { display: none; }
-        .showroom-scroll-container { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        .showroom-avatar-btn { display: flex; flex-direction: column; align-items: center; cursor: pointer; shrink-0: 0; min-width: 68px; transition: transform 0.2s; }
-        .showroom-avatar-btn:hover { transform: scale(1.05); }
-        .avatar-img-ring { width: 52px; height: 52px; border-radius: 50%; padding: 2px; border: 2.5px solid #a855f7; display: flex; align-items: center; justify-content: center; background: white; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-        .avatar-img-ring img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .showroom-avatar-btn.active .avatar-img-ring { border-color: #2563eb; background-color: #eff6ff; box-shadow: 0 0 10px rgba(37,99,235,0.4); }
-        
-        .nav-scroll-btn { background: rgba(255, 255, 255, 0.95); color: #334155; border: 1px solid #e2e8f0; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; position: absolute; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.15); cursor: pointer; }
-        .nav-scroll-btn:hover { background: #f8fafc; color: #000; }
-        .nav-btn-left { left: 4px; }
-        .nav-btn-right { right: 4px; }
+        .showroom-btn { transition: all 0.2s; border: 2px solid #a855f7; font-size: 11px !important; font-weight: 900; white-space: nowrap; }
+        .showroom-btn.active { background-color: #a855f7 !important; color: white !important; transform: scale(1.05); }
+        #unboxingModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 30000; justify-content: center; align-items: center; padding: 15px; }
     </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
@@ -109,11 +110,24 @@
                 <div class="solar-wing-left"><div></div><div></div><div></div><div></div></div>
                 <div class="sat-core"></div>
                 <div class="solar-wing-right"><div></div><div></div><div></div><div></div></div>
-                <div class="sat-dish-bottom"><div class="sat-feed-horn"></div></div>
+                <div class="sat-dish-bottom">
+                    <div class="sat-feed-horn"></div>
+                </div>
             </div>
-            <div class="wave-line-left"></div><div class="wave-line-right"></div>
-            <div class="ground-dish-left"><div class="dish-bowl"><div class="dish-receiver-rod"></div></div><div class="dish-stand"></div></div>
-            <div class="ground-dish-right"><div class="dish-bowl"><div class="dish-receiver-rod"></div></div><div class="dish-stand"></div></div>
+            <div class="wave-line-left"></div>
+            <div class="wave-line-right"></div>
+            <div class="ground-dish-left">
+                <div class="dish-bowl">
+                    <div class="dish-receiver-rod"></div>
+                </div>
+                <div class="dish-stand"></div>
+            </div>
+            <div class="ground-dish-right">
+                <div class="dish-bowl">
+                    <div class="dish-receiver-rod"></div>
+                </div>
+                <div class="dish-stand"></div>
+            </div>
         </div>
         <p class="text-orange-500 font-black tracking-widest text-[11px] uppercase mt-4 animate-pulse">Syncing Core11 Datalink...</p>
     </div>
@@ -131,9 +145,8 @@
         <div class="modal-content-quran shadow-2xl border-t-8 border-pink-500">
             <h3 class="text-2xl font-black text-pink-600 italic mb-2 uppercase tracking-wide">✨ For You Store Deal ✨</h3>
             <div class="w-12 h-1 bg-pink-500 mx-auto mb-4 rounded-full"></div>
-            <p class="text-slate-800 text-base font-black mb-4 leading-relaxed">Kya aap bhi apne products ya apni shop ke deals hamare is platform par live add karwana chahte hain?</p>
-            <p class="text-slate-700 text-sm font-black mb-6 leading-relaxed bg-pink-50 p-3 rounded-xl border border-pink-100">Naye logon ke liye sunehra mauka! Apne items live karke zyada customers tak pahunchein. Abhi niche click karke humse contact karein.</p>
-            <p class="text-slate-700 text-sm font-black mb-4 leading-relaxed">Do you want to list your products or shop deals live on our platform? A golden opportunity for new sellers! Reach more customers by showcasing your items live. Click below to contact us now.</p>
+            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Kya aap bhi apne products ya apni shop ke deals hamare is platform par live add karwana chahte hain?</p>
+            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Naye logon ke liye sunehra mauka! Apne items live karke zyada customers tak pahunchein. Abhi niche click karke humse contact karein.</p>
             <button onclick="sendWhatsAppMessage('Hello Core11, I want to add my products on your store.')" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic tracking-wider shadow-lg transform hover:scale-105 transition">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Contact Us To Add
             </button>
@@ -141,9 +154,28 @@
         </div>
     </div>
 
-    <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
-    <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        </div>    </div>
-    
+    <div id="quranModal" class="modal-overlay">        
+        <div class="modal-content-quran shadow-2xl">            
+            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            
+            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            
+            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            
+            </button>            
+            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        
+        </div>    
+    </div>
+
+    <div id="terms-modal">        
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            
+            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            
+            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                
+                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                
+                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है।</p>            
+            </div>            
+            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        
+        </div>    
+    </div>
+
     <div id="mode-container">        
         <div class="fixed-header-wrapper">            
             <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">                
@@ -152,7 +184,10 @@
                         <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>                        
                         <div class="marquee-container">                            
                             <div id="notice-board" class="marquee-text">Loading latest updates...</div>                        
-                        </div>                    </div>                </div>            </div>
+                        </div>                    
+                    </div>                
+                </div>            
+            </div>
             <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">                
                 <div class="flex items-center gap-2">                    
                     <img id="site-logo" src="" alt="Logo" class="h-12">                    
@@ -161,11 +196,14 @@
                         <div class="flex items-center gap-3">                            
                             <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>                            
                             <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>                        
-                        </div>                    </div>                </div>            </header>
+                        </div>                    
+                    </div>                
+                </div>            
+            </header>
             
             <div class="py-2 px-2 bg-slate-50 border-b">                
                 <div class="flex flex-wrap justify-center gap-1.5">                    
-                    <button onclick="filterCategory('all', this)" id="default-filter-btn" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>                    
+                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>                    
                     <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>                    
                     <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>                    
                     <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>                    
@@ -176,14 +214,10 @@
                 </div>            
             </div>
 
-            <div class="bg-purple-50/50 border-b px-2 py-1">
-                <p class="text-[10px] font-black uppercase text-purple-700 tracking-wider mb-1 pl-2">🏬 Partner Showrooms:</p>
-                <div class="showroom-carousel-wrapper">
-                    <button class="nav-scroll-btn nav-btn-left" onclick="scrollShowrooms(-150)">❮</button>
-                    <div id="showroom-avatar-container" class="showroom-scroll-container">
-                        </div>
-                    <button class="nav-scroll-btn nav-btn-right" onclick="scrollShowrooms(150)">❯</button>
-                </div>
+            <div class="py-2 px-2 bg-purple-50 border-b overflow-x-auto flex gap-1.5 items-center justify-start md:justify-center">
+                <span class="text-[10px] font-black uppercase text-purple-700 border-r pr-2 shrink-0"><i class="fas fa-store"></i> Showrooms:</span>
+                <button onclick="filterShowroom('Sartaj Bee', '916265881327', this)" class="showroom-btn px-3 py-1 rounded-md uppercase bg-white text-purple-700 shadow-sm">Sartaj Bee</button>
+                <button onclick="filterShowroom('delux', '918765432109', this)" class="showroom-btn px-3 py-1 rounded-md uppercase bg-white text-purple-700 shadow-sm">Delux Garments</button>
             </div>
         </div>
 
@@ -212,7 +246,7 @@
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';        
         const myWhatsApp = "7841806171";        
         let allItems = [];
-        let activeVendorPhone = "";
+        let activeVendorNumber = "";
 
         window.onload = () => { if(!localStorage.getItem('core11_agreed')) showTerms(); loadStore(); };        
         function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }        
@@ -229,16 +263,17 @@
             if (!url) return "";
             let vidId = "";
             let cleanUrl = url.trim();
-            if (cleanUrl.includes("shorts/")) { vidId = cleanUrl.split("shorts/")[1]; } 
-            else if (cleanUrl.includes("v=")) { vidId = cleanUrl.split("v=")[1]; } 
-            else if (cleanUrl.includes("youtu.be/")) { vidId = cleanUrl.split("youtu.be/")[1]; } 
-            else { vidId = cleanUrl; }
+            if (cleanUrl.includes("shorts/")) {
+                vidId = cleanUrl.split("shorts/")[1];
+            } else if (cleanUrl.includes("v=")) {
+                vidId = cleanUrl.split("v=")[1];
+            } else if (cleanUrl.includes("youtu.be/")) {
+                vidId = cleanUrl.split("youtu.be/")[1];
+            } else {
+                vidId = cleanUrl;
+            }
             if (vidId) vidId = vidId.split(/[?&]/)[0];
             return vidId;
-        }
-
-        function scrollShowrooms(val) {
-            document.getElementById('showroom-avatar-container').scrollBy({ left: val, behavior: 'smooth' });
         }
 
         async function loadStore() {            
@@ -259,86 +294,22 @@
                 }).filter(i => i.name);                
                 renderAll();                
                 startAutoSlide();            
-            } catch (e) { console.error("Load Error"); }        
+            } catch (e) { console.error("Load Error", e); }        
         }
 
         function renderAll() {            
             const logo = allItems.find(i => i.name.toLowerCase() === 'logo');            
-            if (logo) document.getElementById('site-logo').src = logo.images[0];                        
+            if (logo) document.getElementById('site-logo').src = logo.images[0];                    
             const bg = allItems.find(i => i.name.toLowerCase() === 'background');            
             if (bg) document.body.style.backgroundImage = `url('${bg.images[0]}')`;
             const notice = allItems.find(i => i.name.toLowerCase() === 'notice');            
             if(notice) document.getElementById('notice-board').textContent = notice.desc;            
             
-            buildDynamicShowroomList();
-
             renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));            
             renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));            
             renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));            
             renderSidebar(allItems);            
             document.getElementById('loader').style.display = 'none';        
-        }
-
-        // HANDLES COMPLETE DYNAMIC LOOKUP OF TARGET LOGO ROWS DEFINED VIA SHEET CONTROLS
-        function buildDynamicShowroomList() {
-            const container = document.getElementById('showroom-avatar-container');
-            
-            let htmlString = `
-                <div class="showroom-avatar-btn active" id="all-showroom-avatar" onclick="clearShowroomFilter(this)">
-                    <div class="avatar-img-ring">
-                        <img src="https://cdn-icons-png.flaticon.com/512/606/606547.png" alt="All">
-                    </div>
-                    <span class="text-[9px] font-black mt-1 text-slate-800 uppercase tracking-tight text-center">View All</span>
-                </div>
-            `;
-
-            // Extract all setup settings starting with unique prefix identifier 'logo_'
-            const showroomLogos = allItems.filter(item => item.name.toLowerCase().startsWith('logo_'));
-
-            showroomLogos.forEach(showroom => {
-                const code = showroom.name.split('_')[1].toLowerCase(); 
-                const displayName = showroom.desc; 
-                const logoImg = showroom.images[0]; 
-                const phone = showroom.link ? showroom.link.trim() : "91" + myWhatsApp; 
-
-                htmlString += `
-                    <div class="showroom-avatar-btn" onclick="filterShowroom('${code}', '${phone}', this)">
-                        <div class="avatar-img-ring">
-                            <img src="${logoImg}" alt="${displayName}" onerror="this.src='https://via.placeholder.com/100'">
-                        </div>
-                        <span class="text-[9px] font-black mt-1 text-slate-700 uppercase tracking-tight text-center max-w-[64px] truncate">${displayName}</span>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = htmlString;
-        }
-
-        function filterShowroom(code, phone, element) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.showroom-avatar-btn').forEach(b => b.classList.remove('active'));
-            element.classList.add('active');
-            activeVendorPhone = phone;
-            
-            const productContainer = document.getElementById('product-container');
-            const cdrSection = document.getElementById('cdr-section');
-            const cards = document.querySelectorAll('#product-container .product-card');
-            
-            productContainer.classList.remove('hidden');
-            if(cdrSection) cdrSection.classList.add('hidden');
-
-            cards.forEach(card => {
-                const desc = card.dataset.desc;
-                card.style.display = desc.includes('#' + code.toLowerCase()) ? 'flex' : 'none';
-            });
-        }
-
-        function clearShowroomFilter(element) {
-            document.querySelectorAll('.showroom-avatar-btn').forEach(b => b.classList.remove('active'));
-            element.classList.add('active');
-            activeVendorPhone = "";
-            const defaultFilterBtn = document.getElementById('default-filter-btn');
-            filterCategory('all', defaultFilterBtn);
         }
         
         function playUnboxingVideo(videoUrl) {
@@ -375,7 +346,7 @@
                     btnAction = `onclick="sendWhatsAppMessage('Interested in: ${item.name}')" style="cursor:pointer"`;                
                 } else if(isAPK) {                    
                     btnLabel = "Install Now";                    
-                    btnClass = "bg-emerald-500";                
+                    btnClass = "bg-emerald-500";                    
                 }                
                 const cleanDesc = item.desc.replace(/#\w+(\s+\w+)?/g, '').replace(/[.`]/g, '').trim();
 
@@ -387,7 +358,81 @@
                     </button>`;
                 }
 
-                return `                <div class="bg-white rounded-2xl p-4 border border-slate-100 product-card shadow-sm" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">                    <div class="img-box">                        <div class="slide-container" id="slide-${item.id}">                            ${item.images.map(img => `<img src="${img}" loading="lazy" decoding="async">`).join('')}                        </div>                    </div>                    <div class="mt-3">                        <h3 class="text-[14px] font-black text-slate-800 uppercase">${item.name}</h3>                        <p class="text-slate-500 text-[11px] font-medium mt-1">${cleanDesc}</p>                    </div>                    <div class="mt-auto pt-3">                        ${unboxingBtnHtml}                        <a ${btnAction} class="block w-full text-center text-white text-[10px] font-black py-2.5 rounded-lg ${btnClass} uppercase italic shadow-md">${btnLabel}</a>                    </div>                </div>`;            }).join('');        }
+                return `                
+                <div class="bg-white rounded-2xl p-4 border border-slate-100 product-card shadow-sm showroom-item" data-desc="${item.desc.toLowerCase()}" data-link="${item.link.toLowerCase()}">                    
+                    <div class="img-box">                        
+                        <div class="slide-container" id="slide-${item.id}">                            
+                            ${item.images.map(img => `<img src="${img}" loading="lazy" decoding="async">`).join('')}                        
+                        </div>                    
+                    </div>                    
+                    <div class="mt-3">                        
+                        <h3 class="text-[14px] font-black text-slate-800 uppercase">${item.name}</h3>                        
+                        <p class="text-slate-500 text-[11px] font-medium mt-1">${cleanDesc}</p>                    
+                    </div>                    
+                    <div class="mt-auto pt-3">                        
+                        ${unboxingBtnHtml}                        
+                        <a ${btnAction} class="block w-full text-center text-white text-[10px] font-black py-2.5 rounded-lg ${btnClass} uppercase italic shadow-md">${btnLabel}</a>                    
+                    </div>                
+                </div>`;            
+            }).join('');        
+        }
+
+        function handleShowroomClick(element) {
+            const itemName = element.getAttribute('data-showroom-item');
+            if(activeVendorNumber !== "") {
+                sendVendorWhatsApp(activeVendorNumber, `Hello, I want to order this product from your showroom: ${itemName}`);
+            } else {
+                sendWhatsAppMessage(`Hello Core11, I want to order from showroom: ${itemName}`);
+            }
+        }
+
+        function filterShowroom(tag, number, btn) {
+            document.querySelectorAll('.showroom-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeVendorNumber = number;
+            
+            const cards = document.querySelectorAll('.showroom-item');
+            cards.forEach(card => {
+                const desc = card.getAttribute('data-desc');
+                if(desc.includes(tag.toLowerCase())) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeVendorNumber = ""; // Reset showroom tracking on generic filter
+            
+            const cards = document.querySelectorAll('.showroom-item');
+            const cdrSec = document.getElementById('cdr-section');
+            
+            if(cat === 'cdr') {
+                cards.forEach(c => c.style.display = "none");
+                cdrSec.classList.remove('hidden');
+                return;
+            } else {
+                cdrSec.classList.add('hidden');
+            }
+
+            cards.forEach(card => {
+                const desc = card.getAttribute('data-desc');
+                const link = card.getAttribute('data-link');
+                
+                if(cat === 'all') {
+                    card.style.display = "flex";
+                } else if(cat === 'apk') {
+                    if(link.endsWith('.apk')) card.style.display = "flex";
+                    else card.style.display = "none";
+                } else {
+                    if(desc.includes(cat) || link.includes(cat)) card.style.display = "flex";
+                    else card.style.display = "none";
+                }
+            });
+        }
 
         function startAutoSlide() {            
             setInterval(() => {                
@@ -399,60 +444,51 @@
                     slider.style.transform = `translateX(-${currentIdx * 100}%)`;                    
                     slider.dataset.index = currentIdx;                
                 });            
-            }, 3000);        }
+            }, 3000);        
+        }
 
         function renderCDR(items) {            
             const container = document.getElementById('cdr-container');            
-            container.innerHTML = items.map(item => `                <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center product-card">                    <img src="${item.images[0]}" loading="lazy" class="w-full aspect-square object-contain rounded-lg mb-2">                    <h4 class="text-[10px] font-bold text-slate-700 uppercase">${item.name}</h4>                    <button onclick="sendWhatsAppMessage('I want CDR: ${item.name}')" class="w-full mt-2 bg-emerald-500 text-white text-[9px] font-bold py-1.5 rounded-md uppercase">Get CDR</button>                </div>`).join('');        }
+            container.innerHTML = items.map(item => `                
+                <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100 text-center product-card">                    
+                    <img src="${item.images[0]}" loading="lazy" class="w-full aspect-square object-contain rounded-lg mb-2">                    
+                    <h4 class="text-[10px] font-bold text-slate-700 uppercase">${item.name}</h4>                    
+                    <button onclick="sendWhatsAppMessage('I want CDR: ${item.name}')" class="w-full mt-2 bg-emerald-500 text-white text-[9px] font-bold py-1.5 rounded-md uppercase">Get CDR</button>                
+                </div>`).join('');        
+        }
 
         function renderCorner(items) {            
             if (!items.length) return;            
-            document.getElementById('corner-section').classList.remove('hidden');            
-            document.getElementById('corner-container').innerHTML = items.map(item => `                <div class="bg-white p-3 rounded-2xl shadow-md border-2 border-purple-100 product-card">                    <img src="${item.images[0]}" loading="lazy" class="w-full rounded-lg mb-2 object-contain">                    <h4 class="text-[12px] font-black uppercase mb-1">${item.name}</h4>                    <a href="${item.link}" target="_blank" rel="noreferrer" class="block w-full text-center bg-purple-600 text-white text-[9px] font-black py-2 rounded-lg uppercase italic">Grab Deal</a>                </div>`).join('');        }
-
-        // AUTO SIDEBAR PARSER EXTRACTOR
-        function renderSidebar(items) {            
-            const vids = [...new Set(items.filter(i => i.video).map(i => i.video.split(',')).flat())];            
-            document.getElementById('sidebar-content').innerHTML = vids.slice(0, 4).map(link => {                
-                let vid = extractYouTubeId(link);                
-                if (!vid) return ""; 
-                return `<div class="bg-black rounded-xl overflow-hidden shadow-lg border-2 border-white">                    <iframe                         loading="lazy"                         class="w-full aspect-[16/9]"                         src="https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&volume=0&loop=1&playlist=${vid}&controls=0"                         frameborder="0"                         allow="autoplay; encrypted-media"                         allowfullscreen>                    </iframe>                </div>`;            }).join('');        }
-
-        function handleShowroomClick(element) {
-            const itemName = element.getAttribute('data-showroom-item');
-            if(activeVendorPhone) {
-                sendVendorWhatsApp(activeVendorPhone, `Hello, I am interested in buying this item from your showroom: ${itemName}`);
-            } else {
-                sendWhatsAppMessage(`Showroom Inquiry for item: ${itemName}`);
-            }
+            document.getElementById('corner-section').classList.remove('hidden');
+            const container = document.getElementById('corner-container');
+            container.innerHTML = items.map(item => `
+                <div class="bg-gradient-to-r from-purple-900 to-indigo-900 text-white p-3 rounded-xl shadow-md border border-purple-500/30">
+                    <h4 class="text-xs font-black uppercase tracking-wide text-yellow-400">${item.name}</h4>
+                    <p class="text-[11px] font-medium opacity-90 mt-1">${item.desc}</p>
+                    <a href="${item.link}" target="_blank" class="block w-full text-center bg-yellow-400 text-purple-950 font-black text-[10px] py-2 rounded-lg uppercase mt-3 transition hover:bg-yellow-300">Grab Offer</a>
+                </div>
+            `).join('');
         }
 
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.showroom-avatar-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            
-            const productContainer = document.getElementById('product-container');
-            const cdrSection = document.getElementById('cdr-section');
-            const cards = document.querySelectorAll('#product-container .product-card');
-
-            if (cat === 'cdr') {
-                productContainer.classList.add('hidden');
-                if(cdrSection) cdrSection.classList.remove('hidden');
-            } else {
-                productContainer.classList.remove('hidden');
-                if(cdrSection) cdrSection.classList.add('hidden');
-                cards.forEach(card => {
-                    const desc = card.dataset.desc;
-                    const link = card.dataset.link;
-                    let show = (cat === 'all') ||                                
-                               (cat === 'apk' && link.endsWith('.apk')) ||                                
-                               (cat === 'women' && desc.includes(',')) ||                                
-                               (cat === 'men' && desc.includes('.')) ||                                
-                               (cat === 'local' && desc.includes('`'));                                
-                    card.style.display = show ? 'flex' : 'none';
-                });
+        function renderSidebar(items) {
+            const container = document.getElementById('sidebar-content');
+            const videos = items.filter(i => i.video && i.video.trim() !== "");
+            if(!videos.length) {
+                container.innerHTML = `<p class="text-xs text-slate-400 font-bold uppercase">No demos available</p>`;
+                return;
             }
+            container.innerHTML = videos.slice(0, 3).map(item => {
+                const vidId = extractYouTubeId(item.video);
+                if(!vidId) return "";
+                return `
+                    <div class="bg-white border rounded-xl overflow-hidden p-2 shadow-sm">
+                        <div class="w-full aspect-video rounded-lg overflow-hidden bg-slate-100 relative">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/${vidId}?mute=1" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <h4 class="text-[11px] font-black uppercase text-slate-700 mt-2 truncate">${item.name}</h4>
+                    </div>
+                `;
+            }).join('');
         }
     </script>
 </body>
