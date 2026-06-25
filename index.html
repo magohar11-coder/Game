@@ -48,11 +48,13 @@
         /* Realistic Satellite Body */
         .main-satellite { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 70px; height: 90px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3.5s ease-in-out infinite alternate; z-index: 10; }
         .sat-core { width: 34px; height: 50px; background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%); border: 2px solid #475569; border-radius: 6px; position: relative; box-shadow: inset -3px -3px 0px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.1); }
+        /* Instrument details on satellite body */
         .sat-core::before { content: ''; position: absolute; top: 8px; left: 6px; width: 18px; height: 8px; background: #1e293b; border-radius: 2px; border: 1px solid #64748b; }
         .sat-core::after { content: ''; position: absolute; bottom: 8px; left: 12px; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
         
         /* Realistic Curved Metallic Dish on Satellite Base */
         .sat-dish-bottom { width: 54px; height: 18px; background: linear-gradient(180deg, #94a3b8 0%, #475569 100%); border: 2px solid #334155; border-radius: 0 0 100px 100px; margin-top: -1px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        /* Feed horn rod sticking down from central satellite dish */
         .sat-dish-bottom::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 3px; height: 10px; background: #cbd5e1; }
         .sat-feed-horn { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); width: 7px; height: 5px; background: #f97316; border-radius: 50%; box-shadow: 0 0 8px #f97316; }
         
@@ -62,17 +64,27 @@
         .solar-wing-right { right: -67px; transform: perspective(100px) rotateY(-20deg); border-radius: 0 4px 4px 0; }
         .solar-wing-left div, .solar-wing-right div { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); border: 1px solid #60a5fa; border-radius: 1px; }
 
-        /* REAL SCIENTIFIC GROUND DISH ANTENNAS */
+        /* REAL SCIENTIFIC GROUND DISH ANTENNAS (Left & Right) */
         .ground-dish-left { position: absolute; bottom: 15px; left: 15px; width: 65px; height: 75px; }
         .ground-dish-right { position: absolute; bottom: 15px; right: 15px; width: 65px; height: 75px; }
+        
+        /* Realistic Parabolic Curved Bowl Shape */
         .dish-bowl { width: 56px; height: 32px; background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 60%, #475569 100%); border: 2px solid #64748b; border-radius: 50% 50% 100px 100px / 20px 20px 100px 100px; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 12px rgba(0,0,0,0.4); transform-origin: center bottom; }
         .ground-dish-left .dish-bowl { transform: rotate(28deg); }
         .ground-dish-right .dish-bowl { transform: rotate(-28deg); }
+        
+        /* Dish Grid Texture Lines */
         .dish-bowl::before { content: ''; position: absolute; inset: 2px; border-radius: inherit; border: 1px dashed rgba(255,255,255,0.4); }
+        
+        /* Substantial Feed Horn Spar (Receiver Rod) pointing towards satellite */
         .dish-receiver-rod { width: 3px; height: 22px; background: linear-gradient(0deg, #475569, #cbd5e1); position: absolute; transform-origin: bottom center; bottom: 14px; }
         .ground-dish-left .dish-receiver-rod { left: 60%; transform: rotate(-25deg); }
         .ground-dish-right .dish-receiver-rod { right: 60%; transform: rotate(25deg); }
+        
+        /* Feed LNB Cap Tip */
         .dish-receiver-rod::after { content: ''; position: absolute; top: -4px; left: -2px; width: 7px; height: 7px; background: #ea580c; border-radius: 50%; box-shadow: 0 0 6px #ea580c; }
+        
+        /* Solid Heavy Steel Triangle Base Mounts */
         .dish-stand { width: 24px; height: 26px; background: transparent; border-left: 4px solid #334155; border-right: 4px solid #334155; border-top: 14px solid #475569; margin: -2px auto 0; border-radius: 2px; position: relative; }
         .dish-stand::after { content: ''; position: absolute; bottom: -4px; left: -8px; width: 32px; height: 4px; background: #1e293b; border-radius: 2px; }
 
@@ -93,9 +105,9 @@
         @keyframes marquee-scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         
-        /* MODERN HORIZONTAL SCROLL SHOWROOM BARS */
+        /* MODERN HORIZONTAL SCROLL SHOWROOM BARS WITH RADIAL GOL AVATARS */
         .showroom-scroll-container { display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; padding: 4px 8px; width: 100%; }
-        .showroom-scroll-container::-webkit-scrollbar { display: none; }
+        .showroom-scroll-container::-webkit-scrollbar { display: none; } /* Hides scrollbar for clean app design UI */
         
         .showroom-avatar-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; shrink-0; min-width: 65px; transition: transform 0.2s; }
         .showroom-avatar-wrapper:hover { transform: scale(1.05); }
@@ -124,11 +136,15 @@
             <div class="wave-line-left"></div>
             <div class="wave-line-right"></div>
             <div class="ground-dish-left">
-                <div class="dish-bowl"><div class="dish-receiver-rod"></div></div>
+                <div class="dish-bowl">
+                    <div class="dish-receiver-rod"></div>
+                </div>
                 <div class="dish-stand"></div>
             </div>
             <div class="ground-dish-right">
-                <div class="dish-bowl"><div class="dish-receiver-rod"></div></div>
+                <div class="dish-bowl">
+                    <div class="dish-receiver-rod"></div>
+                </div>
                 <div class="dish-stand"></div>
             </div>
         </div>
@@ -149,6 +165,8 @@
             <h3 class="text-2xl font-black text-pink-600 italic mb-2 uppercase tracking-wide">✨ For You Store Deal ✨</h3>
             <div class="w-12 h-1 bg-pink-500 mx-auto mb-4 rounded-full"></div>
             <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Kya aap bhi apne products ya apni shop ke deals hamare is platform par live add karwana chahte hain?</p>
+            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Naye logon ke liye sunehra mauka! Apne items live karke zyada customers tak pahunchein. Abhi niche click karke humse contact karein.</p>
+            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Do you want to list your products or shop deals live on our platform? A golden opportunity for new sellers! Reach more customers by showcasing your items live. Click below to contact us now.</p>
             <button onclick="sendWhatsAppMessage('Hello Core11, I want to add my products on your store.')" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic tracking-wider shadow-lg transform hover:scale-105 transition">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Contact Us To Add
             </button>
@@ -156,63 +174,62 @@
         </div>
     </div>
 
-    <div id="quranModal" class="modal-overlay">        
-        <div class="modal-content-quran shadow-2xl">            
-            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            
-            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain...</p>            
-            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            
-            </button>            
-            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        
-        </div>    
+    <div id="quranModal" class="modal-overlay">
+        <div class="modal-content-quran shadow-2xl">
+            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>
+            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>
+            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message
+            </button>
+            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>
+        </div>
     </div>
-
-    <div id="terms-modal">        
-        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            
-            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            
-            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                
-                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra.</p>            
-            </div>            
-            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        
-        </div>    
-    </div>
-
-    <div id="mode-container">        
-        <div class="fixed-header-wrapper">            
-            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">                
-                <div class="notice-wrapper">                    
-                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">                        
-                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>                        
-                        <div class="marquee-container">                            
-                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>                        
-                        </div>                    
-                    </div>                
-                </div>            
+    <div id="terms-modal">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">
+            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>
+            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">
+                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>
+                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>
             </div>
-            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">                
-                <div class="flex items-center gap-2">                    
-                    <img id="site-logo" src="" alt="Logo" class="h-12">                    
-                    <div class="border-l-2 border-slate-200 pl-2">                        
-                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>                        
-                        <div class="flex items-center gap-3">                            
-                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>                            
-                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>                        
-                        </div>                    
-                    </div>                
-                </div>            
+            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>
+        </div>
+    </div>
+    <div id="mode-container">
+        <div class="fixed-header-wrapper">
+            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">
+                <div class="notice-wrapper">
+                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">
+                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>
+                        <div class="marquee-container">
+                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">
+                <div class="flex items-center gap-2">
+                    <img id="site-logo" src="" alt="Logo" class="h-12">
+                    <div class="border-l-2 border-slate-200 pl-2">
+                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>
+                        <div class="flex items-center gap-3">
+                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>
+                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>
+                        </div>
+                    </div>
+                </div>
             </header>
             
-            <div class="py-2 px-2 bg-slate-50 border-b">                
-                <div class="flex flex-wrap justify-center gap-1.5">                    
-                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>                    
-                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>                    
-                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>                    
-                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>                    
-                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>                    
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR File</button>                    
-                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>                    
-                    <button onclick="openForyouModal()" class="foryou-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">❤️ For You</button>                
-                </div>            
+            <div class="py-2 px-2 bg-slate-50 border-b">
+                <div class="flex flex-wrap justify-center gap-1.5">
+                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>
+                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>
+                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>
+                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>
+                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>
+                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR File</button>
+                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>
+                    <button onclick="openForyouModal()" class="foryou-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">❤️ For You</button>
+                </div>
             </div>
 
             <div class="py-2 px-2 bg-purple-50 border-b flex items-center gap-2">
@@ -220,25 +237,25 @@
                 <div id="showroom-avatar-container" class="showroom-scroll-container"></div>
             </div>
         </div>
-        <main class="max-w-7xl mx-auto p-3 mt-2">            
-            <div class="flex flex-col lg:flex-row gap-6">                
-                <div id="product-list-area" class="lg:w-3/4">                    
-                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>                    
-                    <div id="cdr-section" class="mt-8 hidden">                        
-                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>                        
-                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>                    
-                    </div>                
-                </div>                
-                <div id="video-sidebar" class="lg:w-1/4 space-y-6">                    
-                    <div id="corner-section" class="hidden">                        
-                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        
-                        <div id="corner-container" class="space-y-4"></div>                    
-                    </div>                    
-                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>                    
-                    <div id="sidebar-content" class="space-y-4"></div>                
-                </div>            
-            </div>        
-        </main>    
+        <main class="max-w-7xl mx-auto p-3 mt-2">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div id="product-list-area" class="lg:w-3/4">
+                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
+                    <div id="cdr-section" class="mt-8 hidden">
+                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>
+                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+                    </div>
+                </div>
+                <div id="video-sidebar" class="lg:w-1/4 space-y-6">
+                    <div id="corner-section" class="hidden">
+                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>
+                        <div id="corner-container" class="space-y-4"></div>
+                    </div>
+                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>
+                    <div id="sidebar-content" class="space-y-4"></div>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script>        
@@ -262,10 +279,15 @@
             if (!url) return "";
             let vidId = "";
             let cleanUrl = url.trim();
-            if (cleanUrl.includes("shorts/")) { vidId = cleanUrl.split("shorts/")[1]; } 
-            else if (cleanUrl.includes("v=")) { vidId = cleanUrl.split("v=")[1]; } 
-            else if (cleanUrl.includes("youtu.be/")) { vidId = cleanUrl.split("youtu.be/")[1]; } 
-            else { vidId = cleanUrl; }
+            if (cleanUrl.includes("shorts/")) {
+                vidId = cleanUrl.split("shorts/")[1];
+            } else if (cleanUrl.includes("v=")) {
+                vidId = cleanUrl.split("v=")[1];
+            } else if (cleanUrl.includes("youtu.be/")) {
+                vidId = cleanUrl.split("youtu.be/")[1];
+            } else {
+                vidId = cleanUrl;
+            }
             if (vidId) vidId = vidId.split(/[?&]/)[0];
             return vidId;
         }
@@ -311,13 +333,16 @@
         function buildShowroomAvatars() {
             const avatarContainer = document.getElementById('showroom-avatar-container');
             if(!avatarContainer) return;
-            let uniqueVendors = {};            
+
+            let uniqueVendors = {};
+            
             allItems.forEach(item => {
                 if(item.desc && item.desc.includes('#')) {
                     const match = item.desc.match(/#(\w+(\s+\w+)?)/);
                     if(match) {
                         const tag = match[1].trim();
-                        const tagKey = tag.toLowerCase();                        
+                        const tagKey = tag.toLowerCase();
+                        
                         if(!uniqueVendors[tagKey]) {
                             uniqueVendors[tagKey] = {
                                 name: tag,
@@ -328,11 +353,22 @@
                     }
                 }
             });
+
+            allItems.forEach(item => {
+                const nameLower = item.name.toLowerCase();
+                if(uniqueVendors[nameLower]) {
+                    if(item.images && item.images[0]) uniqueVendors[nameLower].img = item.images[0];
+                    if(item.link) uniqueVendors[nameLower].phone = item.link.replace(/\D/g, '');
+                }
+            });
+
             const vendorsArray = Object.values(uniqueVendors);
+            
             if(vendorsArray.length === 0) {
                 avatarContainer.parentElement.style.display = 'none';
                 return;
             }
+
             avatarContainer.innerHTML = vendorsArray.map(vendor => `
                 <div onclick="filterShowroom('${vendor.name}', '${vendor.phone}', this)" class="showroom-avatar-wrapper select-none shrink-0">
                     <img src="${vendor.img || 'https://via.placeholder.com/150'}" class="showroom-circle-img" alt="${vendor.name}">
@@ -344,7 +380,8 @@
         function playUnboxingVideo(videoUrl) {
             const vidId = extractYouTubeId(videoUrl);
             if (vidId) {
-                document.getElementById('unboxing-iframe').src = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1`;
+                const embedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&volume=0`;
+                document.getElementById('unboxing-iframe').src = embedUrl;
                 document.getElementById('unboxingModal').style.display = 'flex';
             }
         }
@@ -359,15 +396,15 @@
             container.innerHTML = items.map(item => {                
                 const isLocal = item.desc.includes('`');
                 const isShowroom = item.desc.includes('#');
-                const isAPK = item.link && item.link.toLowerCase().endsWith('.apk');                
+                const isAPK = item.link.toLowerCase().endsWith('.apk');                
                 let btnLabel = "View More";                
                 let btnClass = "bg-blue-600";                
-                let btnAction = `href="${item.link}" target="_blank"`;
+                let btnAction = `href="${item.link}" target="_blank" rel="noreferrer"`;
 
                 if(isShowroom) {
                     btnLabel = "Order from Showroom";
                     btnClass = "bg-purple-600";
-                    btnAction = `onclick="handleShowroomClick('${item.name}')" style="cursor:pointer"`;
+                    btnAction = `data-showroom-item="${item.name}" onclick="handleShowroomClick(this)" style="cursor:pointer"`;
                 } else if(isLocal) {                    
                     btnLabel = "Order on WhatsApp";                    
                     btnClass = "bg-purple-600";                    
@@ -380,125 +417,202 @@
 
                 let unboxingBtnHtml = "";
                 if(isShowroom && item.video && item.video.trim() !== "") {
-                    unboxingBtnHtml = `<button onclick="playUnboxingVideo('${item.video}')" class="w-full mb-2 border border-red-500 text-red-600 font-bold py-1.5 rounded-xl text-xs flex items-center justify-center gap-1 bg-red-50"><i class="fab fa-youtube"></i> WATCH UNBOXING</button>`;
+                    unboxingBtnHtml = `
+                    <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 font-black py-2 rounded-xl flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-wider transition">
+                        <i class="fab fa-youtube text-sm"></i> Watch Video Demo
+                    </button>`;
                 }
 
-                let imgHtml = `<img src="${item.images[0] || 'https://via.placeholder.com/300'}" class="object-contain w-full h-full">`;
-                if(item.images && item.images.length > 1) {
-                    imgHtml = `<div class="slide-container" data-item-id="${item.id}">` + item.images.map(img => `<img src="${img}" class="min-width:100%">`).join('') + `</div>`;
-                }
+                const slideDots = item.images.length > 1 ? `
+                    <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1 z-10">
+                        ${item.images.map((_, i) => `<span class="w-1.5 h-1.5 rounded-full bg-slate-300 ${i===0?'!bg-blue-600 w-3':''}"></span>`).join('')}
+                    </div>
+                ` : '';
 
                 return `
-                <div class="bg-white border rounded-2xl p-2 flex flex-col justify-between product-card shadow-sm">
-                    <div class="img-box mb-2">${imgHtml}</div>
-                    <div class="flex-grow flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xs font-black uppercase text-slate-800 line-clamp-1">${item.name}</h3>
-                            <p class="text-[11px] text-slate-500 font-medium line-clamp-2 mt-0.5 leading-tight">${cleanDesc}</p>
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden product-card" data-category="${isAPK?'apk':(isLocal?'local':(isShowroom?'showroom':'deal'))}" data-description="${item.desc.toLowerCase()}" data-vendor="${isShowroom ? item.desc.match(/#(\w+(\s+\w+)?)/)?.[1].toLowerCase() : ''}">
+                        <div class="img-box">
+                            <div class="slide-container" id="slide-${item.id}">
+                                ${item.images.map(img => `<img src="${img}" alt="${item.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Core11'">`).join('')}
+                            </div>
+                            ${slideDots}
                         </div>
-                        <div class="mt-2">
-                            ${unboxingBtnHtml}
-                            <a ${btnAction} class="w-full ${btnClass} text-white font-black py-2 rounded-xl text-xs flex items-center justify-center uppercase tracking-wider cursor-pointer">${btnLabel}</a>
+                        <div class="pt-3 flex flex-col justify-between flex-grow">
+                            <div>
+                                <h2 class="text-sm font-black text-slate-800 line-clamp-1 uppercase tracking-tight">${item.name}</h2>
+                                <p class="text-[11px] text-slate-500 font-bold mt-1 line-clamp-2 leading-tight">${cleanDesc}</p>
+                            </div>
+                            <div class="mt-3">
+                                ${unboxingBtnHtml}
+                                <a ${btnAction} class="w-full ${btnClass} text-white text-center font-black py-2.5 rounded-xl block text-[11px] uppercase tracking-wider shadow-sm transition">
+                                    ${btnLabel}
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>`;
+                `;
             }).join('');
         }
 
-        function renderCDR(items) {
-            const container = document.getElementById('cdr-container');
-            if(!container) return;
+        function renderCDR(items) {            
+            const container = document.getElementById('cdr-container');            
+            if(!container) return;            
+            if(items.length === 0) {                
+                document.getElementById('cdr-section').classList.add('hidden');                
+                return;            
+            }            
+            document.getElementById('cdr-section').classList.remove('hidden');            
             container.innerHTML = items.map(item => `
-                <div class="bg-white border rounded-2xl p-3 flex flex-col justify-between shadow-sm">
-                    <div>
-                        <h3 class="text-xs font-black uppercase text-slate-800 line-clamp-1">${item.name}</h3>
-                        <p class="text-[11px] text-slate-500 font-medium line-clamp-2 mt-1">${item.desc || 'CDR File'}</p>
-                    </div>
-                    <button onclick="sendWhatsAppMessage('I want to download CDR File: ${item.name}')" class="w-full bg-orange-500 text-white font-black py-2 rounded-xl text-xs uppercase tracking-wider mt-3 transition hover:bg-orange-600">
-                        <i class="fas fa-download mr-1"></i> Download CDR
-                    </button>
+                <div class="bg-white p-2 rounded-xl shadow-sm border text-center flex flex-col justify-between">
+                    <img src="${item.images[0]}" class="w-full h-32 object-contain bg-slate-50 rounded-lg p-1" alt="${item.name}">
+                    <h4 class="text-xs font-black text-slate-800 mt-2 line-clamp-1 uppercase">${item.name}</h4>
+                    <button onclick="sendWhatsAppMessage('I want to buy CDR File: ${item.name}')" class="mt-2 w-full bg-orange-500 text-white font-black py-1.5 rounded-lg text-[10px] uppercase tracking-wider">Get Design</button>
                 </div>
             `).join('');
         }
 
-        function renderCorner(items) {
-            const container = document.getElementById('corner-container');
-            if(!container || items.length === 0) return;
-            document.getElementById('corner-section').classList.remove('hidden');
-            container.innerHTML = items.map(i => `<div class="bg-yellow-50 border border-yellow-200 p-3 rounded-xl font-bold text-xs">${i.desc}</div>`).join('');
+        function renderCorner(items) {            
+            const container = document.getElementById('corner-container');            
+            if(!container) return;            
+            if(items.length === 0) {                
+                document.getElementById('corner-section').classList.add('hidden');                
+                return;            
+            }            
+            document.getElementById('corner-section').classList.remove('hidden');            
+            container.innerHTML = items.map(item => `
+                <a href="${item.link}" target="_blank" rel="noreferrer" class="block bg-gradient-to-r from-yellow-400 to-amber-500 p-3 rounded-xl shadow-sm text-slate-900 font-bold transform hover:scale-[1.02] transition">
+                    <div class="text-[10px] uppercase font-black tracking-widest text-amber-950 opacity-70">Special Banner</div>
+                    <div class="text-sm font-black uppercase mt-0.5">${item.name}</div>
+                    <div class="text-xs mt-1 text-amber-900 line-clamp-2">${item.desc}</div>
+                </a>
+            `).join('');
         }
 
-        function renderSidebar(items) {
-            const container = document.getElementById('sidebar-content');
-            if(!container) return;
-            const videoItems = items.filter(i => i.video && i.video.trim() !== "");
-            container.innerHTML = videoItems.map(i => {
-                const vidId = extractYouTubeId(i.video);
-                if(!vidId) return "";
-                return `<div class="bg-white border p-2 rounded-xl shadow-sm">
-                    <img src="https://img.youtube.com/vi/${vidId}/mqdefault.jpg" class="w-full rounded-lg cursor-pointer" onclick="playUnboxingVideo('${i.video}')">
-                    <p class="text-[11px] font-black mt-1 uppercase text-slate-700 line-clamp-1">${i.name}</p>
-                </div>`;
-            }).join('');
+        function renderSidebar(items) {            
+            const container = document.getElementById('sidebar-content');            
+            if(!container) return;            
+            const videoItems = items.filter(i => i.video && i.video.trim() !== "" && !i.desc.includes('#'));            
+            if(videoItems.length === 0) {                
+                container.innerHTML = `<p class="text-xs text-slate-400 font-black uppercase tracking-wider py-4 text-center">No video guides added</p>`;                
+                return;            
+            }            
+            container.innerHTML = videoItems.map(item => {                
+                const vId = extractYouTubeId(item.video);                
+                if(!vId) return '';                
+                return `
+                    <div class="bg-white border rounded-xl overflow-hidden shadow-sm p-1.5">
+                        <div class="w-full aspect-video rounded-lg overflow-hidden bg-black relative group">
+                            <iframe class="w-full h-full lazy-iframe" data-src="https://www.youtube.com/embed/${vId}?autoplay=0&mute=1" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-1.5">
+                            <h4 class="text-xs font-black text-slate-800 uppercase line-clamp-1">${item.name}</h4>
+                        </div>
+                    </div>
+                `;            
+            }).join('');            
+            setTimeout(initLazyIframes, 300);        
         }
 
-        // --- FIXED FILTER FUNCTION ---
-        function filterCategory(category, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-
-            const prodContainer = document.getElementById('product-container');
-            const cdrSection = document.getElementById('cdr-section');
-
-            // Agar CDR category click ho toh baaki chhupao aur sirf CDR section dikhao
-            if (category === 'cdr') {
-                prodContainer.classList.add('hidden');
-                cdrSection.classList.remove('hidden');
-            } else {
-                cdrSection.classList.add('hidden');
-                prodContainer.classList.remove('hidden');
-
-                let filtered = allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr'));
-                
-                if (category === 'apk') {
-                    filtered = filtered.filter(i => i.link && i.link.toLowerCase().endsWith('.apk'));
-                } else if (category === 'men') {
-                    filtered = filtered.filter(i => i.desc.toLowerCase().includes('men') || i.name.toLowerCase().includes('men'));
-                } else if (category === 'women') {
-                    filtered = filtered.filter(i => i.desc.toLowerCase().includes('women') || i.name.toLowerCase().includes('women'));
-                } else if (category === 'local') {
-                    filtered = filtered.filter(i => i.desc.includes('`'));
-                }
-                renderItems(filtered);
-            }
+        function initLazyIframes() {            
+            const iframes = document.querySelectorAll('.lazy-iframe');            
+            if('IntersectionObserver' in window) {                
+                const observer = new IntersectionObserver((entries) => {                    
+                    entries.forEach(entry => {                        
+                        if(entry.isIntersecting) {                            
+                            const iframe = entry.target;                            
+                            iframe.src = iframe.getAttribute('data-src');                            
+                            observer.unobserve(iframe);                        
+                        }                    
+                    });                
+                }, { rootMargin: "200px" });                
+                iframes.forEach(f => observer.observe(f));            
+            } else {                
+                iframes.forEach(f => f.src = f.getAttribute('data-src'));            
+            }        
         }
 
-        function filterShowroom(vendorName, phone, element) {
-            document.querySelectorAll('.showroom-avatar-wrapper').forEach(el => el.classList.remove('active'));
-            if(element) element.classList.add('active');
+        function filterCategory(cat, btn) {            
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));            
+            if(btn) btn.classList.add('active');            
             
-            document.getElementById('cdr-section').add('hidden');
-            document.getElementById('product-container').classList.remove('hidden');
+            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
 
-            const filtered = allItems.filter(i => i.desc && i.desc.toLowerCase().includes(`#${vendorName.toLowerCase()}`));
-            renderItems(filtered);
+            const cards = document.querySelectorAll('#product-container > div');            
+            cards.forEach(card => {                
+                const type = card.getAttribute('data-category');                
+                if(cat === 'all') {                    
+                    card.style.display = 'flex';                
+                } else if(cat === 'apk') {                    
+                    card.style.display = (type === 'apk') ? 'flex' : 'none';                
+                } else if(cat === 'local') {                    
+                    card.style.display = (type === 'local') ? 'flex' : 'none';                
+                } else if(cat === 'men' || cat === 'women') {                    
+                    const desc = card.getAttribute('data-description') || '';                    
+                    card.style.display = (desc.includes(cat) && type !== 'apk' && type !== 'local') ? 'flex' : 'none';                
+                } else {                    
+                    card.style.display = 'flex';                
+                }            
+            });        
         }
 
-        function handleShowroomClick(itemName) {
-            sendWhatsAppMessage(`I want to order this product from Showroom: ${itemName}`);
+        function filterShowroom(vendorTag, phone, wrapperElement) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
+            
+            if(wrapperElement) wrapperElement.classList.add('active');
+
+            const searchTag = vendorTag.toLowerCase();
+            const cards = document.querySelectorAll('#product-container > div');
+            
+            cards.forEach(card => {
+                const cardVendor = card.getAttribute('data-vendor') || '';
+                if(cardVendor === searchTag) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
-        function startAutoSlide() {
-            setInterval(() => {
-                document.querySelectorAll('.slide-container').forEach(slider => {
-                    const total = slider.children.length;
-                    if(total <= 1) return;
-                    let current = parseInt(slider.getAttribute('data-current-idx') || '0');
-                    current = (current + 1) % total;
-                    slider.setAttribute('data-current-idx', current);
-                    slider.style.transform = `translateX(-${current * 100}%)`;
-                });
-            }, 3000);
+        function handleShowroomClick(btn) {
+            const itemName = btn.getAttribute('data-showroom-item');
+            const wrapper = btn.closest('.product-card');
+            const vendorName = wrapper ? wrapper.getAttribute('data-vendor') : '';
+            
+            let vendorPhone = "916265881327"; 
+            if(vendorName) {
+                const targetVendor = allItems.find(i => i.name.toLowerCase() === vendorName.toLowerCase());
+                if(targetVendor && targetVendor.link) {
+                    vendorPhone = targetVendor.link.replace(/\D/g, '');
+                }
+            }
+            sendVendorWhatsApp(vendorPhone, `I want to order this item from your showroom: ${itemName}`);
+        }
+
+        let autoSlideInterval;        
+        function startAutoSlide() {            
+            if(autoSlideInterval) clearInterval(autoSlideInterval);            
+            autoSlideInterval = setInterval(() => {                
+                allItems.forEach(item => {                    
+                    if(item.images && item.images.length > 1) {                        
+                        const el = document.getElementById(`slide-${item.id}`);                        
+                        if(el) {                            
+                            let currentIdx = parseInt(el.getAttribute('data-index') || '0');                            
+                            currentIdx = (currentIdx + 1) % item.images.length;                            
+                            el.setAttribute('data-index', currentIdx);                            
+                            el.style.transform = `translateX(-${currentIdx * 100}%)`;                            
+                            const dots = el.parentElement.querySelectorAll('.absolute span');                            
+                            dots.forEach((dot, dIdx) => {                                
+                                if(dIdx === currentIdx) {                                    
+                                    dot.className = "w-3 h-1.5 rounded-full bg-blue-600 transition-all duration-300";                                
+                                } else {                                    
+                                    dot.className = "w-1.5 h-1.5 rounded-full bg-slate-300 transition-all duration-300";                                
+                                }                            
+                            });                        
+                        }                    
+                    }                
+                });            
+            }, 4000);        
         }
     </script>
 </body>
