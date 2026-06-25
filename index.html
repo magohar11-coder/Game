@@ -80,11 +80,6 @@
         .wave-line-left { left: 65px; border-left: 3px dashed #ea580c; border-radius: 100% 0 0 0; animation: transmitLeft 1.5s linear infinite; }
         .wave-line-right { right: 65px; border-right: 3px dashed #ea580c; border-radius: 0 100% 0 0; animation: transmitRight 1.5s linear infinite; }
         
-        @keyframes floatSat { 0% { transform: translateX(-50%) translateY(0) rotate(0deg); } 100% { transform: translateX(-50%) translateY(-12px) rotate(1deg); } }
-        @keyframes transmitLeft { 0% { opacity: 0; transform: scale(0.3) translate(40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(-25px, 20px); } }
-        @keyframes transmitRight { 0% { opacity: 0; transform: scale(0.3) translate(-40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(20px, 20px); } }
-        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         
         .showroom-scroll-container { display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; padding: 2px 4px; width: 100%; }
@@ -174,10 +169,10 @@
     </div>
 
     <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
-    <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>            </div>    </div>
+    <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>            </div>    </div>
     <div id="mode-container">        <div class="fixed-header-wrapper">
             <header class="bg-white border-b py-1.5 px-3 flex justify-between items-center gap-2">                <div class="flex items-center gap-2">                    <img id="site-logo" src="" alt="Logo" class="h-8 w-auto object-contain">                    <div class="border-l border-slate-200 pl-2">                        <h1 class="text-[15px] md:text-[18px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>                        <div class="flex items-center gap-2 mt-0.5">                            <p class="text-[9px] text-blue-600 font-black uppercase tracking-tight">By-M.A. Gohar</p>                            <button onclick="showTerms()" class="text-[9px] text-slate-400 underline hover:text-red-500 font-bold uppercase tracking-tight">Terms</button>                        </div>                    </div>                </div>
-                <button onclick="openNoticeModal()" class="relative bg-blue-600 text-white w-8 height-8 h-8 rounded-full flex items-center justify-center text-sm shadow-md hover:bg-blue-700 transition shrink-0 bell-bounce">
+                <button onclick="openNoticeModal()" class="relative bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-md hover:bg-blue-700 transition shrink-0 bell-bounce">
                     <i class="fas fa-bell"></i>
                     <span class="absolute -top-1 -right-1 bg-red-500 w-2.5 h-2.5 rounded-full border border-white"></span>
                 </button>
@@ -400,7 +395,7 @@
                         <h4 class="text-xs font-black uppercase text-slate-800 mb-1">${item.name}</h4>
                         <p class="text-[10px] text-slate-500 font-medium mb-3 leading-relaxed">${item.desc}</p>
                     </div>
-                    <a href="${item.link}" target="_blank" rel="noreferrer" class="block w-full bg-slate-900 text-white text-center text-[10px] font-black py-2 rounded-xl uppercase tracking-wider hover:bg-slate-800">Download CDR</a>
+                    <a onclick="sendWhatsAppMessage('Interested in CDR File: ${item.name}')" style="cursor:pointer" class="block w-full bg-purple-600 text-white text-center text-[11px] font-black py-2.5 rounded-xl uppercase tracking-wider transition hover:opacity-90">Get on WhatsApp</a>
                 </div>
             `).join('');
         }
@@ -447,9 +442,24 @@
             let filtered = [];
             let cdrItems = [];
 
+            // Pukhta Filter Logic: Showroom profiles ko pehchanne ki ninja technique
             const reserved = ['logo', 'background', 'notice', 'corner'];
+            
+            // Sabhi showroom vendors ke original aur lowercase names ki list bana lo
+            let vendorNamesSet = new Set();
+            allItems.forEach(item => {
+                if(item.desc && item.desc.includes('#')) {
+                    const match = item.desc.match(/#(\w+(\s+\w+)?)/);
+                    if(match) vendorNamesSet.add(match[1].trim().toLowerCase());
+                }
+            });
 
-            let validItems = allItems.filter(i => !reserved.includes(i.name.toLowerCase()));
+            // Kisi bhi vendor profile row ko direct filter out karne ke liye check lagao
+            let validItems = allItems.filter(i => {
+                const nameLower = i.name.toLowerCase();
+                const cleanNameLower = i.name.startsWith('@') ? i.name.substring(1).trim().toLowerCase() : nameLower;
+                return !reserved.includes(nameLower) && !vendorNamesSet.has(cleanNameLower);
+            });
 
             if(cat === 'all') {
                 filtered = validItems.filter(i => !i.link.toLowerCase().endsWith('.cdr'));
@@ -476,6 +486,11 @@
             document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
             
             if(element) element.classList.add('active');
+
+            const prodContainer = document.getElementById('product-container');
+            const cdrSection = document.getElementById('cdr-section');
+            prodContainer.classList.remove('hidden');
+            cdrSection.classList.add('hidden');
 
             const filtered = allItems.filter(item => {
                 return item.desc && item.desc.toLowerCase().includes('#' + vendorName.toLowerCase());
