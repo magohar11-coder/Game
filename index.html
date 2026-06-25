@@ -23,13 +23,14 @@
             overflow-x: hidden; background: white; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
             position: relative;
         }
-        .quran-btn { background: #6a1b9a !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; }
-        .foryou-btn { background: linear-gradient(135deg, #ec4899, #f43f5e) !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; }
+        /* Rounded Category UI Badlaav */
+        .quran-btn { background: #6a1b9a !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; border-radius: 9999px !important; }
+        .foryou-btn { background: linear-gradient(135deg, #ec4899, #f43f5e) !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; border-radius: 9999px !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content-quran { background: white; width: 100%; max-width: 380px; padding: 25px; border-radius: 20px; text-align: center; }        
         #view-switcher { position: fixed; bottom: 25px; right: 25px; z-index: 1000; background: #9333ea; color: white; padding: 12px 24px; border-radius: 50px; font-weight: 900; cursor: pointer; border: 2px solid white; }
         .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
+        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; border-radius: 9999px !important; }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }        
         .product-card { 
             min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; 
@@ -107,7 +108,7 @@
         .showroom-scroll-container { display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; padding: 4px 8px; width: 100%; }
         .showroom-scroll-container::-webkit-scrollbar { display: none; }
         
-        .showroom-avatar-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; flex-shrink: 0; min-width: 65px; transition: transform 0.2s; }
+        .showroom-avatar-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; shrink-0; min-width: 65px; transition: transform 0.2s; }
         .showroom-avatar-wrapper:hover { transform: scale(1.05); }
         
         .showroom-circle-img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 3px solid #a855f7; padding: 2px; background: white; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
@@ -172,90 +173,20 @@
         </div>
     </div>
 
-    <div id="quranModal" class="modal-overlay">        
-        <div class="modal-content-quran shadow-2xl">            
-            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            
-            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            
-            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            
-            </button>            
-            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        
-        </div>    
-    </div>
-    <div id="terms-modal">        
-        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            
-            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            
-            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                
-                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                
-                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            
-            </div>            
-            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        
-        </div>    
-    </div>
-    <div id="mode-container">        
-        <div class="fixed-header-wrapper">            
-            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">                
-                <div class="notice-wrapper">                    
-                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">                        
-                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>                        
-                        <div class="marquee-container">                            
-                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>                        
-                        </div>                    
-                    </div>                
-                </div>            
-            </div>
-            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">                
-                <div class="flex items-center gap-2">                    
-                    <img id="site-logo" src="" alt="Logo" class="h-12">                    
-                    <div class="border-l-2 border-slate-200 pl-2">                        
-                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>                        
-                        <div class="flex items-center gap-3">                            
-                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>                            
-                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>                        
-                        </div>                    
-                    </div>                
-                </div>            
-            </header>
+    <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
+    <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>            </div>    </div>
+    <div id="mode-container">        <div class="fixed-header-wrapper">            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">                <div class="notice-wrapper">                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>                        <div class="marquee-container">                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>                        </div>                    </div>                </div>            </div>
+            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">                <div class="flex items-center gap-2">                    <img id="site-logo" src="" alt="Logo" class="h-12">                    <div class="border-l-2 border-slate-200 pl-2">                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>                        <div class="flex items-center gap-3">                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>                        </div>                    </div>                </div>            </header>
             
-            <div class="py-2 px-2 bg-slate-50 border-b">                
-                <div class="flex flex-wrap justify-center gap-1.5">                    
-                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>                    
-                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>                    
-                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>                    
-                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>                    
-                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>                    
-                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR File</button>                    
-                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>                    
-                    <button onclick="openForyouModal()" class="foryou-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">❤️ For You</button>                
-                </div>            
-            </div>
+            <div class="py-2 px-2 bg-slate-50 border-b">                <div class="flex flex-wrap justify-center gap-1.5">                    <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">All</button>                    <button onclick="filterCategory('apk', this)" class="filter-btn px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">Apps</button>                    <button onclick="filterCategory('men', this)" class="filter-btn px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">Men</button>                    <button onclick="filterCategory('women', this)" class="filter-btn px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">Women</button>                    <button onclick="filterCategory('local', this)" class="filter-btn px-4 py-1.5 uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">CDR File</button>                    <button onclick="openQuranModal()" class="quran-btn px-4 py-1.5 shadow-sm flex-grow">Quran</button>                    <button onclick="openForyouModal()" class="foryou-btn px-4 py-1.5 shadow-sm flex-grow animated pulse infinite">❤️ For You</button>                </div>            </div>
 
             <div class="py-2 px-2 bg-purple-50 border-b flex items-center gap-2">
                 <span class="text-[10px] font-black uppercase text-purple-700 border-r pr-2 shrink-0"><i class="fas fa-store"></i> <br>Shops:</span>
-                <div id="showroom-avatar-container" class="showroom-scroll-container"></div>
+                <div id="showroom-avatar-container" class="showroom-scroll-container">
+                </div>
             </div>
         </div>
-        <main class="max-w-7xl mx-auto p-3 mt-2">            
-            <div class="flex flex-col lg:flex-row gap-6">                
-                <div id="product-list-area" class="lg:w-3/4">                    
-                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>                    
-                    <div id="cdr-section" class="mt-8 hidden">                        
-                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>                        
-                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>                    
-                    </div>                
-                </div>                
-                <div id="video-sidebar" class="lg:w-1/4 space-y-6">                    
-                    <div id="corner-section" class="hidden">                        
-                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        
-                        <div id="corner-container" class="space-y-4"></div>                    
-                    </div>                    
-                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>                    
-                    <div id="sidebar-content" class="space-y-4"></div>                
-                </div>            
-            </div>        
-        </main>    
-    </div>
-    
+        <main class="max-w-7xl mx-auto p-3 mt-2">            <div class="flex flex-col lg:flex-row gap-6">                <div id="product-list-area" class="lg:w-3/4">                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>                    <div id="cdr-section" class="mt-8 hidden">                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>                    </div>                </div>                <div id="video-sidebar" class="lg:w-1/4 space-y-6">                    <div id="corner-section" class="hidden">                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        <div id="corner-container" class="space-y-4"></div>                    </div>                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>                    <div id="sidebar-content" class="space-y-4"></div>                </div>            </div>        </main>    </div>
     <script>        
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';        
         const myWhatsApp = "7841806171";        
@@ -321,7 +252,8 @@
             
             buildShowroomAvatars();
 
-            renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));            
+            // '@' filter lagaya taaki icon wali profiles products mein list na hon
+            renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr') && !i.name.startsWith('@')));            
             renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));            
             renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));            
             renderSidebar(allItems);            
@@ -352,8 +284,13 @@
                 }
             });
 
+            // Yahan '@' lagane par bhi showroom avatar dhoondne ka logic add kar diya hai
             allItems.forEach(item => {
-                const nameLower = item.name.toLowerCase();
+                let nameClean = item.name;
+                if(item.name.startsWith('@')) {
+                    nameClean = item.name.substring(1).trim();
+                }
+                const nameLower = nameClean.toLowerCase();
                 if(uniqueVendors[nameLower]) {
                     if(item.images && item.images[0]) uniqueVendors[nameLower].img = item.images[0];
                     if(item.link) uniqueVendors[nameLower].phone = item.link.replace(/\D/g, '');
@@ -416,45 +353,45 @@
                 let unboxingBtnHtml = "";
                 if(isShowroom && item.video && item.video.trim() !== "") {
                     unboxingBtnHtml = `
-                    <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 text-[10px] font-black py-1 rounded-lg uppercase tracking-widest flex items-center justify-center gap-1">
-                        <i class="fab fa-youtube text-red-500 text-xs"></i> Unboxing Video
-                    </button>`;
+                    <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 text-[10px] font-black py-2 rounded-xl uppercase flex items-center justify-center gap-1"><i class="fab fa-youtube text-lg"></i> 🎬 Customer Unboxing</button>
+                    `;
                 }
 
-                let slidesHtml = item.images.map(img => `<img src="${img}" alt="${item.name}">`).join('');
+                let imgHtml = `<img src="${item.images[0] || 'https://via.placeholder.com/300'}" alt="${item.name}" loading="lazy">`;
+                if(item.images.length > 1) {
+                    imgHtml = `<div class="slide-container" data-item-id="${item.id}">` + 
+                              item.images.map(img => `<img src="${img}" alt="${item.name}" loading="lazy">`).join('') + 
+                              `</div>`;
+                }
 
                 return `
-                <div class="product-card bg-white rounded-2xl border shadow-sm" data-category="${isAPK ? 'apk' : 'general'}">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden product-card" data-category="${item.desc}">
                     <div class="img-box">
-                        <div class="slide-container" id="slide-${item.id}">
-                            ${slidesHtml}
-                        </div>
+                        ${imgHtml}
                     </div>
-                    <div class="p-2 flex-grow flex flex-col justify-between">
+                    <div class="p-2 flex-grow flex flex-col justify-between mt-2">
                         <div>
-                            <h2 class="font-black text-sm text-slate-800 leading-tight uppercase line-clamp-1">${item.name}</h2>
-                            <p class="text-[11px] text-slate-500 mt-1 line-clamp-2">${cleanDesc}</p>
+                            <h3 class="font-black text-slate-800 text-xs uppercase tracking-tight line-clamp-1">${item.name}</h3>
+                            <p class="text-slate-500 text-[11px] font-medium mt-1 leading-tight line-clamp-2">${cleanDesc}</p>
                         </div>
-                        <div class="mt-2">
+                        <div class="mt-3">
                             ${unboxingBtnHtml}
-                            <a ${btnAction} class="w-full block text-center text-white text-[11px] font-black uppercase py-2 rounded-xl tracking-wider ${btnClass} transition hover:opacity-90">
-                                ${btnLabel}
-                            </a>
+                            <a ${btnAction} class="w-full ${btnClass} text-white text-center font-black py-2.5 rounded-xl uppercase tracking-wider block text-[10px] shadow-sm">${btnLabel}</a>
                         </div>
                     </div>
-                </div>`;
+                </div>
+                `;
             }).join('');
         }
 
         function renderCDR(items) {
             const container = document.getElementById('cdr-container');
             if(!container) return;
-            if(items.length > 0) document.getElementById('cdr-section').classList.remove('hidden');
             container.innerHTML = items.map(item => `
-                <div class="bg-white rounded-xl border p-2 flex flex-col justify-between shadow-xs">
-                    <img src="${item.images[0]}" class="h-32 w-full object-contain bg-slate-50 rounded-lg" alt="${item.name}">
-                    <h3 class="font-bold text-xs text-slate-700 mt-2 line-clamp-1 uppercase">${item.name}</h3>
-                    <a href="${item.link}" target="_blank" class="w-full text-center bg-purple-600 text-white font-black text-[10px] uppercase py-1.5 rounded-lg mt-2 tracking-wide block">Download CDR</a>
+                <div class="bg-white p-3 rounded-2xl shadow-sm border text-center flex flex-col justify-between">
+                    <img src="${item.images[0]}" class="h-32 w-full object-contain rounded-xl mb-2" alt="${item.name}">
+                    <h4 class="font-black text-xs uppercase line-clamp-1 text-slate-800">${item.name}</h4>
+                    <a href="${item.link}" target="_blank" class="mt-3 bg-purple-600 text-white text-[10px] font-black py-2 rounded-xl uppercase block">Download CDR</a>
                 </div>
             `).join('');
         }
@@ -464,11 +401,10 @@
             if(!container || items.length === 0) return;
             document.getElementById('corner-section').classList.remove('hidden');
             container.innerHTML = items.map(item => `
-                <div class="bg-amber-50 border-2 border-amber-400 rounded-xl p-3 shadow-xs">
-                    <img src="${item.images[0]}" class="rounded-lg mb-2 w-full" alt="Special">
-                    <h4 class="font-black text-xs text-amber-900 uppercase">${item.name}</h4>
-                    <p class="text-[11px] text-amber-700 font-bold mt-1">${item.desc}</p>
-                    <a href="${item.link}" target="_blank" class="block w-full text-center bg-amber-500 text-white font-black text-[11px] uppercase py-2 rounded-lg mt-2 shadow-xs">Claim Deal</a>
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-3 rounded-2xl border border-amber-200 shadow-sm">
+                    <img src="${item.images[0]}" class="w-full h-32 object-contain rounded-xl mb-2" alt="${item.name}">
+                    <h4 class="font-black text-xs uppercase text-amber-900">${item.desc}</h4>
+                    <a href="${item.link}" target="_blank" class="mt-2 w-full bg-orange-500 text-white text-center font-black py-2 rounded-xl text-[10px] uppercase block">Grab Deal</a>
                 </div>
             `).join('');
         }
@@ -477,78 +413,113 @@
             const container = document.getElementById('sidebar-content');
             if(!container) return;
             const videoItems = items.filter(i => i.video && i.video.trim() !== "" && !i.desc.includes('#'));
+            if(videoItems.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 font-bold uppercase">No demos available</p>`;
+                return;
+            }
             container.innerHTML = videoItems.slice(0, 4).map(item => {
-                const vId = extractYouTubeId(item.video);
-                if(!vId) return "";
+                const vidId = extractYouTubeId(item.video);
+                if(!vidId) return "";
                 return `
-                <div class="bg-white rounded-xl border p-2 shadow-xs">
-                    <div class="w-full aspect-video rounded-lg overflow-hidden relative">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/${vId}" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <p class="text-[10px] font-black uppercase text-slate-700 mt-1 line-clamp-1">${item.name}</p>
-                </div>`;
+                <div onclick="playUnboxingVideo('${item.video}')" class="bg-white p-2 rounded-xl border shadow-sm flex gap-2 items-center cursor-pointer hover:bg-slate-50 transition">
+                    <img src="https://img.youtube.com/vi/${vidId}/mqdefault.jpg" class="w-20 aspect-video object-cover rounded-lg shrink-0" alt="">
+                    <p class="text-[11px] font-black text-slate-800 uppercase leading-tight line-clamp-2">${item.name}</p>
+                </div>
+                `;
             }).join('');
         }
 
-        function filterCategory(category, btn) {
+        function filterCategory(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
             
+            // Showroom active filter state clear karein
             document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
 
-            if(category === 'all') {
-                renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));
-            } else if(category === 'apk') {
-                renderItems(allItems.filter(i => i.link.toLowerCase().endsWith('.apk')));
-            } else if(category === 'cdr') {
-                renderItems([]);
-                document.getElementById('cdr-section').scrollIntoView({ behavior: 'smooth' });
-            } else if(category === 'local') {
-                renderItems(allItems.filter(i => i.desc.includes('`')));
-            } else {
-                renderItems(allItems.filter(i => i.desc.toLowerCase().includes(category)));
+            const cdrSec = document.getElementById('cdr-section');
+            if(cat === 'cdr') {
+                document.getElementById('product-container').innerHTML = "";
+                if(cdrSec) cdrSec.classList.remove('hidden');
+                return;
             }
-        }
+            if(cdrSec) cdrSec.classList.add('hidden');
 
-        function filterShowroom(vendorName, vendorPhone, element) {
-            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
-            if(element) element.classList.add('active');
-
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-
-            const filtered = allItems.filter(item => item.desc && item.desc.toLowerCase().includes('#' + vendorName.toLowerCase()));
+            // Hiding logo/bg/notice rows already handled inside renderAll
+            let filtered = allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr') && !i.name.startsWith('@'));
+            
+            if(cat === 'apk') {
+                filtered = filtered.filter(i => i.link.toLowerCase().endsWith('.apk'));
+            } else if(cat === 'men') {
+                filtered = filtered.filter(i => i.desc.toLowerCase().includes('men') && !i.desc.toLowerCase().includes('women'));
+            } else if(cat === 'women') {
+                filtered = filtered.filter(i => i.desc.toLowerCase().includes('women'));
+            } else if(cat === 'local') {
+                filtered = filtered.filter(i => i.desc.includes('`'));
+            }
             renderItems(filtered);
         }
 
-        function handleShowroomClick(btn) {
-            const itemName = btn.getAttribute('data-showroom-item');
-            const parentWrapper = document.querySelector('.showroom-avatar-wrapper.active');
-            let phone = "916265881327";
-            let vendorName = "Showroom";
+        function filterShowroom(vendorName, vendorPhone, wrapperElement) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
+            if(wrapperElement) wrapperElement.classList.add('active');
+
+            const cdrSec = document.getElementById('cdr-section');
+            if(cdrSec) cdrSec.classList.add('hidden');
+
+            // Row main profile items hide rakhein aur sirf match hashtag wale items dikhayein
+            const filtered = allItems.filter(item => 
+                item.desc && 
+                item.desc.toLowerCase().includes('#' + vendorName.toLowerCase()) && 
+                !item.name.startsWith('@')
+            );
+            renderItems(filtered);
+        }
+
+        function handleShowroomClick(btnElement) {
+            const itemName = btnElement.getAttribute('data-showroom-item');
+            const activeWrapper = document.querySelector('.showroom-avatar-wrapper.active');
             
-            if(parentWrapper) {
-                vendorName = parentWrapper.querySelector('.showroom-avatar-name').textContent;
-                const onclickStr = parentWrapper.getAttribute('onclick');
+            let phoneNum = "916265881327"; 
+            let vendorName = "Showroom";
+
+            if(activeWrapper) {
+                vendorName = activeWrapper.querySelector('.showroom-avatar-name').textContent;
+                const onclickStr = activeWrapper.getAttribute('onclick');
                 const match = onclickStr.match(/'([^']+)',\s*'([^']+)'/);
-                if(match && match[2]) phone = match[2];
+                if(match && match[2]) phoneNum = match[2];
+            } else {
+                allItems.forEach(item => {
+                    if(item.desc && item.desc.includes('#')) {
+                        const matchTag = item.desc.match(/#(\w+(\s+\w+)?)/);
+                        if(matchTag && item.name === itemName) {
+                            const matchedVendor = matchTag[1].trim().toLowerCase();
+                            const profileRow = allItems.find(r => {
+                                let cName = r.name.startsWith('@') ? r.name.substring(1).trim() : r.name;
+                                return cName.toLowerCase() === matchedVendor;
+                            });
+                            if(profileRow && profileRow.link) {
+                                phoneNum = profileRow.link.replace(/\D/g, '');
+                            }
+                        }
+                    }
+                });
             }
-            sendVendorWhatsApp(phone, `Hello ${vendorName}, I am interested in ordering: ${itemName}`);
+
+            sendVendorWhatsApp(phoneNum, `Hello, I want to order "${itemName}" from your showroom listed on Core11 Apps Store.`);
         }
 
         function startAutoSlide() {
             setInterval(() => {
-                allItems.forEach(item => {
-                    if (item.images && item.images.length > 1) {
-                        const container = document.getElementById(`slide-${item.id}`);
-                        if (container) {
-                            let currentSlide = parseInt(container.getAttribute('data-current') || 0);
-                            currentSlide = (currentSlide + 1) % item.images.length;
-                            container.setAttribute('data-current', currentSlide);
-                            container.style.transform = `translateX(-${currentSlide * 100}%)`;
-                        }
-                    }
+                document.querySelectorAll('.slide-container').forEach(container => {
+                    const images = container.querySelectorAll('img');
+                    if(images.length <= 1) return;
+                    let currentIdx = parseInt(container.getAttribute('data-current-idx') || '0');
+                    currentIdx = (currentIdx + 1) % images.length;
+                    container.setAttribute('data-current-idx', currentIdx);
+                    container.style.transform = `translateX(-${currentIdx * 100}%)`;
                 });
-            }, 4000);
+            }, 3000);
         }
     </script>
 </body>
