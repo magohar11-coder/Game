@@ -254,7 +254,15 @@
             // AUTOMATICALLY DISCOVER AND BUILD SHOWROOM LISTS FROM SHEET ROWS
             buildShowroomAvatars();
 
-            renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));            
+            // MODIFIED FILTER: Auto-extracted showroom profile rows ko product list se block karne ke liye yahan filters list array dynamic link kiya hai
+            const blockedShowroomNames = showroomVendors.map(v => v.toLowerCase());
+            
+            renderItems(allItems.filter(i => {
+                const lowerName = i.name.toLowerCase();
+                return !['logo', 'background', 'notice', 'corner'].includes(lowerName) && 
+                       !blockedShowroomNames.includes(lowerName) && 
+                       !lowerName.includes('cdr');
+            }));            
             renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));            
             renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));            
             renderSidebar(allItems);            
@@ -266,7 +274,6 @@
             const avatarContainer = document.getElementById('showroom-avatar-container');
             if(!avatarContainer) return;
 
-            // Extra vendors list dynamically map out based on descriptions tag "#" or rows
             let uniqueVendors = {};
             
             allItems.forEach(item => {
@@ -276,7 +283,6 @@
                         const tag = match[1].trim();
                         const tagKey = tag.toLowerCase();
                         
-                        // Pick phone link if available from showroom rows
                         if(!uniqueVendors[tagKey]) {
                             uniqueVendors[tagKey] = {
                                 name: tag,
@@ -288,7 +294,6 @@
                 }
             });
 
-            // Hard check setup for static profile adjustments mapping links
             allItems.forEach(item => {
                 const nameLower = item.name.toLowerCase();
                 if(uniqueVendors[nameLower]) {
@@ -298,6 +303,7 @@
             });
 
             const vendorsArray = Object.values(uniqueVendors);
+            showroomVendors = vendorsArray.map(v => v.name); // Updates globally to exclude from items list
             
             if(vendorsArray.length === 0) {
                 avatarContainer.parentElement.style.display = 'none';
@@ -378,87 +384,7 @@
 
         function renderCorner(items) {            
             if (!items.length) return;            
-            document.getElementById('corner-section').classList.remove('hidden');            
-            const container = document.getElementById('corner-container');            
-            container.innerHTML = items.map(item => `                <div class="bg-white p-3 rounded-xl border shadow-sm flex items-center gap-3">                    <img src="${item.images[0]}" loading="lazy" class="w-16 h-16 object-cover rounded-lg">                    <div class="flex-grow">                        <h4 class="text-xs font-black text-slate-800 uppercase leading-tight">${item.name}</h4>                        <p class="text-[10px] text-slate-500 font-medium mt-0.5">${item.desc}</p>                        <a href="${item.link}" target="_blank" rel="noreferrer" class="inline-block mt-1 bg-red-500 text-white font-black text-[9px] px-2 py-1 rounded uppercase italic tracking-wider">Buy Now</a>                    </div>                </div>`).join('');        }
-
-        function renderSidebar(items) {            
-            const videos = items.filter(i => i.video && i.video.trim() !== "" && !i.desc.includes('#'));            
-            const container = document.getElementById('sidebar-content');            
-            if(!videos.length) { container.innerHTML = '<p class="text-[10px] text-slate-400 font-bold uppercase text-center py-4">No Video Demos Available</p>'; return; }            
-            container.innerHTML = videos.map(item => {                
-                const vidId = extractYouTubeId(item.video);                
-                if(!vidId) return '';                
-                return `                <div class="bg-white rounded-xl overflow-hidden border shadow-sm">                    <div class="w-full aspect-video">                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/${vidId}?autoplay=0&mute=1" frameborder="0" allow="encrypted-media" allowfullscreen loading="lazy"></iframe>                    </div>                    <div class="p-2.5">                        <h4 class="text-[11px] font-black text-slate-800 uppercase line-clamp-1">${item.name}</h4>                        <p class="text-[10px] text-slate-400 font-bold mt-0.5 uppercase">Demo Video</p>                    </div>                </div>`;            }).join('');        }
-
-        function filterCategory(cat, btn) {            
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));            
-            document.querySelectorAll('.showroom-avatar-wrapper').forEach(b => b.classList.remove('active'));            
-            btn.classList.add('active');            
-            const cards = document.querySelectorAll('#product-container > div');            
-            cards.forEach(card => {                
-                const desc = card.dataset.desc || '';                
-                const link = card.dataset.link || '';                
-                if (cat === 'all') {                    
-                    card.style.display = 'flex';                
-                } else if (cat === 'apk') {                    
-                    card.style.display = link.endsWith('.apk') ? 'flex' : 'none';                
-                } else if (cat === 'men') {                    
-                    card.style.display = desc.includes('men') && !desc.includes('women') ? 'flex' : 'none';                
-                } else if (cat === 'women') {                    
-                    card.style.display = desc.includes('women') ? 'flex' : 'none';                
-                } else if (cat === 'local') {                    
-                    card.style.display = desc.includes('`') ? 'flex' : 'none';                
-                } else if (cat === 'cdr') {                    
-                    card.style.display = 'none';                
-                }            
-            });            
-            const cdrSection = document.getElementById('cdr-section');            
-            if (cat === 'cdr') { cdrSection.classList.remove('hidden'); document.getElementById('product-container').style.display = 'none'; }            
-            else { cdrSection.classList.add('hidden'); document.getElementById('product-container').style.display = 'grid'; }        
-        }
-
-        // TRIGGERS WHEN CLK ON ROUND SHOWROOM ICON
-        function filterShowroom(name, phone, element) {            
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));            
-            
-            // Check if clicked avatar is already active (Toggle effect)
-            if(element.classList.contains('active')) {
-                element.classList.remove('active');
-                filterCategory('all', document.querySelector(".filter-btn")); // reset back to all
-                return;
-            }
-            
-            document.querySelectorAll('.showroom-avatar-wrapper').forEach(b => b.classList.remove('active'));            
-            element.classList.add('active');            
-            
-            document.getElementById('cdr-section').classList.add('hidden');            
-            document.getElementById('product-container').style.display = 'grid';            
-            
-            const target = `#${name.toLowerCase()}`;            
-            const cards = document.querySelectorAll('#product-container > div');            
-            cards.forEach(card => {                
-                const desc = card.dataset.desc || '';                
-                card.style.display = desc.includes(target) ? 'flex' : 'none';            
-            });
-            
-            // Store active phone data directly to parent dataset securely
-            document.getElementById('showroom-avatar-container').dataset.activeVendorPhone = phone;
-            document.getElementById('showroom-avatar-container').dataset.activeVendorName = name;
-        }
-
-        function handleShowroomClick(el) {            
-            const itemName = el.getAttribute('data-showroom-item');            
-            const container = document.getElementById('showroom-avatar-container');
-            
-            const vendorPhone = container.dataset.activeVendorPhone;
-            const vendorName = container.dataset.activeVendorName;
-
-            if(vendorPhone && vendorName) {                
-                sendVendorWhatsApp(vendorPhone, `Hello ${vendorName}, I want to order this product from your showroom: ${itemName}`);                
-            } else {                
-                sendWhatsAppMessage(`Interested in Showroom Item: ${itemName}`);            
-            }        
+            document.getElementById('corner-section').classList.remove('hidden');
         }
     </script>
 </body>
