@@ -23,13 +23,13 @@
             overflow-x: hidden; background: white; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
             position: relative;
         }
-        .quran-btn { background: #6a1b9a !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; border-radius: 9999px !important; }
-        .foryou-btn { background: linear-gradient(135deg, #ec4899, #f43f5e) !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; border-radius: 9999px !important; }
+        .quran-btn { background: #6a1b9a !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 10px !important; border-radius: 9999px !important; }
+        .foryou-btn { background: linear-gradient(135deg, #ec4899, #f43f5e) !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 10px !important; border-radius: 9999px !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content-quran { background: white; width: 100%; max-width: 380px; padding: 25px; border-radius: 20px; text-align: center; }        
         #view-switcher { position: fixed; bottom: 25px; right: 25px; z-index: 1000; background: #9333ea; color: white; padding: 12px 24px; border-radius: 50px; font-weight: 900; cursor: pointer; border: 2px solid white; }
         .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; border-radius: 9999px !important; }
+        .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 10px !important; font-weight: 900; border-radius: 9999px !important; }
         .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }        
         .product-card { 
             min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; 
@@ -85,25 +85,24 @@
         @keyframes transmitRight { 0% { opacity: 0; transform: scale(0.3) translate(-40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(20px, 20px); } }
         @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-        .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
-        @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }        
-        .marquee-container { width: 100%; overflow: hidden; white-space: nowrap; position: relative; background: black; border-radius: 6px; }
-        .marquee-text { display: inline-block; padding-left: 100%; animation: marquee-scroll 15s linear infinite; font-weight: 900; color: #39FF14; font-size: 18px; }
-        @keyframes marquee-scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         
-        .showroom-scroll-container { display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; padding: 4px 8px; width: 100%; }
+        .showroom-scroll-container { display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; padding: 2px 4px; width: 100%; }
         .showroom-scroll-container::-webkit-scrollbar { display: none; }
         
-        .showroom-avatar-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; shrink-0; min-width: 65px; transition: transform 0.2s; }
+        .showroom-avatar-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; shrink-0; min-width: 55px; transition: transform 0.2s; }
         .showroom-avatar-wrapper:hover { transform: scale(1.05); }
         
-        .showroom-circle-img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 3px solid #a855f7; padding: 2px; background: white; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .showroom-avatar-wrapper.active .showroom-circle-img { border-color: #2563eb; transform: scale(1.08); box-shadow: 0 0 12px rgba(37,99,235,0.4); }
-        .showroom-avatar-name { font-size: 10px !important; font-weight: 900; text-transform: uppercase; margin-top: 5px; color: #475569; max-width: 75px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        .showroom-circle-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #a855f7; padding: 2px; background: white; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .showroom-avatar-wrapper.active .showroom-circle-img { border-color: #2563eb; transform: scale(1.06); box-shadow: 0 0 8px rgba(37,99,235,0.4); }
+        .showroom-avatar-name { font-size: 9px !important; font-weight: 900; text-transform: uppercase; margin-top: 3px; color: #475569; max-width: 65px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
         .showroom-avatar-wrapper.active .showroom-avatar-name { color: #2563eb; }
 
         #unboxingModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 30000; justify-content: center; align-items: center; padding: 15px; }
+        
+        #noticeModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 25000; justify-content: center; align-items: center; padding: 20px; }
+        .bell-bounce { animation: bellRing 2s infinite; }
+        @keyframes bellRing { 0%, 100% { transform: rotate(0); } 10%, 30% { transform: rotate(15deg); } 20%, 40% { transform: rotate(-15deg); } 50% { transform: rotate(0); } }
     </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
@@ -146,6 +145,20 @@
         </div>
     </div>
 
+    <div id="noticeModal" class="modal-overlay" onclick="closeNoticeModal()">
+        <div class="bg-white w-full max-w-sm p-5 rounded-2xl text-center border-t-4 border-blue-600 shadow-2xl animate-fade-in" onclick="event.stopPropagation()">
+            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl shadow-inner">
+                <i class="fas fa-bell"></i>
+            </div>
+            <h3 class="text-lg font-black text-slate-800 uppercase tracking-wide mb-2 italic">Latest Announcements</h3>
+            <div class="w-10 h-0.5 bg-blue-600 mx-auto mb-4 rounded-full"></div>
+            <div id="modal-notice-content" class="text-slate-600 font-bold text-sm bg-slate-50 p-4 rounded-xl border border-slate-100 max-h-60 overflow-y-auto text-left leading-relaxed">
+                Loading updates...
+            </div>
+            <button onclick="closeNoticeModal()" class="mt-5 w-full bg-slate-900 text-white font-black py-3 rounded-xl uppercase text-xs tracking-wider hover:bg-slate-800 transition">✕ Dismiss</button>
+        </div>
+    </div>
+
     <div id="foryouModal" class="modal-overlay">
         <div class="modal-content-quran shadow-2xl border-t-8 border-pink-500">
             <h3 class="text-2xl font-black text-pink-600 italic mb-2 uppercase tracking-wide">✨ For You Store Deal ✨</h3>
@@ -162,18 +175,23 @@
 
     <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
     <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>            </div>    </div>
-    <div id="mode-container">        <div class="fixed-header-wrapper">            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">                <div class="notice-wrapper">                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>                        <div class="marquee-container">                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>                        </div>                    </div>                </div>            </div>
-            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">                <div class="flex items-center gap-2">                    <img id="site-logo" src="" alt="Logo" class="h-12">                    <div class="border-l-2 border-slate-200 pl-2">                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>                        <div class="flex items-center gap-3">                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>                        </div>                    </div>                </div>            </header>
+    <div id="mode-container">        <div class="fixed-header-wrapper">
+            <header class="bg-white border-b py-1.5 px-3 flex justify-between items-center gap-2">                <div class="flex items-center gap-2">                    <img id="site-logo" src="" alt="Logo" class="h-8 w-auto object-contain">                    <div class="border-l border-slate-200 pl-2">                        <h1 class="text-[15px] md:text-[18px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>                        <div class="flex items-center gap-2 mt-0.5">                            <p class="text-[9px] text-blue-600 font-black uppercase tracking-tight">By-M.A. Gohar</p>                            <button onclick="showTerms()" class="text-[9px] text-slate-400 underline hover:text-red-500 font-bold uppercase tracking-tight">Terms</button>                        </div>                    </div>                </div>
+                <button onclick="openNoticeModal()" class="relative bg-blue-600 text-white w-8 height-8 h-8 rounded-full flex items-center justify-center text-sm shadow-md hover:bg-blue-700 transition shrink-0 bell-bounce">
+                    <i class="fas fa-bell"></i>
+                    <span class="absolute -top-1 -right-1 bg-red-500 w-2.5 h-2.5 rounded-full border border-white"></span>
+                </button>
+            </header>
             
-            <div class="py-2 px-2 bg-slate-50 border-b">                <div class="flex flex-wrap justify-center gap-1.5">                    <button onclick="filterCategory('all', this)" class="filter-btn active px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">All</button>                    <button onclick="filterCategory('apk', this)" class="filter-btn px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">Apps</button>                    <button onclick="filterCategory('men', this)" class="filter-btn px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">Men</button>                    <button onclick="filterCategory('women', this)" class="filter-btn px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">Women</button>                    <button onclick="filterCategory('local', this)" class="filter-btn px-4 py-1.5 uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-4 py-1.5 uppercase bg-white shadow-sm flex-grow">CDR File</button>                    <button onclick="openQuranModal()" class="quran-btn px-4 py-1.5 shadow-sm flex-grow">Quran</button>                    <button onclick="openForyouModal()" class="foryou-btn px-4 py-1.5 shadow-sm flex-grow animated pulse infinite">❤️ For You</button>                </div>            </div>
+            <div class="py-1 px-1.5 bg-slate-50 border-b">                <div class="flex flex-wrap justify-center gap-1">                    <button onclick="filterCategory('all', this)" class="filter-btn px-2.5 py-1 uppercase bg-white shadow-sm flex-grow">All</button>                    <button onclick="filterCategory('apk', this)" class="filter-btn px-2.5 py-1 uppercase bg-white shadow-sm flex-grow">Apps</button>                    <button onclick="filterCategory('men', this)" class="filter-btn px-2.5 py-1 uppercase bg-white shadow-sm flex-grow">Men</button>                    <button onclick="filterCategory('women', this)" class="filter-btn px-2.5 py-1 uppercase bg-white shadow-sm flex-grow">Women</button>                    <button onclick="filterCategory('local', this)" class="filter-btn px-2.5 py-1 uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local</button>                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-2.5 py-1 uppercase bg-white shadow-sm flex-grow">CDR File</button>                    <button onclick="openQuranModal()" class="quran-btn px-2.5 py-1 shadow-sm flex-grow">Quran</button>                    <button onclick="openForyouModal()" class="foryou-btn px-2.5 py-1 shadow-sm flex-grow animated pulse infinite">❤️ For You</button>                </div>            </div>
 
-            <div class="py-2 px-2 bg-purple-50 border-b flex items-center gap-2">
-                <span class="text-[10px] font-black uppercase text-purple-700 border-r pr-2 shrink-0"><i class="fas fa-store"></i> <br>Shops:</span>
+            <div class="py-1 px-2 bg-purple-50 border-b flex items-center gap-2">
+                <span class="text-[9px] font-black uppercase text-purple-700 border-r pr-1.5 shrink-0"><i class="fas fa-store"></i> Shops:</span>
                 <div id="showroom-avatar-container" class="showroom-scroll-container">
                 </div>
             </div>
         </div>
-        <main class="max-w-7xl mx-auto p-3 mt-2">            <div class="flex flex-col lg:flex-row gap-6">                <div id="product-list-area" class="lg:w-3/4">                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>                    <div id="cdr-section" class="mt-8">                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>                    </div>                </div>                <div id="video-sidebar" class="lg:w-1/4 space-y-6">                    <div id="corner-section" class="hidden">                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        <div id="corner-container" class="space-y-4"></div>                    </div>                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>                    <div id="sidebar-content" class="space-y-4"></div>                </div>            </div>        </main>    </div>
+        <main class="max-w-7xl mx-auto p-3 mt-2">            <div class="flex flex-col lg:flex-row gap-6">                <div id="product-list-area" class="lg:w-3/4">                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>                    <div id="cdr-section" class="mt-8">                        <h2 class="text-sm font-black text-slate-800 uppercase mb-3 border-l-4 border-purple-600 pl-2 tracking-wide">CDR Files</h2>                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>                    </div>                </div>                <div id="video-sidebar" class="lg:w-1/4 space-y-6">                    <div id="corner-section" class="hidden">                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        <div id="corner-container" class="space-y-4"></div>                    </div>                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>                    <div id="sidebar-content" class="space-y-4"></div>                </div>            </div>        </main>    </div>
 
     <script>        
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';        
@@ -192,6 +210,9 @@
         function toggleView() { document.getElementById('main-body').classList.toggle('mobile-view-active'); }                
         function sendWhatsAppMessage(text) { window.open(`https://wa.me/${myWhatsApp}?text=${encodeURIComponent(text)}`, '_blank'); }
         function sendVendorWhatsApp(number, text) { window.open(`https://wa.me/${number}?text=${encodeURIComponent(text)}`, '_blank'); }
+
+        function openNoticeModal() { document.getElementById('noticeModal').style.display = 'flex'; }
+        function closeNoticeModal() { document.getElementById('noticeModal').style.display = 'none'; }
 
         function extractYouTubeId(url) {
             if (!url) return "";
@@ -237,7 +258,9 @@
             const bg = allItems.find(i => i.name.toLowerCase() === 'background');            
             if (bg) document.body.style.backgroundImage = `url('${bg.images[0]}')`;
             const notice = allItems.find(i => i.name.toLowerCase() === 'notice');            
-            if(notice) document.getElementById('notice-board').textContent = notice.desc;            
+            if(notice) {
+                document.getElementById('modal-notice-content').textContent = notice.desc;            
+            }
             
             buildShowroomAvatars();
             filterCategory('all', document.querySelector("button[onclick*='all']"));
@@ -349,9 +372,9 @@
                         </div>
                     </div>
                     <div class="p-3 flex-grow flex flex-col justify-between">
-                        <div>
-                            <h4 class="text-xs font-black uppercase text-slate-800 line-clamp-1 mb-1">${item.name}</h4>
-                            <p class="text-[10px] text-slate-500 font-medium line-clamp-2 mb-2">${cleanDesc}</p>
+                        <div class="mb-3">
+                            <h4 class="text-xs font-black uppercase text-slate-800 mb-1">${item.name}</h4>
+                            <p class="text-[10px] text-slate-500 font-medium leading-relaxed">${cleanDesc}</p>
                         </div>
                         <div>
                             ${unboxingBtnHtml}
@@ -362,139 +385,134 @@
             }).join('');
         }
 
-        function renderCDR(items) {
+        function renderCdrItems(items) {
             const container = document.getElementById('cdr-container');
-            if(!container) return;
-            container.innerHTML = items.map(item => {
-                const cleanDesc = item.desc.replace(/[.`]/g, '').trim();
-                // FIX: Yahan click karne par wapas site pe jump nahi hoga balki directly WhatsApp open hoga.
-                let btnAction = `onclick="sendWhatsAppMessage('Interested in CDR File: ${item.name}')" style="cursor:pointer"`;
-                
-                return `
-                <div class="product-card bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between">
-                    <div class="img-box">
-                        <img src="${item.images[0]}" alt="${item.name}" class="w-full h-full object-contain p-2">
-                    </div>
-                    <div class="p-3 flex-grow flex flex-col justify-between">
-                        <div>
-                            <h4 class="text-xs font-black uppercase text-slate-800 line-clamp-1 mb-1">${item.name}</h4>
-                            <p class="text-[10px] text-slate-500 font-medium line-clamp-2 mb-2">${cleanDesc}</p>
+            const section = document.getElementById('cdr-section');
+            if(items.length === 0) { section.style.display = 'none'; return; }
+            section.style.display = 'block';
+
+            container.innerHTML = items.map(item => `
+                <div class="bg-white rounded-2xl p-3 border border-slate-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="h-32 bg-slate-50 rounded-xl overflow-hidden flex items-center justify-center p-2 mb-2">
+                            <img src="${item.images[0]}" class="h-full object-contain mx-auto" alt="${item.name}">
                         </div>
-                        <div>
-                            <a ${btnAction} class="bg-purple-600 block text-center text-white text-[11px] font-black py-2.5 rounded-xl uppercase tracking-wider transition hover:opacity-90">Get on WhatsApp</a>
-                        </div>
+                        <h4 class="text-xs font-black uppercase text-slate-800 mb-1">${item.name}</h4>
+                        <p class="text-[10px] text-slate-500 font-medium mb-3 leading-relaxed">${item.desc}</p>
                     </div>
-                </div>`;
-            }).join('');
-        }
-
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-
-            const prodContainer = document.getElementById('product-container');
-            const cdrSection = document.getElementById('cdr-section');
-
-            if(cat === 'all') {
-                prodContainer.classList.remove('hidden');
-                cdrSection.classList.remove('hidden');
-                renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr') && !i.name.startsWith('@')));
-                renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
-            } else if(cat === 'cdr') {
-                prodContainer.classList.add('hidden');
-                cdrSection.classList.remove('hidden');
-                renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
-            } else {
-                prodContainer.classList.remove('hidden');
-                cdrSection.classList.add('hidden');
-                let filtered = allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr') && !i.name.startsWith('@'));
-                if(cat === 'apk') {
-                    filtered = filtered.filter(i => i.link.toLowerCase().endsWith('.apk'));
-                } else if(cat === 'local') {
-                    filtered = filtered.filter(i => i.desc.includes('`'));
-                } else if(cat === 'men') {
-                    filtered = filtered.filter(i => i.desc.toLowerCase().includes('men') && !i.desc.toLowerCase().includes('women'));
-                } else if(cat === 'women') {
-                    filtered = filtered.filter(i => i.desc.toLowerCase().includes('women'));
-                }
-                renderItems(filtered);
-            }
-        }
-
-        function filterShowroom(vendorName, phone, btn) {
-            document.querySelectorAll('.showroom-avatar-wrapper').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-
-            const prodContainer = document.getElementById('product-container');
-            const cdrSection = document.getElementById('cdr-section');
-            prodContainer.classList.remove('hidden');
-            cdrSection.classList.add('hidden');
-
-            const filtered = allItems.filter(i => i.desc.includes('#' + vendorName));
-            renderItems(filtered);
-        }
-
-        function handleShowroomClick(btn) {
-            const itemName = btn.getAttribute('data-showroom-item');
-            const item = allItems.find(i => i.name === itemName);
-            if(item) {
-                let phone = "916265881327"; 
-                const match = item.desc.match(/#(\w+(\s+\w+)?)/);
-                if(match) {
-                    const vendorName = match[1].trim().toLowerCase();
-                    const vendorProfile = allItems.find(i => {
-                        let clean = i.name.startsWith('@') ? i.name.substring(1).trim() : i.name;
-                        return clean.toLowerCase() === vendorName;
-                    });
-                    if(vendorProfile && vendorProfile.link) {
-                        phone = vendorProfile.link.replace(/\D/g, '');
-                    }
-                }
-                sendVendorWhatsApp(phone, `Hello, I want to order this showroom item: ${item.name}`);
-            }
+                    <a href="${item.link}" target="_blank" rel="noreferrer" class="block w-full bg-slate-900 text-white text-center text-[10px] font-black py-2 rounded-xl uppercase tracking-wider hover:bg-slate-800">Download CDR</a>
+                </div>
+            `).join('');
         }
 
         function renderCorner(items) {
             const container = document.getElementById('corner-container');
             const section = document.getElementById('corner-section');
-            if(!container || items.length === 0) return;
+            if(items.length === 0) { section.classList.add('hidden'); return; }
             section.classList.remove('hidden');
+
             container.innerHTML = items.map(item => `
-                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 shadow-sm">
-                    <h4 class="text-xs font-black text-amber-800 uppercase mb-1">${item.name}</h4>
-                    <p class="text-[11px] text-amber-700 font-bold mb-2">${item.desc}</p>
-                    <a href="${item.link}" target="_blank" class="block text-center bg-amber-600 text-white text-[10px] font-black py-1.5 rounded-lg uppercase">Claim Deal</a>
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-3 border border-amber-100 shadow-sm">
+                    <img src="${item.images[0]}" class="w-full h-40 object-cover rounded-xl mb-2" alt="${item.name}">
+                    <h4 class="text-xs font-black text-amber-900 uppercase mb-1">${item.desc}</h4>
+                    <a href="${item.link}" target="_blank" rel="noreferrer" class="block w-full bg-amber-500 text-white text-center text-[10px] font-black py-2 rounded-xl uppercase shadow-sm">Grab Deal</a>
                 </div>
             `).join('');
         }
 
         function renderSidebar(items) {
             const container = document.getElementById('sidebar-content');
-            if(!container) return;
-            const videoItems = items.filter(i => i.video && i.video.trim() !== "");
-            container.innerHTML = videoItems.map(item => `
-                <div class="bg-white border rounded-xl p-2 shadow-sm cursor-pointer" onclick="playUnboxingVideo('${item.video}')">
-                    <div class="aspect-video bg-slate-100 rounded-lg overflow-hidden relative flex items-center justify-center">
-                        <img src="${item.images ? item.images[0] : ''}" class="w-full h-full object-cover opacity-80">
-                        <i class="fab fa-youtube text-red-600 text-3xl absolute"></i>
-                    </div>
-                    <p class="text-[10px] font-black text-slate-700 uppercase mt-1 line-clamp-1">${item.name}</p>
-                </div>
-            `).join('');
+            const videoItems = items.filter(i => i.video && i.video.trim() !== "" && i.name.toLowerCase() !== 'logo' && !i.desc.includes('#'));
+            if(videoItems.length === 0) { container.innerHTML = `<p class="text-xs font-bold text-slate-400">No demos available.</p>`; return; }
+
+            container.innerHTML = videoItems.slice(0, 4).map(item => {
+                const vidId = extractYouTubeId(item.video);
+                if(!vidId) return "";
+                return `
+                    <div class="bg-white rounded-2xl p-2 border border-slate-100 shadow-sm">
+                        <div class="w-full aspect-video rounded-xl overflow-hidden mb-2 bg-slate-900">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/${vidId}" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+                        </div>
+                        <h4 class="text-[11px] font-black uppercase text-slate-800 truncate">${item.name}</h4>
+                    </div>`;
+            }).join('');
+        }
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            
+            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
+
+            let filtered = [];
+            let cdrItems = [];
+
+            const reserved = ['logo', 'background', 'notice', 'corner'];
+
+            let validItems = allItems.filter(i => !reserved.includes(i.name.toLowerCase()));
+
+            if(cat === 'all') {
+                filtered = validItems.filter(i => !i.link.toLowerCase().endsWith('.cdr'));
+                cdrItems = validItems.filter(i => i.link.toLowerCase().endsWith('.cdr'));
+            } else if(cat === 'cdr') {
+                filtered = [];
+                cdrItems = validItems.filter(i => i.link.toLowerCase().endsWith('.cdr'));
+            } else if(cat === 'apk') {
+                filtered = validItems.filter(i => i.link.toLowerCase().endsWith('.apk'));
+            } else if(cat === 'local') {
+                filtered = validItems.filter(i => i.desc.includes('`'));
+            } else if(cat === 'men') {
+                filtered = validItems.filter(i => i.desc.toLowerCase().includes('men') && !i.desc.toLowerCase().includes('women') && !i.link.toLowerCase().endsWith('.cdr'));
+            } else if(cat === 'women') {
+                filtered = validItems.filter(i => i.desc.toLowerCase().includes('women') && !i.link.toLowerCase().endsWith('.cdr'));
+            }
+
+            renderItems(filtered);
+            renderCdrItems(cdrItems);
+        }
+
+        function filterShowroom(vendorName, vendorPhone, element) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
+            
+            if(element) element.classList.add('active');
+
+            const filtered = allItems.filter(item => {
+                return item.desc && item.desc.toLowerCase().includes('#' + vendorName.toLowerCase());
+            });
+
+            renderItems(filtered);
+            renderCdrItems([]);
+        }
+
+        function handleShowroomClick(btn) {
+            const itemName = btn.getAttribute('data-showroom-item');
+            const activeVendor = document.querySelector('.showroom-avatar-wrapper.active');
+            
+            let phone = "916265881327"; 
+            if(activeVendor) {
+                const onclickStr = activeVendor.getAttribute('onclick');
+                const match = onclickStr.match(/filterShowroom\('[^']+',\s*'([^']+)'/);
+                if(match && match[1]) phone = match[1];
+            }
+            
+            sendVendorWhatsApp(phone, `I want to order this showroom item: ${itemName}`);
         }
 
         function startAutoSlide() {
-            clearInterval(slideInterval);
+            if(slideInterval) clearInterval(slideInterval);
             slideInterval = setInterval(() => {
                 document.querySelectorAll('.slide-container').forEach(container => {
-                    const slides = container.querySelectorAll('img');
-                    if(slides.length <= 1) return;
-                    let currentIdx = parseInt(container.getAttribute('data-current-idx') || '0');
-                    currentIdx = (currentIdx + 1) % slides.length;
-                    container.setAttribute('data-current-idx', currentIdx);
+                    const images = container.querySelectorAll('img');
+                    if(images.length <= 1) return;
+                    
+                    let currentIdx = parseInt(container.getAttribute('data-slide-idx') || '0');
+                    currentIdx = (currentIdx + 1) % images.length;
+                    
+                    container.setAttribute('data-slide-idx', currentIdx);
                     container.style.transform = `translateX(-${currentIdx * 100}%)`;
                 });
-            }, 3000);
+            }, 4000);
         }
     </script>
 </body>
