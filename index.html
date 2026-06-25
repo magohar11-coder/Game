@@ -23,7 +23,6 @@
             overflow-x: hidden; background: white; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
             position: relative;
         }
-        /* Rounded Category UI Badlaav */
         .quran-btn { background: #6a1b9a !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; border-radius: 9999px !important; }
         .foryou-btn { background: linear-gradient(135deg, #ec4899, #f43f5e) !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; border-radius: 9999px !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center; padding: 20px; }
@@ -42,52 +41,41 @@
         .slide-container { display: flex; transition: transform 0.5s ease-in-out; width: 100%; height: 100%; }
         .slide-container img { min-width: 100%; height: 100%; object-fit: contain; padding: 10px; flex-shrink: 0; }        
         
-        /* REALISTIC HIGH-TECH SATELLITE LOADER */
         #loader { position: fixed; inset: 0; background: #070b19; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
         .satellite-system { position: relative; width: 360px; height: 280px; background: radial-gradient(circle at center, rgba(30,41,59,0.6) 0%, transparent 75%); }
         
-        /* Realistic Satellite Body */
         .main-satellite { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 70px; height: 90px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3.5s ease-in-out infinite alternate; z-index: 10; }
         .sat-core { width: 34px; height: 50px; background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%); border: 2px solid #475569; border-radius: 6px; position: relative; box-shadow: inset -3px -3px 0px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.1); }
         .sat-core::before { content: ''; position: absolute; top: 8px; left: 6px; width: 18px; height: 8px; background: #1e293b; border-radius: 2px; border: 1px solid #64748b; }
         .sat-core::after { content: ''; position: absolute; bottom: 8px; left: 12px; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
         
-        /* Realistic Curved Metallic Dish on Satellite Base */
         .sat-dish-bottom { width: 54px; height: 18px; background: linear-gradient(180deg, #94a3b8 0%, #475569 100%); border: 2px solid #334155; border-radius: 0 0 100px 100px; margin-top: -1px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .sat-dish-bottom::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 3px; height: 10px; background: #cbd5e1; }
         .sat-feed-horn { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); width: 7px; height: 5px; background: #f97316; border-radius: 50%; box-shadow: 0 0 8px #f97316; }
         
-        /* High-Detail Solar Grid Wings */
         .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 65px; height: 26px; background: #0f172a; border: 2px solid #38bdf8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; box-shadow: 0 0 15px rgba(56,189,248,0.3); }
         .solar-wing-left { left: -67px; transform: perspective(100px) rotateY(20deg); border-radius: 4px 0 0 4px; }
         .solar-wing-right { right: -67px; transform: perspective(100px) rotateY(-20deg); border-radius: 0 4px 4px 0; }
         .solar-wing-left div, .solar-wing-right div { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); border: 1px solid #60a5fa; border-radius: 1px; }
 
-        /* REAL SCIENTIFIC GROUND DISH ANTENNAS (Left & Right) */
         .ground-dish-left { position: absolute; bottom: 15px; left: 15px; width: 65px; height: 75px; }
         .ground-dish-right { position: absolute; bottom: 15px; right: 15px; width: 65px; height: 75px; }
         
-        /* Realistic Parabolic Curved Bowl Shape */
         .dish-bowl { width: 56px; height: 32px; background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 60%, #475569 100%); border: 2px solid #64748b; border-radius: 50% 50% 100px 100px / 20px 20px 100px 100px; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 12px rgba(0,0,0,0.4); transform-origin: center bottom; }
         .ground-dish-left .dish-bowl { transform: rotate(28deg); }
         .ground-dish-right .dish-bowl { transform: rotate(-28deg); }
         
-        /* Dish Grid Texture Lines */
         .dish-bowl::before { content: ''; position: absolute; inset: 2px; border-radius: inherit; border: 1px dashed rgba(255,255,255,0.4); }
         
-        /* Substantial Feed Horn Spar (Receiver Rod) pointing towards satellite */
         .dish-receiver-rod { width: 3px; height: 22px; background: linear-gradient(0deg, #475569, #cbd5e1); position: absolute; transform-origin: bottom center; bottom: 14px; }
         .ground-dish-left .dish-receiver-rod { left: 60%; transform: rotate(-25deg); }
         .ground-dish-right .dish-receiver-rod { right: 60%; transform: rotate(25deg); }
         
-        /* Feed LNB Cap Tip */
         .dish-receiver-rod::after { content: ''; position: absolute; top: -4px; left: -2px; width: 7px; height: 7px; background: #ea580c; border-radius: 50%; box-shadow: 0 0 6px #ea580c; }
         
-        /* Solid Heavy Steel Triangle Base Mounts */
         .dish-stand { width: 24px; height: 26px; background: transparent; border-left: 4px solid #334155; border-right: 4px solid #334155; border-top: 14px solid #475569; margin: -2px auto 0; border-radius: 2px; position: relative; }
         .dish-stand::after { content: ''; position: absolute; bottom: -4px; left: -8px; width: 32px; height: 4px; background: #1e293b; border-radius: 2px; }
 
-        /* Orange Wave Transmissions */
         .wave-line-left, .wave-line-right { position: absolute; top: 100px; height: 110px; width: 90px; border-top: 3px dashed #ea580c; opacity: 0; }
         .wave-line-left { left: 65px; border-left: 3px dashed #ea580c; border-radius: 100% 0 0 0; animation: transmitLeft 1.5s linear infinite; }
         .wave-line-right { right: 65px; border-right: 3px dashed #ea580c; border-radius: 0 100% 0 0; animation: transmitRight 1.5s linear infinite; }
@@ -104,7 +92,6 @@
         @keyframes marquee-scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         
-        /* MODERN HORIZONTAL SCROLL SHOWROOM BARS WITH RADIAL GOL AVATARS */
         .showroom-scroll-container { display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; padding: 4px 8px; width: 100%; }
         .showroom-scroll-container::-webkit-scrollbar { display: none; }
         
@@ -186,12 +173,14 @@
                 </div>
             </div>
         </div>
-        <main class="max-w-7xl mx-auto p-3 mt-2">            <div class="flex flex-col lg:flex-row gap-6">                <div id="product-list-area" class="lg:w-3/4">                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>                    <div id="cdr-section" class="mt-8 hidden">                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>                    </div>                </div>                <div id="video-sidebar" class="lg:w-1/4 space-y-6">                    <div id="corner-section" class="hidden">                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        <div id="corner-container" class="space-y-4"></div>                    </div>                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>                    <div id="sidebar-content" class="space-y-4"></div>                </div>            </div>        </main>    </div>
+        <main class="max-w-7xl mx-auto p-3 mt-2">            <div class="flex flex-col lg:flex-row gap-6">                <div id="product-list-area" class="lg:w-3/4">                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>                    <div id="cdr-section" class="mt-8">                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>                    </div>                </div>                <div id="video-sidebar" class="lg:w-1/4 space-y-6">                    <div id="corner-section" class="hidden">                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        <div id="corner-container" class="space-y-4"></div>                    </div>                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>                    <div id="sidebar-content" class="space-y-4"></div>                </div>            </div>        </main>    </div>
+
     <script>        
         const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';        
         const myWhatsApp = "7841806171";        
         let allItems = [];
         let showroomVendors = [];
+        let slideInterval;
 
         window.onload = () => { if(!localStorage.getItem('core11_agreed')) showTerms(); loadStore(); };        
         function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }        
@@ -239,7 +228,7 @@
                 }).filter(i => i.name);                
                 renderAll();                
                 startAutoSlide();            
-            } catch (e) { console.error("Load Error"); }        
+            } catch (e) { console.error("Load Error", e); }        
         }
 
         function renderAll() {            
@@ -251,10 +240,7 @@
             if(notice) document.getElementById('notice-board').textContent = notice.desc;            
             
             buildShowroomAvatars();
-
-            // '@' filter lagaya taaki icon wali profiles products mein list na hon
-            renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr') && !i.name.startsWith('@')));            
-            renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));            
+            filterCategory('all', document.querySelector("button[onclick*='all']"));
             renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));            
             renderSidebar(allItems);            
             document.getElementById('loader').style.display = 'none';        
@@ -284,7 +270,6 @@
                 }
             });
 
-            // Yahan '@' lagane par bhi showroom avatar dhoondne ka logic add kar diya hai
             allItems.forEach(item => {
                 let nameClean = item.name;
                 if(item.name.startsWith('@')) {
@@ -353,58 +338,132 @@
                 let unboxingBtnHtml = "";
                 if(isShowroom && item.video && item.video.trim() !== "") {
                     unboxingBtnHtml = `
-                    <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 text-[10px] font-black py-2 rounded-xl uppercase flex items-center justify-center gap-1"><i class="fab fa-youtube text-lg"></i> 🎬 Customer Unboxing</button>
-                    `;
-                }
-
-                let imgHtml = `<img src="${item.images[0] || 'https://via.placeholder.com/300'}" alt="${item.name}" loading="lazy">`;
-                if(item.images.length > 1) {
-                    imgHtml = `<div class="slide-container" data-item-id="${item.id}">` + 
-                              item.images.map(img => `<img src="${img}" alt="${item.name}" loading="lazy">`).join('') + 
-                              `</div>`;
+                    <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 text-[10px] font-black py-2 rounded-xl uppercase flex items-center justify-center gap-1"><i class="fab fa-youtube text-lg"></i> 🎬 Customer Unboxing</button>`;
                 }
 
                 return `
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden product-card" data-category="${item.desc}">
+                <div class="product-card bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between">
                     <div class="img-box">
-                        ${imgHtml}
+                        <div class="slide-container">
+                            ${item.images.map(img => `<img src="${img}" alt="${item.name}">`).join('')}
+                        </div>
                     </div>
-                    <div class="p-2 flex-grow flex flex-col justify-between mt-2">
+                    <div class="p-3 flex-grow flex flex-col justify-between">
                         <div>
-                            <h3 class="font-black text-slate-800 text-xs uppercase tracking-tight line-clamp-1">${item.name}</h3>
-                            <p class="text-slate-500 text-[11px] font-medium mt-1 leading-tight line-clamp-2">${cleanDesc}</p>
+                            <h4 class="text-xs font-black uppercase text-slate-800 line-clamp-1 mb-1">${item.name}</h4>
+                            <p class="text-[10px] text-slate-500 font-medium line-clamp-2 mb-2">${cleanDesc}</p>
                         </div>
-                        <div class="mt-3">
+                        <div>
                             ${unboxingBtnHtml}
-                            <a ${btnAction} class="w-full ${btnClass} text-white text-center font-black py-2.5 rounded-xl uppercase tracking-wider block text-[10px] shadow-sm">${btnLabel}</a>
+                            <a ${btnAction} class="${btnClass} block text-center text-white text-[11px] font-black py-2.5 rounded-xl uppercase tracking-wider transition hover:opacity-90">${btnLabel}</a>
                         </div>
                     </div>
-                </div>
-                `;
+                </div>`;
             }).join('');
         }
 
         function renderCDR(items) {
             const container = document.getElementById('cdr-container');
             if(!container) return;
-            container.innerHTML = items.map(item => `
-                <div class="bg-white p-3 rounded-2xl shadow-sm border text-center flex flex-col justify-between">
-                    <img src="${item.images[0]}" class="h-32 w-full object-contain rounded-xl mb-2" alt="${item.name}">
-                    <h4 class="font-black text-xs uppercase line-clamp-1 text-slate-800">${item.name}</h4>
-                    <a href="${item.link}" target="_blank" class="mt-3 bg-purple-600 text-white text-[10px] font-black py-2 rounded-xl uppercase block">Download CDR</a>
-                </div>
-            `).join('');
+            container.innerHTML = items.map(item => {
+                const cleanDesc = item.desc.replace(/[.`]/g, '').trim();
+                // FIX: Yahan click karne par wapas site pe jump nahi hoga balki directly WhatsApp open hoga.
+                let btnAction = `onclick="sendWhatsAppMessage('Interested in CDR File: ${item.name}')" style="cursor:pointer"`;
+                
+                return `
+                <div class="product-card bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between">
+                    <div class="img-box">
+                        <img src="${item.images[0]}" alt="${item.name}" class="w-full h-full object-contain p-2">
+                    </div>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-xs font-black uppercase text-slate-800 line-clamp-1 mb-1">${item.name}</h4>
+                            <p class="text-[10px] text-slate-500 font-medium line-clamp-2 mb-2">${cleanDesc}</p>
+                        </div>
+                        <div>
+                            <a ${btnAction} class="bg-purple-600 block text-center text-white text-[11px] font-black py-2.5 rounded-xl uppercase tracking-wider transition hover:opacity-90">Get on WhatsApp</a>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+
+            const prodContainer = document.getElementById('product-container');
+            const cdrSection = document.getElementById('cdr-section');
+
+            if(cat === 'all') {
+                prodContainer.classList.remove('hidden');
+                cdrSection.classList.remove('hidden');
+                renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr') && !i.name.startsWith('@')));
+                renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
+            } else if(cat === 'cdr') {
+                prodContainer.classList.add('hidden');
+                cdrSection.classList.remove('hidden');
+                renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
+            } else {
+                prodContainer.classList.remove('hidden');
+                cdrSection.classList.add('hidden');
+                let filtered = allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr') && !i.name.startsWith('@'));
+                if(cat === 'apk') {
+                    filtered = filtered.filter(i => i.link.toLowerCase().endsWith('.apk'));
+                } else if(cat === 'local') {
+                    filtered = filtered.filter(i => i.desc.includes('`'));
+                } else if(cat === 'men') {
+                    filtered = filtered.filter(i => i.desc.toLowerCase().includes('men') && !i.desc.toLowerCase().includes('women'));
+                } else if(cat === 'women') {
+                    filtered = filtered.filter(i => i.desc.toLowerCase().includes('women'));
+                }
+                renderItems(filtered);
+            }
+        }
+
+        function filterShowroom(vendorName, phone, btn) {
+            document.querySelectorAll('.showroom-avatar-wrapper').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+
+            const prodContainer = document.getElementById('product-container');
+            const cdrSection = document.getElementById('cdr-section');
+            prodContainer.classList.remove('hidden');
+            cdrSection.classList.add('hidden');
+
+            const filtered = allItems.filter(i => i.desc.includes('#' + vendorName));
+            renderItems(filtered);
+        }
+
+        function handleShowroomClick(btn) {
+            const itemName = btn.getAttribute('data-showroom-item');
+            const item = allItems.find(i => i.name === itemName);
+            if(item) {
+                let phone = "916265881327"; 
+                const match = item.desc.match(/#(\w+(\s+\w+)?)/);
+                if(match) {
+                    const vendorName = match[1].trim().toLowerCase();
+                    const vendorProfile = allItems.find(i => {
+                        let clean = i.name.startsWith('@') ? i.name.substring(1).trim() : i.name;
+                        return clean.toLowerCase() === vendorName;
+                    });
+                    if(vendorProfile && vendorProfile.link) {
+                        phone = vendorProfile.link.replace(/\D/g, '');
+                    }
+                }
+                sendVendorWhatsApp(phone, `Hello, I want to order this showroom item: ${item.name}`);
+            }
         }
 
         function renderCorner(items) {
             const container = document.getElementById('corner-container');
+            const section = document.getElementById('corner-section');
             if(!container || items.length === 0) return;
-            document.getElementById('corner-section').classList.remove('hidden');
+            section.classList.remove('hidden');
             container.innerHTML = items.map(item => `
-                <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-3 rounded-2xl border border-amber-200 shadow-sm">
-                    <img src="${item.images[0]}" class="w-full h-32 object-contain rounded-xl mb-2" alt="${item.name}">
-                    <h4 class="font-black text-xs uppercase text-amber-900">${item.desc}</h4>
-                    <a href="${item.link}" target="_blank" class="mt-2 w-full bg-orange-500 text-white text-center font-black py-2 rounded-xl text-[10px] uppercase block">Grab Deal</a>
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 shadow-sm">
+                    <h4 class="text-xs font-black text-amber-800 uppercase mb-1">${item.name}</h4>
+                    <p class="text-[11px] text-amber-700 font-bold mb-2">${item.desc}</p>
+                    <a href="${item.link}" target="_blank" class="block text-center bg-amber-600 text-white text-[10px] font-black py-1.5 rounded-lg uppercase">Claim Deal</a>
                 </div>
             `).join('');
         }
@@ -412,110 +471,26 @@
         function renderSidebar(items) {
             const container = document.getElementById('sidebar-content');
             if(!container) return;
-            const videoItems = items.filter(i => i.video && i.video.trim() !== "" && !i.desc.includes('#'));
-            if(videoItems.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 font-bold uppercase">No demos available</p>`;
-                return;
-            }
-            container.innerHTML = videoItems.slice(0, 4).map(item => {
-                const vidId = extractYouTubeId(item.video);
-                if(!vidId) return "";
-                return `
-                <div onclick="playUnboxingVideo('${item.video}')" class="bg-white p-2 rounded-xl border shadow-sm flex gap-2 items-center cursor-pointer hover:bg-slate-50 transition">
-                    <img src="https://img.youtube.com/vi/${vidId}/mqdefault.jpg" class="w-20 aspect-video object-cover rounded-lg shrink-0" alt="">
-                    <p class="text-[11px] font-black text-slate-800 uppercase leading-tight line-clamp-2">${item.name}</p>
+            const videoItems = items.filter(i => i.video && i.video.trim() !== "");
+            container.innerHTML = videoItems.map(item => `
+                <div class="bg-white border rounded-xl p-2 shadow-sm cursor-pointer" onclick="playUnboxingVideo('${item.video}')">
+                    <div class="aspect-video bg-slate-100 rounded-lg overflow-hidden relative flex items-center justify-center">
+                        <img src="${item.images ? item.images[0] : ''}" class="w-full h-full object-cover opacity-80">
+                        <i class="fab fa-youtube text-red-600 text-3xl absolute"></i>
+                    </div>
+                    <p class="text-[10px] font-black text-slate-700 uppercase mt-1 line-clamp-1">${item.name}</p>
                 </div>
-                `;
-            }).join('');
-        }
-
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            
-            // Showroom active filter state clear karein
-            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
-
-            const cdrSec = document.getElementById('cdr-section');
-            if(cat === 'cdr') {
-                document.getElementById('product-container').innerHTML = "";
-                if(cdrSec) cdrSec.classList.remove('hidden');
-                return;
-            }
-            if(cdrSec) cdrSec.classList.add('hidden');
-
-            // Hiding logo/bg/notice rows already handled inside renderAll
-            let filtered = allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr') && !i.name.startsWith('@'));
-            
-            if(cat === 'apk') {
-                filtered = filtered.filter(i => i.link.toLowerCase().endsWith('.apk'));
-            } else if(cat === 'men') {
-                filtered = filtered.filter(i => i.desc.toLowerCase().includes('men') && !i.desc.toLowerCase().includes('women'));
-            } else if(cat === 'women') {
-                filtered = filtered.filter(i => i.desc.toLowerCase().includes('women'));
-            } else if(cat === 'local') {
-                filtered = filtered.filter(i => i.desc.includes('`'));
-            }
-            renderItems(filtered);
-        }
-
-        function filterShowroom(vendorName, vendorPhone, wrapperElement) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
-            if(wrapperElement) wrapperElement.classList.add('active');
-
-            const cdrSec = document.getElementById('cdr-section');
-            if(cdrSec) cdrSec.classList.add('hidden');
-
-            // Row main profile items hide rakhein aur sirf match hashtag wale items dikhayein
-            const filtered = allItems.filter(item => 
-                item.desc && 
-                item.desc.toLowerCase().includes('#' + vendorName.toLowerCase()) && 
-                !item.name.startsWith('@')
-            );
-            renderItems(filtered);
-        }
-
-        function handleShowroomClick(btnElement) {
-            const itemName = btnElement.getAttribute('data-showroom-item');
-            const activeWrapper = document.querySelector('.showroom-avatar-wrapper.active');
-            
-            let phoneNum = "916265881327"; 
-            let vendorName = "Showroom";
-
-            if(activeWrapper) {
-                vendorName = activeWrapper.querySelector('.showroom-avatar-name').textContent;
-                const onclickStr = activeWrapper.getAttribute('onclick');
-                const match = onclickStr.match(/'([^']+)',\s*'([^']+)'/);
-                if(match && match[2]) phoneNum = match[2];
-            } else {
-                allItems.forEach(item => {
-                    if(item.desc && item.desc.includes('#')) {
-                        const matchTag = item.desc.match(/#(\w+(\s+\w+)?)/);
-                        if(matchTag && item.name === itemName) {
-                            const matchedVendor = matchTag[1].trim().toLowerCase();
-                            const profileRow = allItems.find(r => {
-                                let cName = r.name.startsWith('@') ? r.name.substring(1).trim() : r.name;
-                                return cName.toLowerCase() === matchedVendor;
-                            });
-                            if(profileRow && profileRow.link) {
-                                phoneNum = profileRow.link.replace(/\D/g, '');
-                            }
-                        }
-                    }
-                });
-            }
-
-            sendVendorWhatsApp(phoneNum, `Hello, I want to order "${itemName}" from your showroom listed on Core11 Apps Store.`);
+            `).join('');
         }
 
         function startAutoSlide() {
-            setInterval(() => {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
                 document.querySelectorAll('.slide-container').forEach(container => {
-                    const images = container.querySelectorAll('img');
-                    if(images.length <= 1) return;
+                    const slides = container.querySelectorAll('img');
+                    if(slides.length <= 1) return;
                     let currentIdx = parseInt(container.getAttribute('data-current-idx') || '0');
-                    currentIdx = (currentIdx + 1) % images.length;
+                    currentIdx = (currentIdx + 1) % slides.length;
                     container.setAttribute('data-current-idx', currentIdx);
                     container.style.transform = `translateX(-${currentIdx * 100}%)`;
                 });
