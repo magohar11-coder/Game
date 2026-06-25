@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background-attachment: fixed; background-size: cover; background-position: center;
+        body { 
+            background-attachment: fixed; background-size: cover; background-position: center; 
             transition: background-image 0.5s ease-in-out;
             text-rendering: optimizeSpeed;
             -webkit-font-smoothing: antialiased;
@@ -26,107 +26,246 @@
         .quran-btn { background: #6a1b9a !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; }
         .foryou-btn { background: linear-gradient(135deg, #ec4899, #f43f5e) !important; color: white !important; font-weight: 900; text-transform: uppercase; font-size: 11px !important; }
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content-quran { background: white; width: 100%; max-width: 380px; padding: 25px; border-radius: 20px; text-align: center; }
+        .modal-content-quran { background: white; width: 100%; max-width: 380px; padding: 25px; border-radius: 20px; text-align: center; }        
         #view-switcher { position: fixed; bottom: 25px; right: 25px; z-index: 1000; background: #9333ea; color: white; padding: 12px 24px; border-radius: 50px; font-weight: 900; cursor: pointer; border: 2px solid white; }
         .fixed-header-wrapper { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         .filter-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-size: 11px !important; font-weight: 900; }
-        .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }
-        .product-card {
-            min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important;
+        .filter-btn.active { background-color: #2563eb !important; color: white !important; transform: scale(1.05); }        
+        .product-card { 
+            min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px !important; 
             transition: transform 0.2s ease;
             will-change: transform;
         }
         .product-card:hover { transform: translateY(-5px); }
         .img-box { height: 280px; width: 100%; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 1rem; overflow: hidden; position: relative; }
         .slide-container { display: flex; transition: transform 0.5s ease-in-out; width: 100%; height: 100%; }
-        .slide-container img { min-width: 100%; height: 100%; object-fit: contain; padding: 10px; flex-shrink: 0; }
-       
+        .slide-container img { min-width: 100%; height: 100%; object-fit: contain; padding: 10px; flex-shrink: 0; }        
+        
+        /* REALISTIC HIGH-TECH SATELLITE LOADER */
         #loader { position: fixed; inset: 0; background: #070b19; z-index: 200000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .satellite-system { position: relative; width: 360px; height: 280px; background: radial-gradient(circle at center, rgba(30,41,59,0.6) 0%, transparent 75%); }
+        
+        /* Realistic Satellite Body */
+        .main-satellite { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); width: 70px; height: 90px; display: flex; flex-direction: column; align-items: center; animation: floatSat 3.5s ease-in-out infinite alternate; z-index: 10; }
+        .sat-core { width: 34px; height: 50px; background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%); border: 2px solid #475569; border-radius: 6px; position: relative; box-shadow: inset -3px -3px 0px rgba(0,0,0,0.15), 0 0 20px rgba(255,255,255,0.1); }
+        .sat-core::before { content: ''; position: absolute; top: 8px; left: 6px; width: 18px; height: 8px; background: #1e293b; border-radius: 2px; border: 1px solid #64748b; }
+        .sat-core::after { content: ''; position: absolute; bottom: 8px; left: 12px; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: pulse 1s infinite; }
+        
+        /* Realistic Curved Metallic Dish on Satellite Base */
+        .sat-dish-bottom { width: 54px; height: 18px; background: linear-gradient(180deg, #94a3b8 0%, #475569 100%); border: 2px solid #334155; border-radius: 0 0 100px 100px; margin-top: -1px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .sat-dish-bottom::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 3px; height: 10px; background: #cbd5e1; }
+        .sat-feed-horn { position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); width: 7px; height: 5px; background: #f97316; border-radius: 50%; box-shadow: 0 0 8px #f97316; }
+        
+        /* High-Detail Solar Grid Wings */
+        .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 65px; height: 26px; background: #0f172a; border: 2px solid #38bdf8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; box-shadow: 0 0 15px rgba(56,189,248,0.3); }
+        .solar-wing-left { left: -67px; transform: perspective(100px) rotateY(20deg); border-radius: 4px 0 0 4px; }
+        .solar-wing-right { right: -67px; transform: perspective(100px) rotateY(-20deg); border-radius: 0 4px 4px 0; }
+        .solar-wing-left div, .solar-wing-right div { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); border: 1px solid #60a5fa; border-radius: 1px; }
+
+        /* REAL SCIENTIFIC GROUND DISH ANTENNAS */
+        .ground-dish-left { position: absolute; bottom: 15px; left: 15px; width: 65px; height: 75px; }
+        .ground-dish-right { position: absolute; bottom: 15px; right: 15px; width: 65px; height: 75px; }
+        
+        .dish-bowl { width: 56px; height: 32px; background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 60%, #475569 100%); border: 2px solid #64748b; border-radius: 50% 50% 100px 100px / 20px 20px 100px 100px; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 12px rgba(0,0,0,0.4); transform-origin: center bottom; }
+        .ground-dish-left .dish-bowl { transform: rotate(28deg); }
+        .ground-dish-right .dish-bowl { transform: rotate(-28deg); }
+        
+        .dish-bowl::before { content: ''; position: absolute; inset: 2px; border-radius: inherit; border: 1px dashed rgba(255,255,255,0.4); }
+        
+        .dish-receiver-rod { width: 3px; height: 22px; background: linear-gradient(0deg, #475569, #cbd5e1); position: absolute; transform-origin: bottom center; bottom: 14px; }
+        .ground-dish-left .dish-receiver-rod { left: 60%; transform: rotate(-25deg); }
+        .ground-dish-right .dish-receiver-rod { right: 60%; transform: rotate(25deg); }
+        
+        .dish-receiver-rod::after { content: ''; position: absolute; top: -4px; left: -2px; width: 7px; height: 7px; background: #ea580c; border-radius: 50%; box-shadow: 0 0 6px #ea580c; }
+        
+        .dish-stand { width: 24px; height: 26px; background: transparent; border-left: 4px solid #334155; border-right: 4px solid #334155; border-top: 14px solid #475569; margin: -2px auto 0; border-radius: 2px; position: relative; }
+        .dish-stand::after { content: ''; position: absolute; bottom: -4px; left: -8px; width: 32px; height: 4px; background: #1e293b; border-radius: 2px; }
+
+        /* Orange Wave Transmissions */
+        .wave-line-left, .wave-line-right { position: absolute; top: 100px; height: 110px; width: 90px; border-top: 3px dashed #ea580c; opacity: 0; }
+        .wave-line-left { left: 65px; border-left: 3px dashed #ea580c; border-radius: 100% 0 0 0; animation: transmitLeft 1.5s linear infinite; }
+        .wave-line-right { right: 65px; border-right: 3px dashed #ea580c; border-radius: 0 100% 0 0; animation: transmitRight 1.5s linear infinite; }
+        
+        @keyframes floatSat { 0% { transform: translateX(-50%) translateY(0) rotate(0deg); } 100% { transform: translateX(-50%) translateY(-12px) rotate(1deg); } }
+        @keyframes transmitLeft { 0% { opacity: 0; transform: scale(0.3) translate(40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(-25px, 20px); } }
+        @keyframes transmitRight { 0% { opacity: 0; transform: scale(0.3) translate(-40px, -30px); } 50% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1) translate(20px, 20px); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
         .notice-wrapper { position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #fffb00, #48ff00, #002bff, #7a00ff, #ff0000); background-size: 400%; border-radius: 10px; animation: moveBorder 8s linear infinite; }
-        @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        @keyframes moveBorder { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }        
         .marquee-container { width: 100%; overflow: hidden; white-space: nowrap; position: relative; background: black; border-radius: 6px; }
         .marquee-text { display: inline-block; padding-left: 100%; animation: marquee-scroll 15s linear infinite; font-weight: 900; color: #39FF14; font-size: 18px; }
         @keyframes marquee-scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
-       
+        
+        /* MODERN HORIZONTAL SCROLL SHOWROOM BARS */
         .showroom-scroll-container { display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; padding: 4px 8px; width: 100%; }
         .showroom-scroll-container::-webkit-scrollbar { display: none; }
-       
+        
         .showroom-avatar-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; shrink-0; min-width: 65px; transition: transform 0.2s; }
         .showroom-avatar-wrapper:hover { transform: scale(1.05); }
-       
+        
         .showroom-circle-img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 3px solid #a855f7; padding: 2px; background: white; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
         .showroom-avatar-wrapper.active .showroom-circle-img { border-color: #2563eb; transform: scale(1.08); box-shadow: 0 0 12px rgba(37,99,235,0.4); }
         .showroom-avatar-name { font-size: 10px !important; font-weight: 900; text-transform: uppercase; margin-top: 5px; color: #475569; max-width: 75px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
         .showroom-avatar-wrapper.active .showroom-avatar-name { color: #2563eb; }
+
         #unboxingModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 30000; justify-content: center; align-items: center; padding: 15px; }
     </style>
 </head>
 <body id="main-body" class="font-sans text-slate-900 bg-slate-50">
-    <!-- HTML part same as you gave (no change) -->
-
-    <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>
-   
+    <div id="view-switcher" onclick="toggleView()">📱 Switch View</div>    
+    
     <div id="loader">
-        <!-- loader content same -->
         <div class="satellite-system">
-            <!-- ... your satellite loader ... -->
+            <div class="main-satellite">
+                <div class="solar-wing-left"><div></div><div></div><div></div><div></div></div>
+                <div class="sat-core"></div>
+                <div class="solar-wing-right"><div></div><div></div><div></div><div></div></div>
+                <div class="sat-dish-bottom">
+                    <div class="sat-feed-horn"></div>
+                </div>
+            </div>
+            <div class="wave-line-left"></div>
+            <div class="wave-line-right"></div>
+            <div class="ground-dish-left">
+                <div class="dish-bowl">
+                    <div class="dish-receiver-rod"></div>
+                </div>
+                <div class="dish-stand"></div>
+            </div>
+            <div class="ground-dish-right">
+                <div class="dish-bowl">
+                    <div class="dish-receiver-rod"></div>
+                </div>
+                <div class="dish-stand"></div>
+            </div>
         </div>
         <p class="text-orange-500 font-black tracking-widest text-[11px] uppercase mt-4 animate-pulse">Syncing Core11 Datalink...</p>
     </div>
 
-    <!-- All modals and rest of HTML same as you provided -->
+    <div id="unboxingModal" onclick="closeUnboxingModal()">
+        <div class="bg-black p-2 rounded-2xl w-full max-w-2xl relative" onclick="event.stopPropagation()">
+            <button onclick="closeUnboxingModal()" class="absolute -top-10 right-0 text-white font-black text-sm bg-red-600 px-4 py-1.5 rounded-full uppercase">✕ Close Video</button>
+            <div class="w-full aspect-video rounded-xl overflow-hidden">
+                <iframe id="unboxing-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';
-        const myWhatsApp = "7841806171";
+    <div id="foryouModal" class="modal-overlay">
+        <div class="modal-content-quran shadow-2xl border-t-8 border-pink-500">
+            <h3 class="text-2xl font-black text-pink-600 italic mb-2 uppercase tracking-wide">✨ For You Store Deal ✨</h3>
+            <div class="w-12 h-1 bg-pink-500 mx-auto mb-4 rounded-full"></div>
+            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Kya aap bhi apne products ya apni shop ke deals hamare is platform par live add karwana chahte hain?</p>
+            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Naye logon ke liye sunehra mauka! Apne items live karke zyada customers tak pahunchein. Abhi niche click karke humse contact karein.</p>
+            <p class="text-slate-700 text-sm font-bold mb-4 leading-relaxed">Do you want to list your products or shop deals live on our platform? A golden opportunity for new sellers! Reach more customers by showcasing your items live. Click below to contact us now.</p>
+            <button onclick="sendWhatsAppMessage('Hello Core11, I want to add my products on your store.')" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic tracking-wider shadow-lg transform hover:scale-105 transition">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Contact Us To Add
+            </button>
+            <button onclick="closeForyouModal()" class="text-slate-400 font-black text-xs uppercase tracking-widest hover:text-slate-600">✕ Close Board</button>
+        </div>
+    </div>
+
+    <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
+    <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको क्वालिटी या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट team से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>        </div>    </div>
+    <div id="mode-container">        <div class="fixed-header-wrapper">            <div class="max-w-7xl mx-auto px-2 mt-2 mb-2">                <div class="notice-wrapper">                    <div class="bg-black rounded-[8px] p-2 flex items-center overflow-hidden">                        <div class="bg-yellow-400 text-black px-2 py-0.5 font-black italic rounded mr-2 text-[10px] z-10 uppercase">Notice</div>                        <div class="marquee-container">                            <div id="notice-board" class="marquee-text">Loading latest updates...</div>                        </div>                    </div>                </div>            </div>
+            <header class="bg-white border-b py-2 px-4 flex flex-wrap justify-between items-center gap-2">                <div class="flex items-center gap-2">                    <img id="site-logo" src="" alt="Logo" class="h-12">                    <div class="border-l-2 border-slate-200 pl-2">                        <h1 class="text-[20px] md:text-[30px] font-black text-purple-600 italic leading-none">Core11 Apps Store & Deal</h1>                        <div class="flex items-center gap-3">                            <p class="text-[12px] text-blue-600 font-black uppercase">Powered By-M.A. Gohar</p>                            <button onclick="showTerms()" class="text-[12px] text-slate-400 underline hover:text-red-500 font-bold uppercase">Terms & Conditions</button>                        </div>                    </div>                </div>            </header>
+            
+            <div class="py-2 px-2 bg-slate-50 border-b">                <div class="flex flex-wrap justify-center gap-1.5">                    <button onclick="filterCategory('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">All</button>                    <button onclick="filterCategory('apk', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Apps</button>                    <button onclick="filterCategory('men', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Men</button>                    <button onclick="filterCategory('women', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">Women</button>                    <button onclick="filterCategory('local', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-purple-50 text-purple-600 shadow-sm flex-grow">Local Area</button>                    <button onclick="filterCategory('cdr', this)" class="filter-btn px-3 py-1.5 rounded-lg uppercase bg-white shadow-sm flex-grow">CDR File</button>                    <button onclick="openQuranModal()" class="quran-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">Quran</button>                    <button onclick="openForyouModal()" class="foryou-btn px-3 py-1.5 rounded-lg shadow-sm flex-grow">❤️ For You</button>                </div>            </div>
+
+            <div class="py-2 px-2 bg-purple-50 border-b flex items-center gap-2">
+                <span class="text-[10px] font-black uppercase text-purple-700 border-r pr-2 shrink-0"><i class="fas fa-store"></i> <br>Shops:</span>
+                <div id="showroom-avatar-container" class="showroom-scroll-container"></div>
+            </div>
+        </div>
+        <main class="max-w-7xl mx-auto p-3 mt-2">            <div class="flex flex-col lg:flex-row gap-6">                <div id="product-list-area" class="lg:w-3/4">                    <div id="product-container" class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>                    <div id="cdr-section" class="mt-8 hidden">                        <h2 class="text-lg font-black text-slate-800 uppercase mb-4 border-l-4 border-purple-600 pl-3">CDR Files</h2>                        <div id="cdr-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"></div>                    </div>                </div>                <div id="video-sidebar" class="lg:w-1/4 space-y-6">                    <div id="corner-section" class="hidden">                        <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-purple-600 pb-1 mb-3">Special Deals</h3>                        <div id="corner-container" class="space-y-4"></div>                    </div>                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">Product Demos</h3>                    <div id="sidebar-content" class="space-y-4"></div>                </div>            </div>        </main>    </div>
+
+    <script>        
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdyGaK1NzoilUaClykH8InRTtqZkOBeb256jVL8AEwe8uiko4IRmCR6GyZ3xnWKts6ZLfAkiVGjZVL/pub?output=csv';        
+        const myWhatsApp = "7841806171";        
         let allItems = [];
         let showroomVendors = [];
 
-        window.onload = () => { 
-            if(!localStorage.getItem('core11_agreed')) showTerms(); 
-            loadStore(); 
-        };
+        window.onload = () => { if(!localStorage.getItem('core11_agreed')) showTerms(); loadStore(); };        
+        function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }        
+        function closeTerms() { document.getElementById('terms-modal').style.display = 'none'; localStorage.setItem('core11_agreed', 'true'); }        
+        function openQuranModal() { document.getElementById('quranModal').style.display = 'flex'; }        
+        function closeQuranModal() { document.getElementById('quranModal').style.display = 'none'; }        
+        function openForyouModal() { document.getElementById('foryouModal').style.display = 'flex'; }        
+        function closeForyouModal() { document.getElementById('foryouModal').style.display = 'none'; }        
+        function toggleView() { document.getElementById('main-body').classList.toggle('mobile-view-active'); }                
+        function sendWhatsAppMessage(text) { window.open(`https://wa.me/${myWhatsApp}?text=${encodeURIComponent(text)}`, '_blank'); }
+        function sendVendorWhatsApp(number, text) { window.open(`https://wa.me/${number}?text=${encodeURIComponent(text)}`, '_blank'); }
 
-        // All functions same...
-
-        function renderAll() {
-            const logo = allItems.find(i => i.name.toLowerCase() === 'logo');
-            if (logo) document.getElementById('site-logo').src = logo.images[0];
-            const bg = allItems.find(i => i.name.toLowerCase() === 'background');
-            if (bg) document.body.style.backgroundImage = `url('${bg.images[0]}')`;
-            const notice = allItems.find(i => i.name.toLowerCase() === 'notice');
-            if(notice) document.getElementById('notice-board').textContent = notice.desc;
-           
-            buildShowroomAvatars();
-            
-            // ==================== ONLY THIS PART CHANGED ====================
-            renderItems(allItems.filter(i => 
-                !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && 
-                !i.name.toLowerCase().includes('cdr') &&
-                !i.desc.includes('#')     // ← Showroom items hide kiye
-            ));
-            // =================================================================
-
-            renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));
-            renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));
-            renderSidebar(allItems);
-            document.getElementById('loader').style.display = 'none';
+        function extractYouTubeId(url) {
+            if (!url) return "";
+            let vidId = "";
+            let cleanUrl = url.trim();
+            if (cleanUrl.includes("shorts/")) {
+                vidId = cleanUrl.split("shorts/")[1];
+            } else if (cleanUrl.includes("v=")) {
+                vidId = cleanUrl.split("v=")[1];
+            } else if (cleanUrl.includes("youtu.be/")) {
+                vidId = cleanUrl.split("youtu.be/")[1];
+            } else {
+                vidId = cleanUrl;
+            }
+            if (vidId) vidId = vidId.split(/[?&]/)[0];
+            return vidId;
         }
 
-        // Baaki pura script exactly same as aapne diya tha (buildShowroomAvatars, renderItems, filter functions etc.)
+        async function loadStore() {            
+            try {                
+                const res = await fetch(sheetUrl);                
+                const csvText = await res.text();                
+                const rows = csvText.split('\n').slice(1).filter(r => r.trim());                
+                allItems = rows.map((row, idx) => {                    
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);                    
+                    return {                        
+                        name: cols[0]?.replace(/"/g, '').trim(),                        
+                        desc: cols[1]?.replace(/"/g, '').trim(),                        
+                        images: cols[2]?.replace(/"/g, '').split(',').map(img => img.trim()),                        
+                        link: cols[3]?.replace(/"/g, '').trim(),                        
+                        video: cols[4] ? cols[4].replace(/"/g, '').trim() : null,                        
+                        id: idx                    
+                    };                
+                }).filter(i => i.name);                
+                renderAll();                
+                startAutoSlide();            
+            } catch (e) { console.error("Load Error"); }        
+        }
+
+        function renderAll() {            
+            const logo = allItems.find(i => i.name.toLowerCase() === 'logo');            
+            if (logo) document.getElementById('site-logo').src = logo.images[0];                    
+            const bg = allItems.find(i => i.name.toLowerCase() === 'background');            
+            if (bg) document.body.style.backgroundImage = `url('${bg.images[0]}')`;
+            const notice = allItems.find(i => i.name.toLowerCase() === 'notice');            
+            if(notice) document.getElementById('notice-board').textContent = notice.desc;            
+            
+            buildShowroomAvatars();
+
+            renderItems(allItems.filter(i => !['logo', 'background', 'notice', 'corner'].includes(i.name.toLowerCase()) && !i.name.toLowerCase().includes('cdr')));            
+            renderCDR(allItems.filter(i => i.name.toLowerCase().includes('cdr')));            
+            renderCorner(allItems.filter(i => i.name.toLowerCase() === 'corner'));            
+            renderSidebar(allItems);            
+            document.getElementById('loader').style.display = 'none';        
+        }
 
         function buildShowroomAvatars() {
             const avatarContainer = document.getElementById('showroom-avatar-container');
             if(!avatarContainer) return;
+
             let uniqueVendors = {};
-           
+            
             allItems.forEach(item => {
                 if(item.desc && item.desc.includes('#')) {
                     const match = item.desc.match(/#(\w+(\s+\w+)?)/);
                     if(match) {
                         const tag = match[1].trim();
                         const tagKey = tag.toLowerCase();
+                        
                         if(!uniqueVendors[tagKey]) {
                             uniqueVendors[tagKey] = {
                                 name: tag,
@@ -147,11 +286,12 @@
             });
 
             const vendorsArray = Object.values(uniqueVendors);
-           
+            
             if(vendorsArray.length === 0) {
                 avatarContainer.parentElement.style.display = 'none';
                 return;
             }
+
             avatarContainer.innerHTML = vendorsArray.map(vendor => `
                 <div onclick="filterShowroom('${vendor.name}', '${vendor.phone}', this)" class="showroom-avatar-wrapper select-none shrink-0">
                     <img src="${vendor.img || 'https://via.placeholder.com/150'}" class="showroom-circle-img" alt="${vendor.name}">
@@ -159,10 +299,214 @@
                 </div>
             `).join('');
         }
+        
+        function playUnboxingVideo(videoUrl) {
+            const vidId = extractYouTubeId(videoUrl);
+            if (vidId) {
+                const embedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&volume=0`;
+                document.getElementById('unboxing-iframe').src = embedUrl;
+                document.getElementById('unboxingModal').style.display = 'flex';
+            }
+        }
 
-        // Baaki sab functions (playUnboxingVideo, renderItems, filterCategory, etc.) same as your original code
-        // ... (copy the rest from your original code)
+        function closeUnboxingModal() {
+            document.getElementById('unboxingModal').style.display = 'none';
+            document.getElementById('unboxing-iframe').src = "";
+        }
 
+        function renderItems(items) {            
+            const container = document.getElementById('product-container');            
+            container.innerHTML = items.map(item => {                
+                const isLocal = item.desc.includes('`');
+                const isShowroom = item.desc.includes('#');
+                const isAPK = item.link.toLowerCase().endsWith('.apk');                
+                let btnLabel = "View More";                
+                let btnClass = "bg-blue-600";                
+                let btnAction = `href="${item.link}" target="_blank" rel="noreferrer"`;
+
+                if(isShowroom) {
+                    btnLabel = "Order from Showroom";
+                    btnClass = "bg-purple-600";
+                    btnAction = `data-showroom-item="${item.name}" onclick="handleShowroomClick(this)" style="cursor:pointer"`;
+                } else if(isLocal) {                    
+                    btnLabel = "Order on WhatsApp";                    
+                    btnClass = "bg-purple-600";                    
+                    btnAction = `onclick="sendWhatsAppMessage('Interested in: ${item.name}')" style="cursor:pointer"`;                
+                } else if(isAPK) {                    
+                    btnLabel = "Install Now";                    
+                    btnClass = "bg-emerald-500";                
+                }                
+                const cleanDesc = item.desc.replace(/#\w+(\s+\w+)?/g, '').replace(/[.`]/g, '').trim();
+
+                let unboxingBtnHtml = "";
+                if(isShowroom && item.video && item.video.trim() !== "") {
+                    unboxingBtnHtml = `
+                    <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 font-black py-1 rounded-xl text-[11px] uppercase tracking-wider flex items-center justify-center gap-1.5 transition">
+                        <i class="fab fa-youtube text-sm"></i> Watch Unboxing
+                    </button>`;
+                }
+
+                let slidesHtml = item.images.map(img => `<img src="${img}" alt="${item.name}" loading="lazy">`).join('');
+                let dotsHtml = item.images.length > 1 ? `<div class="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10">${item.images.map((_, dIdx) => `<div class="w-1.5 h-1.5 rounded-full bg-slate-300 ${dIdx===0?'!bg-blue-600':''}"></div>`).join('')}</div>` : '';
+                let navBtns = item.images.length > 1 ? `
+                    <button onclick="moveSlide(${item.id}, -1)" class="absolute left-1 top-1/2 -translate-y-1/2 bg-white/80 w-6 height-6 rounded-full flex items-center justify-center text-xs font-black shadow z-10">‹</button>
+                    <button onclick="moveSlide(${item.id}, 1)" class="absolute right-1 top-1/2 -translate-y-1/2 bg-white/80 w-6 height-6 rounded-full flex items-center justify-center text-xs font-black shadow z-10">›</button>
+                ` : '';
+
+                return `
+                <div class="product-card bg-white rounded-2xl border shadow-sm relative overflow-hidden" data-category="${isAPK?'apk':(isLocal?'local':(item.desc.toLowerCase().includes('women')?'women':'men'))}" data-description="${item.desc.toLowerCase()}" data-item-id="${item.id}">
+                    <div>
+                        <div class="img-box">
+                            <div id="slider-${item.id}" class="slide-container" data-current="0" data-total="${item.images.length}">
+                                ${slidesHtml}
+                            </div>
+                            ${navBtns}
+                            ${dotsHtml}
+                        </div>
+                        <div class="p-2">
+                            <h4 class="font-black text-slate-800 text-xs tracking-tight line-clamp-1 uppercase mt-1">${item.name}</h4>
+                            <p class="text-[11px] text-slate-500 font-bold line-clamp-2 mt-0.5 leading-tight min-h-[2rem]">${cleanDesc}</p>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-2">
+                        ${unboxingBtnHtml}
+                        <a ${btnAction} class="w-full ${btnClass} text-white text-center block font-black py-2.5 rounded-xl text-[11px] uppercase tracking-wider shadow-md hover:opacity-90 transition">
+                            ${btnLabel}
+                        </a>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderCDR(items) {
+            const section = document.getElementById('cdr-section');
+            const container = document.getElementById('cdr-container');
+            if(items.length === 0) { section.classList.add('hidden'); return; }
+            section.classList.remove('hidden');
+            container.innerHTML = items.map(item => `
+                <div class="bg-white p-2 rounded-xl border shadow-sm flex flex-col justify-between items-center text-center">
+                    <img src="${item.images[0]}" class="w-full h-24 object-contain rounded-lg bg-slate-50" loading="lazy">
+                    <h4 class="font-black text-slate-800 text-[11px] mt-2 line-clamp-1 uppercase">${item.name}</h4>
+                    <a href="${item.link}" target="_blank" rel="noreferrer" class="w-full mt-2 bg-amber-500 text-white font-black py-1.5 rounded-lg text-[10px] uppercase tracking-wider block">Download</a>
+                </div>
+            `).join('');
+        }
+
+        function renderCorner(items) {
+            const section = document.getElementById('corner-section');
+            const container = document.getElementById('corner-container');
+            if(items.length === 0) { section.classList.add('hidden'); return; }
+            section.classList.remove('hidden');
+            container.innerHTML = items.map(item => `
+                <a href="${item.link}" target="_blank" rel="noreferrer" class="block bg-gradient-to-br from-yellow-400 to-orange-500 p-3 rounded-2xl shadow-md text-white">
+                    <h4 class="font-black text-sm uppercase italic tracking-wide">${item.name}</h4>
+                    <p class="text-xs font-bold opacity-90 mt-1">${item.desc}</p>
+                </a>
+            `).join('');
+        }
+
+        function renderSidebar(items) {
+            const container = document.getElementById('sidebar-content');
+            const videoItems = items.filter(i => i.video && i.video.trim() !== "" && !i.desc.includes('#'));
+            if(videoItems.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 font-bold uppercase italic">No demo clips available.</p>`;
+                return;
+            }
+            container.innerHTML = videoItems.slice(0,4).map(item => {
+                const vId = extractYouTubeId(item.video);
+                if(!vId) return "";
+                return `
+                <div class="bg-white p-2 rounded-xl border shadow-sm">
+                    <div class="w-full aspect-video rounded-lg overflow-hidden bg-black relative">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/${vId}?mute=1" frameborder="0" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <h4 class="font-black text-slate-800 text-[11px] mt-2 line-clamp-1 uppercase">${item.name}</h4>
+                </div>`;
+            }).join('');
+        }
+
+        function moveSlide(itemId, direction) {
+            const el = document.getElementById(`slider-${itemId}`);
+            if(!el) return;
+            let current = parseInt(el.getAttribute('data-current')) || 0;
+            const total = parseInt(el.getAttribute('data-total')) || 1;
+            current = (current + direction + total) % total;
+            el.setAttribute('data-current', current);
+            el.style.transform = `translateX(-${current * 100}%)`;
+            
+            const dotContainer = el.nextElementSibling?.nextElementSibling;
+            if(dotContainer && dotContainer.children) {
+                Array.from(dotContainer.children).forEach((dot, dIdx) => {
+                    if(dIdx === current) dot.classList.add('!bg-blue-600');
+                    else dot.classList.remove('!bg-blue-600');
+                });
+            }
+        }
+
+        function startAutoSlide() {
+            setInterval(() => {
+                const sliders = document.querySelectorAll('.slide-container');
+                sliders.forEach(slider => {
+                    const total = parseInt(slider.getAttribute('data-total')) || 1;
+                    if(total > 1) {
+                        const id = slider.id.split('-')[1];
+                        moveSlide(id, 1);
+                    }
+                });
+            }, 4000);
+        }
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            
+            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
+
+            const cards = document.querySelectorAll('#product-container > div');
+            cards.forEach(card => {
+                if(cat === 'all') {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = card.getAttribute('data-category') === cat ? 'flex' : 'none';
+                }
+            });
+        }
+
+        function filterShowroom(vendorName, vendorPhone, wrapperEl) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
+            
+            if(wrapperEl) wrapperEl.classList.add('active');
+
+            const query = `#${vendorName.toLowerCase()}`;
+            const cards = document.querySelectorAll('#product-container > div');
+            
+            cards.forEach(card => {
+                const desc = card.getAttribute('data-description') || "";
+                if(desc.includes(query)) {
+                    card.style.display = 'flex';
+                    const btn = card.querySelector('[data-showroom-item]');
+                    if(btn) {
+                        btn.setAttribute('data-vendor-phone', vendorPhone);
+                        btn.setAttribute('data-vendor-name', vendorName);
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function handleShowroomClick(btnElement) {
+            const itemName = btnElement.getAttribute('data-showroom-item');
+            const vPhone = btnElement.getAttribute('data-vendor-phone');
+            const vName = btnElement.getAttribute('data-vendor-name');
+            
+            if(vPhone && vName) {
+                sendVendorWhatsApp(vPhone, `Hello ${vName}, I want to order "${itemName}" from your showroom listed on Core11 Store.`);
+            } else {
+                sendWhatsAppMessage(`Hello Core11, I want to inquire about "${itemName}" from the showroom section.`);
+            }
+        }
     </script>
 </body>
 </html>
