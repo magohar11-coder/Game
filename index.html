@@ -56,7 +56,7 @@
         .solar-wing-left, .solar-wing-right { position: absolute; top: 12px; width: 65px; height: 26px; background: #0f172a; border: 2px solid #38bdf8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 2px; box-shadow: 0 0 15px rgba(56,189,248,0.3); }
         .solar-wing-left { left: -67px; transform: perspective(100px) rotateY(20deg); border-radius: 4px 0 0 4px; }
         .solar-wing-right { right: -67px; transform: perspective(100px) rotateY(-20deg); border-radius: 0 4px 4px 0; }
-        .solar-wing-left div, .solar-wing-right div { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); border: 1px solid #60a5fa; border-radius: 1px; }
+        .solar-wing-left div, .solar-wing-right div { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af(100%)); border: 1px solid #60a5fa; border-radius: 1px; }
 
         .ground-dish-left { position: absolute; bottom: 15px; left: 15px; width: 65px; height: 75px; }
         .ground-dish-right { position: absolute; bottom: 15px; right: 15px; width: 65px; height: 75px; }
@@ -83,10 +83,10 @@
         #terms-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
         
         .showroom-scroll-wrapper { position: relative; display: flex; align-items: center; width: 100%; overflow: hidden; }
-        .showroom-scroll-container { display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; padding: 2px 4px; width: 100%; -webkit-overflow-scrolling: touch; }
+        .showroom-scroll-container { display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; padding: 4px; width: 100%; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
         .showroom-scroll-container::-webkit-scrollbar { display: none; }
         
-        .showroom-avatar-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; shrink-0; min-width: 55px; transition: transform 0.2s; }
+        .showroom-avatar-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; flex-shrink: 0; min-width: 58px; transition: transform 0.2s; user-select: none; }
         .showroom-avatar-wrapper:hover { transform: scale(1.05); }
         
         .showroom-circle-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #a855f7; padding: 2px; background: white; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
@@ -170,7 +170,7 @@
     </div>
 
     <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
-    <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको Qualität या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट team से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>            </div>    </div>
+    <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको Qualität या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिंधक उनकी सपोर्ट team से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>            </div>    </div>
     <div id="mode-container">        <div class="fixed-header-wrapper">
             <header class="bg-white border-b py-1.5 px-3 flex justify-between items-center gap-2">                <div class="flex items-center gap-2">                    <img id="site-logo" src="" alt="Logo" class="h-8 w-auto object-contain">                    <div class="border-l border-slate-200 pl-2">                        <h1 class="text-[15px] md:text-[18px] font-black text-purple-600 italic leading-none">Qore-11 Apps Store & Deal</h1>                        <div class="flex items-center gap-2 mt-0.5">                            <p class="text-[9px] text-blue-600 font-black uppercase tracking-tight">Powered By-M.A. Gohar</p> <p class="text-[9px] text-slate-500 font-bold uppercase tracking-tight md:border-l md:pl-2">Copyright © 2025-2026 Qore11. All Rights Reserved.</p>                               <button onclick="showTerms()" class="text-[9px] text-slate-400 underline hover:text-red-500 font-bold uppercase tracking-tight">Terms & Conditions</button>                        </div>                    </div>                </div>
                 <button onclick="openNoticeModal()" class="relative bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-md hover:bg-blue-700 transition shrink-0 bell-bounce">
@@ -198,7 +198,10 @@
         let showroomVendors = [];
         let slideInterval;
 
-        window.onload = () => { if(!localStorage.getItem('core11_agreed')) showTerms(); loadStore(); };        
+        window.onload = () => { 
+            if(!localStorage.getItem('core11_agreed')) showTerms(); 
+            loadStore(); 
+        };        
         function showTerms() { document.getElementById('terms-modal').style.display = 'flex'; }        
         function closeTerms() { document.getElementById('terms-modal').style.display = 'none'; localStorage.setItem('core11_agreed', 'true'); }        
         function openQuranModal() { document.getElementById('quranModal').style.display = 'flex'; }        
@@ -541,17 +544,23 @@
                 if(cat === 'showroom') return isShowroom && !isCDR;                
                 if(cat === 'cdr') return false;
                 
-                const descNormalized = i.desc.toLowerCase();
+                const descNormalized = i.desc.trim();
                 const catLower = cat.toLowerCase();
                 
-                if (catLower === 'men') {
-                    return (descNormalized.includes("men's") || descNormalized.includes("men wear") || descNormalized.includes("men shirt") || descNormalized.includes("men ")) && !isCDR;
-                }
+                // Strict End Checks for Comma (,) and Dot (.) for pure Women's category separation
+                const isStrictWomen = descNormalized.endsWith(',') || descNormalized.endsWith('.');
+                
                 if (catLower === 'women') {
-                    return (descNormalized.includes("women's") || descNormalized.includes("women wear") || descNormalized.includes("kurti") || descNormalized.includes("women ")) && !isCDR;
+                    return isStrictWomen && !isCDR;
+                }
+                if (catLower === 'men') {
+                    // Agar last me comma/dot hai to strictly women hai, isliye men filter se false ho jayega
+                    if (isStrictWomen) return false;
+                    const descLower = descNormalized.toLowerCase();
+                    return (descLower.includes("men's") || descLower.includes("men wear") || descLower.includes("men shirt") || descLower.includes("men ")) && !isCDR;
                 }
                 
-                return descNormalized.includes(catLower) && !isCDR;            
+                return descNormalized.toLowerCase().includes(catLower) && !isCDR;            
             });            
             renderItems(filteredProducts);
 
