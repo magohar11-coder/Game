@@ -273,7 +273,7 @@
             
             allItems.forEach(item => {
                 if(item.desc && item.desc.includes('#')) {
-                    const match = item.desc.match(/#(\w+(\s+\w+)?)/);
+                    const match = item.desc.match(/#([a-zA-Z0-9\s]+)/);
                     if(match) {
                         const tag = match[1].trim();
                         const tagKey = tag.toLowerCase();
@@ -392,7 +392,7 @@
                     btnClass = "bg-purple-600";
                     
                     let matchedVendor = null;
-                    const match = item.desc.match(/#(\w+(\s+\w+)?)/);
+                    const match = item.desc.match(/#([a-zA-Z0-9\s]+)/);
                     let targetPhone = "916265881327"; // Fallback phone
                     if(match) {
                         const tag = match[1].trim().toLowerCase();
