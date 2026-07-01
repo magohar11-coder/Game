@@ -171,7 +171,7 @@
     <div id="quranModal" class="modal-overlay">        <div class="modal-content-quran shadow-2xl">            <h3 class="text-xl font-black text-purple-700 italic mb-4">Sawab-e-Jariya</h3>            <p class="text-slate-600 text-sm mb-6 leading-relaxed">Agar aap apne marhum azizo ko Quran khwani ka sawab pahunchana chahte hain, toh neeche diye gaye button par click karke humein WhatsApp par message karein.</p>            <button onclick="sendWhatsAppMessage('Quran Khwani Inquiry')" class="w-full bg-[#25D366] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 mb-4 uppercase italic">                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> Send Message            </button>            <button onclick="closeQuranModal()" class="text-slate-400 font-bold text-xs uppercase">Close</button>        </div>    </div>
     <div id="terms-modal">        <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">            <h2 class="text-2xl font-black text-red-600 mb-4 border-b pb-2 uppercase italic text-center">Important Notice</h2>            <div class="space-y-4 text-slate-700 font-medium text-sm leading-relaxed">                <p class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">All product links are from verified platforms like Amazon, Flipkart, and Myntra. Core11 is a directory service; payment and delivery are handled by the respective platforms.</p>                <p>हम आपके लिए सिर्फ Amazon, Flipkart और Myntra जैसे बड़े और भरोसेमंद ब्रांड्स के वेरिफाइड लिंक्स ही लाते हैं। आपकी पूरी खरीदारी सीधे उनकी ऑफिशियल वेबसाइट पर होती है, इसलिए पेमेंट और डिलिवरी की पूरी जिम्मेदारी उन्हीं की होती है। अगर आपको Qualität या पेमेंट से जुड़ी कोई भी परेशानी आती है, तो आप बेझिझक उनकी सपोर्ट टीम से बात कर सकते हैं—वो आपकी पूरी तरह से मदद करेंगे। By using this store, you agree to our terms of service.</p>            </div>            <button onclick="closeTerms()" class="mt-6 w-full bg-slate-900 text-white font-black py-4 rounded-2xl uppercase italic tracking-widest">I Agree & Continue</button>            </div>    </div>
     <div id="mode-container">        <div class="fixed-header-wrapper">
-            <header class="bg-white border-b py-1.5 px-3 flex justify-between items-center gap-2">                <div class="flex items-center gap-2">                    <img id="site-logo" src="" alt="Logo" class="h-8 w-auto object-contain">                    <div class="border-l border-slate-200 pl-2">                        <h1 class="text-[15px] md:text-[18px] font-black text-purple-600 italic leading-none">Qore-11 Apps Store & Deal</h1>                        <div class="flex items-center gap-2 mt-0.5">                            <p class="text-[9px] text-blue-600 font-black uppercase tracking-tight">Powered By-M.A. Gohar</p> <p class="text-[9px] text-slate-500 font-bold uppercase tracking-tight md:border-l md:pl-2">Copyright © 2025-2026 Qore11. All Rights Reserved.</p>                           <button onclick="showTerms()" class="text-[9px] text-slate-400 underline hover:text-red-500 font-bold uppercase tracking-tight">Terms & Conditions</button>                        </div>                    </div>                </div>
+            <header class="bg-white border-b py-1.5 px-3 flex justify-between items-center gap-2">                <div class="flex items-center gap-2">                    <img id="site-logo" src="" alt="Logo" class="h-8 w-auto object-contain">                    <div class="border-l border-slate-200 pl-2">                        <h1 class="text-[15px] md:text-[18px] font-black text-purple-600 italic leading-none">Qore-11 Apps Store & Deal</h1>                        <div class="flex items-center gap-2 mt-0.5">                            <p class="text-[9px] text-blue-600 font-black uppercase tracking-tight">Powered By-M.A. Gohar</p> <p class="text-[9px] text-slate-500 font-bold uppercase tracking-tight md:border-l md:pl-2">Copyright © 2025-2026 Qore11. All Rights Reserved.</p>                               <button onclick="showTerms()" class="text-[9px] text-slate-400 underline hover:text-red-500 font-bold uppercase tracking-tight">Terms & Conditions</button>                        </div>                    </div>                </div>
                 <button onclick="openNoticeModal()" class="relative bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-md hover:bg-blue-700 transition shrink-0 bell-bounce">
                     <i class="fas fa-bell"></i>
                     <span class="absolute -top-1 -right-1 bg-red-500 w-2.5 h-2.5 rounded-full border border-white"></span>
@@ -352,14 +352,19 @@
                 if(isShowroom) {
                     btnLabel = "Order from WhatsApp";
                     btnClass = "bg-purple-600";
-                    btnAction = `data-showroom-item="${item.name}" onclick="handleShowroomClick(this)" style="cursor:pointer"`;
                     
                     let matchedVendor = null;
                     const match = item.desc.match(/#(\w+(\s+\w+)?)/);
+                    let targetPhone = "916265881327"; // Fallback phone
                     if(match) {
                         const tag = match[1].trim().toLowerCase();
                         matchedVendor = showroomVendors.find(v => v.name.toLowerCase() === tag);
+                        if(matchedVendor && matchedVendor.phone) {
+                            targetPhone = matchedVendor.phone;
+                        }
                     }
+                    
+                    btnAction = `onclick="sendVendorWhatsApp('${targetPhone}', 'Hello, I am interested in ordering: ${item.name}')" style="cursor:pointer"`;
                     
                     let instaLink = matchedVendor ? matchedVendor.insta : "";
                     if(instaLink) {
@@ -373,172 +378,216 @@
                     btnClass = "bg-purple-600";                    
                     btnAction = `onclick="sendWhatsAppMessage('Interested in: ${item.name}')" style="cursor:pointer"`;                
                 } else if(isAPK) {                    
-                    btnLabel = "Install Now";                    
-                    btnClass = "bg-emerald-500";                
-                }                
-                const cleanDesc = item.desc.replace(/#\w+(\s+\w+)?/g, '').replace(/[.`]/g, '').trim();
+                    btnLabel = "Download APK";                    
+                    btnClass = "bg-green-600";                
+                } else if(item.link.toLowerCase().includes('flipkart.com')) {                    
+                    btnLabel = "Buy on Flipkart";                    
+                    btnClass = "bg-amber-500";                
+                } else if(item.link.toLowerCase().includes('amazon.')) {                    
+                    btnLabel = "Buy on Amazon";                    
+                    btnClass = "bg-orange-500";                
+                }
 
-                let unboxingBtnHtml = "";
-                if(isShowroom && item.video && item.video.trim() !== "") {
-                    unboxingBtnHtml = `
-                    <button onclick="playUnboxingVideo('${item.video.trim()}')" class="w-full mb-2 border-2 border-red-500 text-red-500 hover:bg-red-50 text-[10px] font-black py-2 rounded-xl uppercase flex items-center justify-center gap-1"><i class="fab fa-youtube text-lg"></i> 🎬 Customer Unboxing</button>`;
+                let videoBtnHtml = "";
+                if (item.video && extractYouTubeId(item.video)) {
+                    videoBtnHtml = `
+                    <button onclick="playUnboxingVideo('${item.video}')" class="absolute bottom-2 right-2 bg-red-600 text-white font-black text-[9px] px-2.5 py-1 rounded-full uppercase flex items-center gap-1 shadow-md z-10 hover:bg-red-700 transition">
+                        <i class="fas fa-play text-[8px]"></i> Unboxing
+                    </button>`;
+                }
+
+                let indicatorTag = "";
+                if (isAPK) {
+                    indicatorTag = '<span class="absolute top-2 left-2 bg-green-600 text-white text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-wider z-10 shadow">APP</span>';
+                } else if (isShowroom) {
+                    indicatorTag = '<span class="absolute top-2 left-2 bg-purple-600 text-white text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-wider z-10 shadow">SHOWROOM</span>';
+                } else if (isLocal) {
+                    indicatorTag = '<span class="absolute top-2 left-2 bg-blue-600 text-white text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-wider z-10 shadow">HANDICRAFT</span>';
+                } else {
+                    indicatorTag = '<span class="absolute top-2 left-2 bg-amber-500 text-white text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-wider z-10 shadow">DEAL</span>';
+                }
+
+                let slideHtml = "";
+                if(item.images && item.images.length > 0) {
+                    slideHtml = item.images.map(img => `<img src="${img}" alt="${item.name}" loading="lazy">`).join('');
+                } else {
+                    slideHtml = `<img src="https://via.placeholder.com/400x400?text=No+Image" alt="No Image">`;
                 }
 
                 return `
-                <div class="product-card bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col justify-between">
-                    <div class="img-box">
-                        <div class="slide-container">
-                            ${item.images.map(img => `<img src="${img}" alt="${item.name}">`).join('')}
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden product-card">
+                        <div class="img-box relative">
+                            ${indicatorTag}
+                            <div class="slide-container" data-card-id="${item.id}">
+                                ${slideHtml}
+                            </div>
+                            ${videoBtnHtml}
+                        </div>
+                        <div class="mt-2 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-[11px] font-black text-slate-800 uppercase tracking-tight line-clamp-1">${item.name}</h3>
+                                <p class="text-[10px] text-slate-500 font-bold mt-0.5 leading-tight whitespace-pre-wrap break-words">${item.desc}</p>
+                            </div>
+                            <div class="mt-2">
+                                <a ${btnAction} class="block w-full ${btnClass} text-white font-black text-center py-2.5 rounded-xl uppercase tracking-wider text-xs shadow-sm hover:opacity-90 transition">
+                                    ${btnLabel}
+                                </a>
+                                ${showroomExtraHtml}
+                            </div>
                         </div>
                     </div>
-                    <div class="p-3 flex-grow flex flex-col justify-between">
-                        <div class="mb-3">
-                            <h4 class="text-xs font-black text-slate-800 uppercase tracking-tight line-clamp-2 min-h-[32px]">${item.name}</h4>
-                            <p class="text-[10px] font-medium text-slate-500 mt-1 line-clamp-2 leading-relaxed min-h-[28px]">${cleanDesc}</p>
-                        </div>
-                        <div>
-                            ${unboxingBtnHtml}
-                            <a ${btnAction} class="w-full ${btnClass} text-white font-black py-2.5 rounded-xl text-center block uppercase tracking-wide text-xs transition transform hover:scale-102 shadow-sm flex items-center justify-center gap-1">
-                                ${isShowroom || isLocal ? '<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="16">' : ''} ${btnLabel}
-                            </a>
-                            ${showroomExtraHtml}
-                        </div>
-                    </div>
-                </div>`;
+                `;
             }).join('');
         }
 
-        function handleShowroomClick(btn) {
-            const itemName = btn.getAttribute('data-showroom-item');
-            const parentCard = btn.closest('.product-card');
-            if(!parentCard) return;
+        function renderCDR(items) {            
+            const container = document.getElementById('cdr-container');            
+            if(!container) return;
             
-            let matchedPhone = "916265881327";
-            const match = btn.closest('.product-card').innerHTML.match(/#(\w+(\s+\w+)?)/);
-            if(match) {
-                const tag = match[1].trim().toLowerCase();
-                const found = showroomVendors.find(v => v.name.toLowerCase() === tag);
-                if(found && found.phone) matchedPhone = found.phone;
-            }
-            
-            sendVendorWhatsApp(matchedPhone, `Hello, I want to order this product from your showroom:\nProduct: ${itemName}`);
-        }
+            container.innerHTML = items.map(item => {                
+                let btnAction = `onclick="sendWhatsAppMessage('Interested in CDR File: ${item.name}')" style="cursor:pointer"`;
+                let btnLabel = "Order on WhatsApp";
 
-        function renderCDR(items) {
-            const container = document.getElementById('cdr-container');
-            const section = document.getElementById('cdr-section');
-            if(items.length === 0) { section.style.display = 'none'; return; }
-            section.style.display = 'block';
-            container.innerHTML = items.map(item => `
-                <div class="bg-white rounded-xl p-2.5 border border-slate-100 shadow-sm flex flex-col justify-between">
-                    <img src="${item.images[0]}" alt="${item.name}" class="w-full h-24 object-contain bg-slate-50 rounded-lg p-1">
-                    <h5 class="text-[10px] font-black text-slate-800 uppercase tracking-tight mt-2 truncate">${item.name}</h5>
-                    <a href="${item.link}" target="_blank" rel="noreferrer" class="mt-2 w-full bg-slate-900 text-white text-[9px] font-black py-1.5 rounded-lg text-center block uppercase tracking-wider">Download</a>
-                </div>
-            `).join('');
-        }
+                let videoBtnHtml = "";
+                if (item.video && extractYouTubeId(item.video)) {
+                    videoBtnHtml = `
+                    <button onclick="playUnboxingVideo('${item.video}')" class="absolute bottom-2 right-2 bg-red-600 text-white font-black text-[8px] px-2 py-0.5 rounded-full uppercase flex items-center gap-1 shadow z-10">
+                        <i class="fas fa-play text-[7px]"></i> Preview
+                    </button>`;
+                }
 
-        function renderCorner(items) {
-            const container = document.getElementById('corner-container');
-            const section = document.getElementById('corner-section');
-            if(items.length === 0) { section.style.display = 'none'; return; }
-            section.style.display = 'block';
-            container.innerHTML = items.map(item => `
-                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-2.5 shadow-sm">
-                    <img src="${item.images[0]}" alt="${item.name}" class="w-full h-32 object-contain bg-white rounded-xl p-2">
-                    <h4 class="text-[11px] font-black text-amber-900 uppercase tracking-tight mt-2">${item.desc || 'Exclusive Deal'}</h4>
-                    <a href="${item.link}" target="_blank" rel="noreferrer" class="mt-2 w-full bg-amber-600 text-white text-[10px] font-black py-2 rounded-xl text-center block uppercase tracking-wider shadow-sm">Grab Deal</a>
-                </div>
-            `).join('');
-        }
+                let slideHtml = (item.images && item.images.length > 0) 
+                    ? item.images.map(img => `<img src="${img}" alt="${item.name}" loading="lazy">`).join('')
+                    : `<img src="https://via.placeholder.com/150" alt="No Image">`;
 
-        function renderSidebar(items) {
-            const container = document.getElementById('sidebar-content');
-            const filtered = items.filter(i => i.video && i.video.trim() !== "" && !i.desc.includes('#'));
-            if(filtered.length === 0) {
-                container.innerHTML = `<p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center py-4">No video demos live</p>`;
-                return;
-            }
-            container.innerHTML = filtered.slice(0, 4).map(item => {
-                const vidId = extractYouTubeId(item.video);
-                if(!vidId) return "";
                 return `
-                <div onclick="playUnboxingVideo('${item.video}')" class="group bg-white rounded-xl border border-slate-100 overflow-hidden shadow-sm cursor-pointer hover:border-blue-500 transition">
-                    <div class="relative aspect-video bg-slate-900 flex items-center justify-center">
-                        <img src="https://img.youtube.com/vi/${vidId}/0.jpg" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition duration-300">
-                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
-                            <div class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center text-sm shadow-lg transform group-hover:scale-110 transition"><i class="fas fa-play ml-0.5"></i></div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden p-2 flex flex-col justify-between min-h-[220px]">
+                        <div class="img-box relative !h-32">
+                            <span class="absolute top-1.5 left-1.5 bg-purple-700 text-white text-[7px] font-black px-1.5 py-0.5 rounded uppercase z-10">CDR</span>
+                            <div class="slide-container" data-card-id="${item.id}">
+                                ${slideHtml}
+                            </div>
+                            ${videoBtnHtml}
+                        </div>
+                        <div class="mt-1.5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-[10px] font-black text-slate-800 uppercase line-clamp-1">${item.name}</h4>
+                                <p class="text-[9px] text-slate-400 font-bold line-clamp-2 mt-0.5 leading-tight">${item.desc}</p>
+                            </div>
+                            <button ${btnAction} class="w-full mt-2 bg-[#25D366] text-white font-black text-center py-2 rounded-xl uppercase tracking-wider text-[10px] shadow-sm flex items-center justify-center gap-1">
+                                <i class="fab fa-whatsapp"></i> ${btnLabel}
+                            </button>
                         </div>
                     </div>
-                    <div class="p-2">
-                        <h5 class="text-[10px] font-black text-slate-800 uppercase tracking-tight line-clamp-1">${item.name}</h5>
-                    </div>
-                </div>`;
+                `;
             }).join('');
         }
 
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            
+        function renderCorner(items) {            
+            const sec = document.getElementById('corner-section');            
+            const container = document.getElementById('corner-container');            
+            if(items.length === 0) { sec.classList.add('hidden'); return; }            
+            sec.classList.remove('hidden');            
+            container.innerHTML = items.map(item => `
+                <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-3 text-white shadow relative overflow-hidden">
+                    <h4 class="font-black uppercase text-xs">${item.desc}</h4>
+                    <a href="${item.link}" target="_blank" rel="noreferrer" class="inline-block mt-2 bg-white text-orange-600 font-black text-[10px] px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Claim Deal</a>
+                </div>
+            `).join('');        
+        }
+
+        function renderSidebar(items) {            
+            const container = document.getElementById('sidebar-content');            
+            const validVideos = items.filter(i => i.video && extractYouTubeId(i.video));            
+            if(validVideos.length === 0) { container.innerHTML = "<p class='text-xs font-bold text-slate-400 uppercase italic'>No Demos Active</p>"; return; }            
+            container.innerHTML = validVideos.slice(0, 4).map(item => {                
+                const vidId = extractYouTubeId(item.video);                
+                return `
+                    <div onclick="playUnboxingVideo('${item.video}')" class="bg-white p-2 rounded-xl border border-slate-100 shadow-sm flex gap-3 items-center cursor-pointer hover:bg-slate-50 transition">
+                        <div class="w-20 h-14 bg-slate-100 rounded-lg overflow-hidden relative shrink-0 flex items-center justify-center">
+                            <img src="https://img.youtube.com/vi/${vidId}/0.jpg" class="w-full h-full object-cover" alt="Thumb">
+                            <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                                <div class="w-6 h-6 bg-red-600 text-white rounded-full flex items-center justify-center text-[9px] shadow"><i class="fas fa-play ml-0.5"></i></div>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 class="text-[10px] font-black text-slate-800 uppercase line-clamp-1 leading-tight">${item.name}</h4>
+                            <p class="text-[9px] text-slate-400 font-bold line-clamp-1 mt-0.5">Watch Live Unboxing Demo</p>
+                        </div>
+                    </div>
+                `;            
+            }).join('');        
+        }
+
+        function filterCategory(cat, btn) {            
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));            
+            if(btn) btn.classList.add('active');            
             document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
-
-            let itemsToRender = allItems.filter(i => {
-                const n = i.name.toLowerCase();
-                return n !== 'logo' && n !== 'background' && n !== 'notice' && n !== 'corner' && !i.name.startsWith('@');
-            });
-
-            if (cat === 'apk') {
-                itemsToRender = itemsToRender.filter(i => i.link.toLowerCase().endsWith('.apk'));
-            } else if (cat === 'men') {
-                itemsToRender = itemsToRender.filter(i => i.desc.toLowerCase().includes('men') && !i.desc.toLowerCase().includes('women') && !i.link.toLowerCase().endsWith('.apk') && !i.desc.includes('`'));
-            } else if (cat === 'women') {
-                itemsToRender = itemsToRender.filter(i => i.desc.toLowerCase().includes('women') && !i.link.toLowerCase().endsWith('.apk') && !i.desc.includes('`'));
-            } else if (cat === 'local') {
-                itemsToRender = itemsToRender.filter(i => i.desc.includes('`'));
-            } else if (cat === 'cdr') {
-                itemsToRender = []; 
-            } else {
-                itemsToRender = itemsToRender.filter(i => !i.desc.includes('`') && !i.desc.includes('#'));
-            }
-
-            renderItems(itemsToRender);
             
-            if(cat === 'all' || cat === 'cdr') {
-                renderCDR(allItems.filter(i => i.name.toLowerCase().startsWith('cdr') || i.desc.toLowerCase().includes('cdr')));
+            const filteredProducts = allItems.filter(i => {                
+                const nameL = i.name.toLowerCase();                
+                if(nameL==='logo' || nameL==='background' || nameL==='notice' || nameL==='corner') return false;                
+                const isLocal = i.desc.includes('`');                
+                const isShowroom = i.desc.includes('#');                
+                const isCDR = i.desc.toLowerCase().includes('cdr') || i.name.toLowerCase().includes('cdr');
+                const isAPK = i.link.toLowerCase().endsWith('.apk');
+
+                if(cat === 'all') return !isCDR;                
+                if(cat === 'apk') return isAPK && !isCDR;                
+                if(cat === 'local') return isLocal && !isCDR;                
+                if(cat === 'showroom') return isShowroom && !isCDR;                
+                if(cat === 'cdr') return false;                
+                return i.desc.toLowerCase().includes(cat) && !isCDR;            
+            });            
+            renderItems(filteredProducts);
+
+            const filteredCDR = allItems.filter(i => {
+                const nameL = i.name.toLowerCase();
+                if(nameL==='logo' || nameL==='background' || nameL==='notice' || nameL==='corner') return false;
+                const isCDR = i.desc.toLowerCase().includes('cdr') || i.name.toLowerCase().includes('cdr');
+                if(cat === 'all' || cat === 'cdr') return isCDR;
+                return false;
+            });
+            
+            const cdrSection = document.getElementById('cdr-section');
+            if(filteredCDR.length > 0) {
+                if(cdrSection) cdrSection.style.display = 'block';
+                renderCDR(filteredCDR);
             } else {
-                renderCDR([]);
+                if(cdrSection) cdrSection.style.display = 'none';
             }
         }
 
-        function filterShowroom(vendorName, phone, element) {
+        function filterShowroom(vendorName, vendorPhone, avatarEl) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.showroom-avatar-wrapper').forEach(w => w.classList.remove('active'));
-            if(element) element.classList.add('active');
+            if(avatarEl) avatarEl.classList.add('active');
 
-            const filtered = allItems.filter(item => {
-                return item.desc && item.desc.toLowerCase().includes(`#${vendorName.toLowerCase()}`);
+            const tagToSearch = `#${vendorName.toLowerCase()}`;
+            const matchedProducts = allItems.filter(item => {
+                const nameL = item.name.toLowerCase();
+                if(nameL==='logo' || nameL==='background' || nameL==='notice' || nameL==='corner') return false;
+                return item.desc && item.desc.toLowerCase().includes(tagToSearch);
             });
 
-            renderItems(filtered);
-            renderCDR([]);
+            renderItems(matchedProducts);
+            
+            const cdrSection = document.getElementById('cdr-section');
+            if(cdrSection) cdrSection.style.display = 'none';
         }
 
-        function startAutoSlide() {
-            if(slideInterval) clearInterval(slideInterval);
-            slideInterval = setInterval(() => {
-                document.querySelectorAll('.product-card').forEach(card => {
-                    const container = card.querySelector('.slide-container');
-                    if(!container) return;
-                    const imgs = container.querySelectorAll('img');
-                    if(imgs.length <= 1) return;
-                    
-                    let activeIdx = parseInt(container.getAttribute('data-active-idx') || '0');
-                    activeIdx = (activeIdx + 1) % imgs.length;
-                    container.setAttribute('data-active-idx', activeIdx);
-                    container.style.transform = `translateX(-${activeIdx * 100}%)`;
-                });
-            }, 3500);
+        function startAutoSlide() {            
+            if(slideInterval) clearInterval(slideInterval);            
+            slideInterval = setInterval(() => {                
+                document.querySelectorAll('.slide-container').forEach(container => {                    
+                    const imgs = container.querySelectorAll('img');                    
+                    if(imgs.length <= 1) return;                    
+                    let currentIdx = parseInt(container.getAttribute('data-current-slide') || '0');                    
+                    currentIdx = (currentIdx + 1) % imgs.length;                    
+                    container.setAttribute('data-current-slide', currentIdx);                    
+                    container.style.transform = `translateX(-${currentIdx * 100}%)`;                
+                });            
+            }, 3000);        
         }
     </script>
 </body>
