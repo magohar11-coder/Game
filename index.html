@@ -272,7 +272,6 @@
             let uniqueVendors = {};
             
             allItems.forEach(item => {
-                // Ignore matching profiling rows that start with '@' directly to avoid duplicate processing here
                 if(item.name && item.name.startsWith('@')) return;
 
                 if(item.desc && item.desc.includes('#')) {
@@ -285,7 +284,7 @@
                             uniqueVendors[tagKey] = {
                                 name: tag,
                                 img: item.images ? item.images[0] : "",
-                                phone: "916265881327",
+                                phone: "", // default blank rakha
                                 insta: ""
                             };
                         }
@@ -300,7 +299,9 @@
                     if(uniqueVendors[nameLower]) {
                         if(item.images && item.images[0]) uniqueVendors[nameLower].img = item.images[0];
                         if(item.link) {
-                            uniqueVendors[nameLower].phone = item.link.replace(/\D/g, '');
+                            let cleanNum = item.link.replace(/\D/g, '');
+                            // agar cleanNum sirf symbols ya empty hai to blank rahega
+                            uniqueVendors[nameLower].phone = cleanNum || "";
                         }
                         if(item.desc && item.desc.toLowerCase().includes("instagram.com")) {
                             uniqueVendors[nameLower].insta = item.desc.trim();
@@ -388,6 +389,7 @@
                 let btnAction = `href="${item.link}" target="_blank" rel="noreferrer"`;
 
                 let showroomExtraHtml = "";
+                let showMainButton = true; // Button tracking var
 
                 if(isShowroom) {
                     btnLabel = "Order from WhatsApp";
@@ -395,16 +397,22 @@
                     
                     let matchedVendor = null;
                     const match = item.desc.match(/#(\w+(\s+\w+)?)/);
-                    let targetPhone = "916265881327"; 
+                    let targetPhone = ""; // Reset variable per loop
+                    
                     if(match) {
                         const tag = match[1].trim().toLowerCase();
                         matchedVendor = showroomVendors.find(v => v.name.toLowerCase() === tag);
-                        if(matchedVendor && matchedVendor.phone) {
+                        if(matchedVendor && matchedVendor.phone && matchedVendor.phone.trim() !== "" && matchedVendor.phone !== "#") {
                             targetPhone = matchedVendor.phone;
                         }
                     }
                     
-                    btnAction = `onclick="sendVendorWhatsApp('${targetPhone}', 'Hello, I am interested in ordering: ${item.name}')" style="cursor:pointer"`;
+                    // Agar phone nahi mila to button hide ho jayega
+                    if(!targetPhone) {
+                        showMainButton = false;
+                    } else {
+                        btnAction = `onclick="sendVendorWhatsApp('${targetPhone}', 'Hello, I am interested in ordering: ${item.name}')" style="cursor:pointer"`;
+                    }
                     
                     let instaLink = matchedVendor ? matchedVendor.insta : "";
                     if(instaLink) {
@@ -469,9 +477,10 @@
                                 <p class="text-[10px] text-slate-500 font-bold mt-0.5 leading-tight whitespace-pre-wrap break-words">${item.desc}</p>
                             </div>
                             <div class="mt-2">
+                                ${showMainButton ? `
                                 <a ${btnAction} class="block w-full ${btnClass} text-white font-black text-center py-2.5 rounded-xl uppercase tracking-wider text-xs shadow-sm hover:opacity-90 transition">
                                     ${btnLabel}
-                                </a>
+                                </a>` : ''}
                                 ${showroomExtraHtml}
                             </div>
                         </div>
